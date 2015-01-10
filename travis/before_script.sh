@@ -16,6 +16,7 @@ export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml;
 export CODESNIFF_PATH=(. ! -path "./dev-lib/*" ! -path "./vendor/*")
 export RUN_UNINSTALL_TESTS=$(if grep -q '<group>uninstall</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
+export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then echo 1; else echo 0; fi)
 
 source "$DEV_LIB_PATH"/travis/commands.sh
 

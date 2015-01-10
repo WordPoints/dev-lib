@@ -14,8 +14,7 @@ setup-phpunit() {
 			curl -L https://github.com/WordPoints/module-uninstall-tester/archive/master.tar.gz \
 				| tar xvz --strip-components=1 -C vendor/wordpoints/module-uninstall-tester
 		fi
-
-	elif [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then
+	elif [[ $DO_CODE_COVERAGE == 1 ]]; then
 		composer require satooshi/php-coveralls:dev-master
 		mkdir -p build/logs
 	else
@@ -161,7 +160,7 @@ phpunit-basic() {
 		fi
 	fi
 
-	if [[ $TRAVIS_PHP_VERSION == hhvm ]]; then
+	if [[ $DO_CODE_COVERAGE == 1 ]]; then
 		COVERAGE_OPTION="--coverage-clover build/logs/clover-$CLOVER_FILE.xml"
 	fi
 

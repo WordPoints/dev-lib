@@ -3,7 +3,7 @@
 set -e
 shopt -s expand_aliases
 
-if [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then
+if [[ $DO_CODE_COVERAGE == 1 ]]; then
 	php vendor/bin/coveralls
 fi
 
