@@ -83,8 +83,7 @@ setup-codesniff() {
 # Check php files for syntax errors.
 codesniff-php-syntax() {
 	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == stable && $TRAVIS_PHP_VERSION != '5.3' ]]; then
-		find $CODESNIFF_PATH \( -name '*.php' -o -name '*.inc' \) \
-			-exec php -lf {} \;
+		find "${CODESNIFF_PATH[@]}" \( -name '*.php' -o -name '*.inc' \) -exec php -lf {} \;
 	else
 		echo 'Not running PHP syntax check.'
 	fi
@@ -94,7 +93,7 @@ codesniff-php-syntax() {
 codesniff-phpcs() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
 		$PHPCS_DIR/scripts/phpcs -ns --standard=$WPCS_STANDARD \
-			$(find $CODESNIFF_PATH -name '*.php')
+			$(find "${CODESNIFF_PATH[@]}" -name '*.php')
 	else
 		echo 'Not running PHPCS.'
 	fi
@@ -121,7 +120,7 @@ codesniff-l10n() {
 # Check XML files for syntax errors.
 codesniff-xmllint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		xmllint --noout $(find $CODESNIFF_PATH \( -name '*.xml' -o -name '*.xml.dist' \))
+		xmllint --noout $(find "${CODESNIFF_PATH[@]}" \( -name '*.xml' -o -name '*.xml.dist' \))
 	else
 		echo 'Not running xmlint.'
 	fi
