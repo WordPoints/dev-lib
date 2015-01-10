@@ -61,4 +61,4 @@ script:
     - phpunit-ms-network-ajax
 
 after_script:
-    - source $DEV_LIB_PATH/travis/before_script.sh
+    - source $DEV_LIB_PATH/travis/after_script.sh
