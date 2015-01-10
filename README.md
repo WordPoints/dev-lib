@@ -24,5 +24,5 @@ the setup steps below.
 ### Modules
 
 ```bash
-cp dev-lib/travis/modules.yml .travis.yml
+cp dev-lib/travis/module.yml .travis.yml
 ```
