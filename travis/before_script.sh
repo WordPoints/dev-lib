@@ -18,6 +18,10 @@ export RUN_UNINSTALL_TESTS=$(if grep -q '<group>uninstall</group>' phpunit.xml.d
 export RUN_AJAX_TESTS=$(if grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then echo 1; else echo 0; fi)
 
+if [[ -z $WORDPOINTS_VERSION ]]; then
+	export WORDPOINTS_VERSION=master
+fi
+
 source "$DEV_LIB_PATH"/travis/commands.sh
 
 if [ -e .ci-env.sh ]; then

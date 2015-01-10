@@ -31,7 +31,7 @@ setup-phpunit() {
 
 		# Install WordPoints.
 		mkdir -p /tmp/wordpoints
-		curl -L https://github.com/WordPoints/wordpoints/archive/master.tar.gz \
+		curl -L "https://github.com/WordPoints/wordpoints/archive/$WORDPOINTS_VERSION.tar.gz" \
 			| tar xvz --strip-components=1 -C /tmp/wordpoints
 		ln -s /tmp/wordpoints/src /tmp/wordpress/wp-content/plugins/wordpoints
 
