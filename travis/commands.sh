@@ -3,16 +3,9 @@
 # Set up for the PHPUnit pass.
 setup-phpunit() {
 
-	if [[ $TRAVIS_PHP_VERSION == '5.2' && $RUN_UNINSTALL_TESTS == 1 ]]; then
-
-		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester
-		curl -L https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/master.tar.gz \
-			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
-
-		if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
-			mkdir -p vendor/wordpoints/module-uninstall-tester
-			curl -L https://github.com/WordPoints/module-uninstall-tester/archive/master.tar.gz \
-				| tar xvz --strip-components=1 -C vendor/wordpoints/module-uninstall-tester
+	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
+		if [ -e composer.json ]; then
+			wget http://getcomposer.org/composer.phar && php composer.phar install --dev
 		fi
 	elif [[ $DO_CODE_COVERAGE == 1 ]]; then
 		composer require satooshi/php-coveralls:dev-master
@@ -75,7 +68,11 @@ setup-codesniff() {
 	fi
 
 	if [ -e composer.json ]; then
-		composer install
+		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
+			wget http://getcomposer.org/composer.phar && php composer.phar install --dev
+		else
+			composer install
+		fi
 	fi
 }
 
