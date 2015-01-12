@@ -92,7 +92,7 @@ codesniff-php-syntax() {
 # Check php files with PHPCodeSniffer.
 codesniff-phpcs() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		$PHPCS_DIR/scripts/phpcs -ns --standard=$WPCS_STANDARD \
+		"$PHPCS_DIR"/scripts/phpcs -ns --standard="$WPCS_STANDARD" \
 			$(find "${CODESNIFF_PATH[@]}" -name '*.php')
 	else
 		echo 'Not running PHPCS.'
@@ -136,8 +136,8 @@ phpunit-basic() {
 	local TEST_GROUP=${1-''}
 	local CLOVER_FILE=${2-basic}
 
-	local GROUP_OPTION=''
-	local COVERAGE_OPTION=''
+	local GROUP_OPTION=()
+	local COVERAGE_OPTION=()
 
 	if [[ $TEST_GROUP != '' ]]; then
 		if [[ $TEST_GROUP == ajax && $RUN_AJAX_TESTS == 0 ]]; then
@@ -153,7 +153,7 @@ phpunit-basic() {
 			return
 		fi
 
-		GROUP_OPTION="--group=$TEST_GROUP"
+		GROUP_OPTION=(--group="$TEST_GROUP")
 		CLOVER_FILE+="-$TEST_GROUP"
 
 		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
@@ -162,10 +162,10 @@ phpunit-basic() {
 	fi
 
 	if [[ $DO_CODE_COVERAGE == 1 ]]; then
-		COVERAGE_OPTION="--coverage-clover build/logs/clover-$CLOVER_FILE.xml"
+		COVERAGE_OPTION=(--coverage-clover "build/logs/clover-$CLOVER_FILE.xml")
 	fi
 
-	phpunit $GROUP_OPTION $COVERAGE_OPTION
+	phpunit "${GROUP_OPTION[@]}" "${COVERAGE_OPTION[@]}"
 }
 
 # Run uninstall PHPUnit tests.
