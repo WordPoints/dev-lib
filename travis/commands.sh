@@ -62,6 +62,15 @@ setup-codesniff() {
 
 	setup-composer
 
+	# Install JSHint.
+	if ! command -v jshint >/dev/null 2>&1; then
+		npm install -g jshint
+	fi
+
+	if [[ $DO_PHPCS != 1 ]]; then
+		return;
+	fi
+
 	# Install PHP_CodeSniffer.
     mkdir -p "$PHPCS_DIR"
     curl -L "https://github.com/$PHPCS_GITHUB_SRC/archive/$PHPCS_GIT_TREE.tar.gz" \
@@ -73,11 +82,6 @@ setup-codesniff() {
     	| tar xvz --strip-components=1 -C "$WPCS_DIR"
 
     "$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR"
-
-	# Install JSHint.
-	if ! command -v jshint >/dev/null 2>&1; then
-		npm install -g jshint
-	fi
 }
 
 # Check php files for syntax errors.
@@ -91,7 +95,7 @@ codesniff-php-syntax() {
 
 # Check php files with PHPCodeSniffer.
 codesniff-phpcs() {
-	if [[ $TRAVISCI_RUN == codesniff ]]; then
+	if [[ $TRAVISCI_RUN == codesniff && $DO_PHPCS == 1 ]]; then
 		"$PHPCS_DIR"/scripts/phpcs -ns --standard="$WPCS_STANDARD" \
 			$(find "${CODESNIFF_PATH[@]}" -name '*.php')
 	else

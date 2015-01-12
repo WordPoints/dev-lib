@@ -6,6 +6,7 @@ shopt -s expand_aliases
 export WP_TESTS_DIR=/tmp/wordpress-tests/
 export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
+export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
 export PHPCS_DIR=/tmp/phpcs
 export PHPCS_GITHUB_SRC=squizlabs/PHP_CodeSniffer
 export PHPCS_GIT_TREE=master
