@@ -1,25 +1,28 @@
 #!/bin/bash
 
-# Set up for the PHPUnit pass.
-setup-phpunit() {
+# Install composer dependencies.
+setup-composer() {
 
-	if [[ $TRAVIS_PHP_VERSION == '5.2' && $RUN_UNINSTALL_TESTS == 1 ]]; then
+	if [ ! -e composer.json ]; then
+		return
+	fi
 
-		mkdir -p vendor/jdgrimes/wp-plugin-uninstall-tester
-		curl -L https://github.com/JDGrimes/wp-plugin-uninstall-tester/archive/master.tar.gz \
-			| tar xvz --strip-components=1 -C vendor/jdgrimes/wp-plugin-uninstall-tester
-
-		if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
-			mkdir -p vendor/wordpoints/module-uninstall-tester
-			curl -L https://github.com/WordPoints/module-uninstall-tester/archive/master.tar.gz \
-				| tar xvz --strip-components=1 -C vendor/wordpoints/module-uninstall-tester
-		fi
-	elif [[ $DO_CODE_COVERAGE == 1 ]]; then
+	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
+		phpenv global 5.3
+		composer install
+		phpenv global "$TRAVIS_PHP_VERSION"
+	elif [[  $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
 		composer require satooshi/php-coveralls:dev-master
 		mkdir -p build/logs
 	else
 		composer install
 	fi
+}
+
+# Set up for the PHPUnit pass.
+setup-phpunit() {
+
+	setup-composer
 
     wget -O /tmp/install-wp-tests.sh \
         https://raw.githubusercontent.com/wp-cli/wp-cli/master/templates/install-wp-tests.sh
@@ -57,6 +60,8 @@ setup-phpunit() {
 # Set up for the codesniff pass.
 setup-codesniff() {
 
+	setup-composer
+
 	# Install PHP_CodeSniffer.
     mkdir -p "$PHPCS_DIR"
     curl -L "https://github.com/$PHPCS_GITHUB_SRC/archive/$PHPCS_GIT_TREE.tar.gz" \
@@ -72,10 +77,6 @@ setup-codesniff() {
 	# Install JSHint.
 	if ! command -v jshint >/dev/null 2>&1; then
 		npm install -g jshint
-	fi
-
-	if [ -e composer.json ]; then
-		composer install
 	fi
 }
 
