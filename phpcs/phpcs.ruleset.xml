@@ -14,7 +14,6 @@
 		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" /><!-- WordPoints/wordpoints#90 -->
 		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" /><!-- WordPoints/wordpoints#90 -->
 		<exclude name="WordPress.VIP.SlowDBQuery" /><!-- WordPoints/wordpoints#90 -->
-		<exclude name="WordPress.XSS.EscapeOutput" /><!-- #281 -->
 		<exclude name="WordPress.VIP.ValidatedSanitizedInput" /><!-- #293 -->
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
