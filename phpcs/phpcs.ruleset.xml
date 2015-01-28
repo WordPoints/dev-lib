@@ -29,12 +29,12 @@
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.XSS.EscapeOutput">
-        <properties>
-            <property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce,wordpoints_format_points" type="array" />
-        </properties>
+		<properties>
+			<property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce,wordpoints_format_points" type="array" />
+		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
-    </rule>
-    <rule ref="WordPress.VIP.FileSystemWritesDisallow">
+	</rule>
+	<rule ref="WordPress.VIP.FileSystemWritesDisallow">
 		<exclude-pattern>/tools/*</exclude-pattern>
 	</rule>
 
@@ -43,6 +43,8 @@
 			<property name="blank_line_after_check" value="0" />
 		</properties>
 	</rule>
+	
+	<rule ref="PSR2.ControlStructures.ElseIfDeclaration" />
 
 	<exclude-pattern>/vendor/*,/dev-lib/*</exclude-pattern>
 
