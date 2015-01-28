@@ -29,5 +29,5 @@ the corresponding file from this repo (see below).
 cp dev-lib/travis/module.yml .travis.yml
 
 # Symlink the PHPCS configuration if you want to use PHPCS.
-ln -s dev-lib/phpcs/phpcs.ruleset.xml .
+ln -s dev-lib/phpcs/WordPoints/ruleset.xml phpcs.ruleset.xml
 ```
