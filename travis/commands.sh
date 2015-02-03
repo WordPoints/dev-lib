@@ -27,10 +27,13 @@ setup-phpunit() {
     wget -O /tmp/install-wp-tests.sh \
         https://raw.githubusercontent.com/wp-cli/wp-cli/master/templates/install-wp-tests.sh
 
-    sed -i 's/$WP_VERSION == '"'"'latest'"'"'/$WP_VERSION == '"'"'stable'"'"'/' \
+    sed -i 's/$WP_VERSION == '"'"'latest'"'"'/$WP_VERSION == '"'"'nightly'"'"'/' \
     	/tmp/install-wp-tests.sh
 
-    bash /tmp/install-wp-tests.sh wordpress_test root '' localhost "$WP_VERSION"
+	sed -i 's/ARCHIVE_NAME='"'"'latest'"'"'/ARCHIVE_NAME='"'"'nightly-builds/wordpress-latest'"'"'/' \
+    	/tmp/install-wp-tests.sh
+
+	bash /tmp/install-wp-tests.sh wordpress_test root '' localhost "$WP_VERSION"
 
  	if [[ $RUN_AJAX_TESTS == 1 ]]; then
 		sed -i 's/do_action( '"'"'admin_init'"'"' )/if ( ! isset( $GLOBALS['"'"'_did_admin_init'"'"'] ) \&\& $GLOBALS['"'"'_did_admin_init'"'"'] = true ) do_action( '"'"'admin_init'"'"' )/' \
