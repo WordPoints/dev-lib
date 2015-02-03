@@ -11,7 +11,7 @@ setup-composer() {
 		phpenv global 5.3
 		composer install
 		phpenv global "$TRAVIS_PHP_VERSION"
-	elif [[  $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
+	elif [[ $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
 		composer require satooshi/php-coveralls:dev-master
 		mkdir -p build/logs
 	else
