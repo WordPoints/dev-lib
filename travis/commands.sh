@@ -30,7 +30,7 @@ setup-phpunit() {
     sed -i 's/$WP_VERSION == '"'"'latest'"'"'/$WP_VERSION == '"'"'nightly'"'"'/' \
     	/tmp/install-wp-tests.sh
 
-	sed -i 's/ARCHIVE_NAME='"'"'latest'"'"'/ARCHIVE_NAME='"'"'nightly-builds/wordpress-latest'"'"'/' \
+	sed -i "s/ARCHIVE_NAME='latest'/ARCHIVE_NAME='nightly-builds\/wordpress-latest'/" \
     	/tmp/install-wp-tests.sh
 
 	bash /tmp/install-wp-tests.sh wordpress_test root '' localhost "$WP_VERSION"
