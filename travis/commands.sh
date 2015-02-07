@@ -24,7 +24,7 @@ setup-phpunit() {
         https://raw.githubusercontent.com/wp-cli/wp-cli/master/templates/install-wp-tests.sh
 
 	if [[ $WP_VERSION == 'nightly' ]]; then
-		sed -i "s/\${ARCHIVE_NAME}.tar.gz/nightly-builds\/wordpress-latest.zip'/" \
+		sed -i "s/\${ARCHIVE_NAME}.tar.gz/nightly-builds\/wordpress-latest.zip/" \
 			/tmp/install-wp-tests.sh
 
 		sed -i 's/-zxmf/-xmf/' /tmp/install-wp-tests.sh
