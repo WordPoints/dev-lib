@@ -1,4 +1,4 @@
-# WordPoints Dev Lib
+# WordPoints Dev Lib [![Build Status](https://travis-ci.org/WordPoints/dev-lib.svg?branch=master)](https://travis-ci.org/WordPoints/dev-lib)
 Developer tools for WordPoints projects.
 
 ## Installation
