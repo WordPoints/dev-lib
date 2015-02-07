@@ -28,7 +28,7 @@ setup-phpunit() {
 			/tmp/install-wp-tests.sh
 
 		sed -i 's/wordpress.tar.gz/wordpress.zip/' /tmp/install-wp-tests.sh
-		sed -i 's/tar --strip-components=1 -zxmf \/tmp\/wordpress.zip -C/unzip \/tmp\/wordpress.zip -d/' \
+		sed -i 's/tar --strip-components=1 -zxmf \/tmp\/wordpress.zip -C $WP_CORE_DIR/unzip \/tmp\/wordpress.zip -d \/tmp/' \
 			/tmp/install-wp-tests.sh
 	fi
 
