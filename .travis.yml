@@ -1,0 +1,16 @@
+# Travis CI config for the WordPoints developer tools.
+
+language: ruby
+
+# Use the new infrustructure.
+sudo: false
+
+before_script:
+  - gem install travis-lint
+
+script:
+  - xmllint --noout $(find . -type f \( -name '*.xml' -o -name '*.xml.dist' \))
+  - find . -name '*.sh' -exec bash -n {} \;
+  - find . -name '*.yml' -exec travis-lint {} \;
+
+# EOF
