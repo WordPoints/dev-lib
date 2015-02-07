@@ -7,11 +7,7 @@ setup-composer() {
 		return
 	fi
 
-	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
-		phpenv global 5.3
-		composer install
-		phpenv global "$TRAVIS_PHP_VERSION"
-	elif [[ $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
+	if [[ $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
 		composer require satooshi/php-coveralls:dev-master
 		mkdir -p build/logs
 	else
@@ -163,10 +159,6 @@ phpunit-basic() {
 
 		GROUP_OPTION=(--group="$TEST_GROUP")
 		CLOVER_FILE+="-$TEST_GROUP"
-
-		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
-			sed -i '' -e "s/<group>$TEST_GROUP<\/group>//" ./phpunit.xml.dist
-		fi
 	fi
 
 	if [[ $DO_CODE_COVERAGE == 1 ]]; then
