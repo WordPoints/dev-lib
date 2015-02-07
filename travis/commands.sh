@@ -53,9 +53,7 @@ setup-phpunit() {
 		ln -s "$PROJECT_DIR" /tmp/wordpress/wp-content/wordpoints-modules/"$PROJECT_SLUG"
 
 	else
-		cd /tmp/wordpress/wp-content/plugins
-		ln -s "$PROJECT_DIR" "$PROJECT_SLUG"
-		cd "$PROJECT_DIR"
+		ln -s "$PROJECT_DIR" /tmp/wordpress/wp-content/plugins/"$PROJECT_SLUG"
 	fi
 }
 
