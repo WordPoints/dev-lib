@@ -50,12 +50,12 @@ setup-phpunit() {
 		export WORDPOINTS_TESTS_DIR=/tmp/wordpoints/tests/phpunit/
 
 		mkdir /tmp/wordpress/wp-content/wordpoints-modules
-		ln -s "$(pwd)/src" /tmp/wordpress/wp-content/wordpoints-modules/"$PROJECT_SLUG"
+		ln -s "$PROJECT_DIR" /tmp/wordpress/wp-content/wordpoints-modules/"$PROJECT_SLUG"
 
 	else
 		cd /tmp/wordpress/wp-content/plugins
-		ln -s "$PLUGIN_DIR" "$PLUGIN_SLUG"
-		cd "$PLUGIN_DIR"
+		ln -s "$PROJECT_DIR" "$PROJECT_SLUG"
+		cd "$PROJECT_DIR"
 	fi
 }
 
