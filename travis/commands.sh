@@ -124,7 +124,7 @@ codesniff-l10n() {
 # Check XML files for syntax errors.
 codesniff-xmllint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		xmllint --noout $(find -L "${CODESNIFF_PATH[@]}" \( -name '*.xml' -o -name '*.xml.dist' \))
+		xmllint --noout $(find "${CODESNIFF_PATH[@]}" -type f \( -name '*.xml' -o -name '*.xml.dist' \))
 	else
 		echo 'Not running xmlint.'
 	fi
