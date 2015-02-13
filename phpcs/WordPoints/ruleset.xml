@@ -8,7 +8,7 @@
 		<exclude name="WordPress.VIP.DirectDatabaseQuery" /><!-- WordPoints/wordpoints#75 -->
 		<!--
 			These rules are excluded because they produce error-level false
-			positives. They will be added back in when the changes are commited to
+			positives. They will be added back in when the changes are committed to
 			the stable version upstream. Until then, the issue numbers are supplied.
 		-->
 		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" /><!-- WordPoints/wordpoints#90 -->
