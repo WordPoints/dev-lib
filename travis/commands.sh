@@ -81,7 +81,7 @@ setup-codesniff() {
     curl -L "https://github.com/$WPCS_GITHUB_SRC/archive/$WPCS_GIT_TREE.tar.gz" \
     	| tar xvz --strip-components=1 -C "$WPCS_DIR"
 
-    "$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR"
+    "$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
 }
 
 # Check php files for syntax errors.

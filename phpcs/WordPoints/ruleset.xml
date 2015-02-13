@@ -46,6 +46,8 @@
 	
 	<rule ref="PSR2.ControlStructures.ElseIfDeclaration" />
 
+	<rule ref="WordPoints.PHP.MissingEcho" />
+
 	<exclude-pattern>/vendor/*,/dev-lib/*</exclude-pattern>
 
 </ruleset>
