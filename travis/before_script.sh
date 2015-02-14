@@ -14,7 +14,7 @@ export WPCS_DIR=/tmp/wpcs
 export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
 export WPCS_GIT_TREE=7a6aed84e99dafdef1f3fa0974d5f420fbdc077f
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
-CODESNIFF_PATH=(. ! -path "./dev-lib/*" ! -path "./vendor/*")
+CODESNIFF_PATH=(. '!' -path "$DEV_LIB_PATH/*" '!' -path "./vendor/*")
 export CODESNIFF_PATH
 export RUN_UNINSTALL_TESTS=$(if grep -q '<group>uninstall</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
