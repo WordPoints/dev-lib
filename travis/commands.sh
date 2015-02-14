@@ -130,6 +130,15 @@ codesniff-xmllint() {
 	fi
 }
 
+# Check bash files for syntax errors.
+codesniff-bash() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		find "${CODESNIFF_PATH[@]}" -name '*.sh' -exec bash -n {} \;
+	else
+		echo 'Not running bash syntax check.'
+	fi
+}
+
 # Run basic PHPUnit tests.
 phpunit-basic() {
 	if [[ $TRAVISCI_RUN != phpunit ]]; then
