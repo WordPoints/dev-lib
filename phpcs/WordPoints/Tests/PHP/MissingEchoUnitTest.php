@@ -3,55 +3,34 @@
 /**
  * Unit test class for the MissingEcho sniff.
  *
- * PHP version 5
- *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    J.D. Grimes
+ * @package WordPoints_Dev_Lib\Tests
+ * @since 1.0.0
  */
 
 /**
  * Unit test class for the MissingEcho sniff.
  *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    J.D. Grimes
+ * @since 1.0.0
  */
-class WordPoints_Tests_PHP_MissingEchoUnitTest extends AbstractSniffUnitTest
-{
-
+class WordPoints_Tests_PHP_MissingEchoUnitTest extends AbstractSniffUnitTest {
 
 	/**
-	 * Returns the lines where errors should occur.
-	 *
-	 * The key of the array should represent the line number and the value
-	 * should represent the number of errors that should occur on that line.
-	 *
-	 * @return array(int => int)
+	 * @since 1.0.0
 	 */
-	public function getErrorList()
-	{
+	public function getErrorList() {
+
 		return array(
 			4 => 1,
 			7 => 1,
 		);
-
-	}//end getErrorList()
-
+	}
 
 	/**
-	 * Returns the lines where warnings should occur.
-	 *
-	 * The key of the array should represent the line number and the value
-	 * should represent the number of warnings that should occur on that line.
-	 *
-	 * @return array(int => int)
+	 * @since 1.0.0
 	 */
-	public function getWarningList()
-	{
+	public function getWarningList() {
 		return array();
+	}
+}
 
-	}//end getWarningList()
-
-
-}//end class
+// EOF

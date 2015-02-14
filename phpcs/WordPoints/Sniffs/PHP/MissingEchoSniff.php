@@ -3,11 +3,8 @@
 /**
  * WordPoints_Sniffs_PHP_MissingEchoSniff.
  *
- * PHP version 5
- *
- * @category PHP
- * @package  PHP_CodeSniffer
- * @author   J.D. Grimes <jdg@codesymphony.co>
+ * @package WordPoints_Dev_Lib
+ * @since 1.0.0
  */
 
 /**
@@ -15,15 +12,14 @@
  *
  * Checks for code that may intended to be output but is missing an echo.
  *
- * @category PHP
- * @package  PHP_CodeSniffer
- * @author   J.D. Grimes <jdg@codesymphony.co>
+ * @since 1.0.0
  */
-class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff
-{
+class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 
 	/**
 	 * Custom functions that directly output their data.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @var array
 	 */
@@ -31,6 +27,8 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff
 
 	/**
 	 * A list of functions that directly output their data.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @var array
 	 */
@@ -67,33 +65,24 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff
 	/**
 	 * Whether the custom functions were added to the default list.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @var bool
 	 */
 	protected static $addedCustomFunctions;
 
 	/**
-	 * Returns an array of tokens this test wants to listen for.
-	 *
-	 * @return array
+	 * @since 1.0.0
 	 */
-	public function register()
-	{
+	public function register() {
 		return array( T_OPEN_TAG );
-
-	}//end register()
-
+	}
 
 	/**
-	 * Processes this test, when one of its tokens is encountered.
-	 *
-	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-	 * @param int                  $stackPtr  The position of the current token in the
-	 *                                        stack passed in $tokens.
-	 *
-	 * @return void
+	 * @since 1.0.0
 	 */
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
-	{
+	public function process( PHP_CodeSniffer_File $phpcsFile, $stackPtr ) {
+
 		// Merge any custom functions with the defaults, if we haven't already.
 		if ( ! self::$addedCustomFunctions ) {
 			self::$outputFunctions = array_merge( self::$outputFunctions, $this->customOutputFunctions );
@@ -142,13 +131,13 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff
 
 		$error = 'Expected echo or other output function; found %s';
 
-		if ( isset( $phpcsFile->fixer ) === true ) {
+		if ( isset( $phpcsFile->fixer ) ) {
 
 			$fix = $phpcsFile->addFixableError( $error, $stackPtr, 'MissingEcho', $data );
 
-			if ( $fix === true ) {
+			if ( $fix ) {
 				$phpcsFile->fixer->beginChangeset();
-				$phpcsFile->fixer->addContentBefore( $stackPtr, 'echo ');
+				$phpcsFile->fixer->addContentBefore( $stackPtr, 'echo ' );
 				$phpcsFile->fixer->endChangeset();
 			}
 
@@ -157,7 +146,8 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff
 			$phpcsFile->addError( $error, $stackPtr, 'MissingEcho', $data );
 		}
 
-	}//end process()
+	} // public function process()
 
+} // class WordPoints_Sniffs_PHP_MissingEchoSniff
 
-}//end class
+// EOF
