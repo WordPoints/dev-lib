@@ -31,6 +31,9 @@ cp dev-lib/travis/module.yml .travis.yml
 # Symlink the PHPCS configuration if you want to use PHPCS.
 ln -s dev-lib/phpcs/WordPoints/ruleset.xml phpcs.ruleset.xml
 
+# Symlink the PHPUnit configuration for PHPUnit testing.
+ln -s dev-lib/phpunit/module.xml.dist phpunit.xml.dist
+
 # Symlink the Coveralls configuration file if you want to use code coverage.
 ln -s dev-lib/travis/.coveralls.yml .
 ```
