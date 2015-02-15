@@ -45,7 +45,7 @@ require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php');
  *
  * @since 1.0.0
  */
-require_once( 'WORDPOINTS_MODULE_TESTS_DIR' . '/includes/functions.php' );
+require_once( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' );
 
 if (
 	! function_exists( 'running_wordpoints_module_uninstall_tests' )
@@ -71,6 +71,6 @@ require( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/includes/bootstrap.php' );
  *
  * @since 1.0.0
  */
-require_once( 'WORDPOINTS_MODULE_TESTS_DIR' . '/includes/bootstrap.php' );
+require_once( WORDPOINTS_MODULE_TESTS_DIR . '/includes/bootstrap.php' );
 
 // EOF
