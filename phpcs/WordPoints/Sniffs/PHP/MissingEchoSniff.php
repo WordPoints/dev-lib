@@ -33,12 +33,17 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 	 * @var array
 	 */
 	public static $outputFunctions = array(
+		// PHP built-in functions.
+		'printf',
+		'vprintf',
+
 		// WordPress functions.
 		'_e',
 		'$wp_list_table->display',
 		'$wp_list_table->search_box',
 		'$wp_list_table->views',
 		'checked',
+		'disabled',
 		'esc_attr_e',
 		'esc_html_e',
 		'selected',
