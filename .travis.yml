@@ -12,6 +12,7 @@ script:
   - xmllint --noout $(find . -type f \( -name '*.xml' -o -name '*.xml.dist' \))
   - find . -name '*.sh' -exec bash -n {} \;
   - find . -name '*.yml' -exec travis-lint {} \;
+  - phpenv global 5.2 && find . ! -path './phpcs/*' -name '*.php' -exec php -lf {} \;
   - phpenv global 5.3 && find . -name '*.php' -exec php -lf {} \;
   - phpenv global 5.4 && find . -name '*.php' -exec php -lf {} \;
   - phpenv global 5.5 && find . -name '*.php' -exec php -lf {} \;
