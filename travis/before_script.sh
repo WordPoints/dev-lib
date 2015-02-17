@@ -12,7 +12,7 @@ export PHPCS_GITHUB_SRC=squizlabs/PHP_CodeSniffer
 export PHPCS_GIT_TREE=master
 export WPCS_DIR=/tmp/wpcs
 export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
-export WPCS_GIT_TREE=7a6aed84e99dafdef1f3fa0974d5f420fbdc077f
+export WPCS_GIT_TREE=923b63a15c4b9a61f08ab059c3f9e7efa85cb31d
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
 CODESNIFF_PATH=(. '!' -path "$DEV_LIB_PATH/*" '!' -path "./vendor/*")
 export CODESNIFF_PATH
