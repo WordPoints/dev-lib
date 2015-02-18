@@ -31,6 +31,32 @@ define( 'RUNNING_WORDPOINTS_MODULE_TESTS', true );
 define( 'WORDPOINTS_MODULE_TESTS_DIR', dirname( dirname( dirname( __FILE__ ) ) ) . '/tests/phpunit' );
 
 /**
+ * The bootstrap's utility functions.
+ *
+ * @since 1.1.0
+ */
+require_once( dirname( __FILE__ ) . '/functions.php' );
+
+$has_uninstall_tester = is_dir( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/wordpoints/module-uninstall-tester/' );
+
+if ( $has_uninstall_tester ) {
+
+	/**
+	 * The plugin uninstall testing functions.
+	 *
+	 * @since 1.1.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/includes/functions.php' );
+
+	/**
+	 * The WordPoints modules uninstall testing functions.
+	 *
+	 * @since 1.1.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/includes/functions.php' );
+}
+
+/**
  * The WordPress tests functions.
  *
  * We are loading this so that we can add our tests filter to load the module and
@@ -40,23 +66,29 @@ define( 'WORDPOINTS_MODULE_TESTS_DIR', dirname( dirname( dirname( __FILE__ ) ) )
  */
 require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php');
 
-/**
- * The module's testing functions.
- *
- * @since 1.0.0
- */
-require_once( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' );
+if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' ) ) {
 
-if (
-	! function_exists( 'running_wordpoints_module_uninstall_tests' )
-	|| ! running_wordpoints_module_uninstall_tests()
-) {
+	/**
+	 * The module's testing functions.
+	 *
+	 * @since 1.0.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' );
+}
+
+if ( ! $has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() ) {
 
 	// Hook to load WordPoints.
 	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
 
 	// Hook to load the module.
-	tests_add_filter( 'wordpoints_modules_loaded', WORDPOINTS_MODULE_TESTS_LOADER, 5 );
+	if ( defined( 'WORDPOINTS_MODULE_TESTS_LOADER' ) ) {
+		$module_loader = WORDPOINTS_MODULE_TESTS_LOADER;
+	} else {
+		$module_loader = 'wordpoints_dev_lib_load_the_module';
+	}
+
+	tests_add_filter( 'plugins_loaded', $module_loader, 14 );
 }
 
 /**
@@ -65,6 +97,23 @@ if (
  * @since 1.0.0
  */
 require( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/includes/bootstrap.php' );
+
+if ( $has_uninstall_tester ) {
+
+	/**
+	 * The plugin uninstall testing bootstrap.
+	 *
+	 * @since 1.1.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/bootstrap.php' );
+
+	/**
+	 * The WordPoints modules uninstall testing bootstrap.
+	 *
+	 * @since 1.1.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/bootstrap.php' );
+}
 
 /**
  * The module's tests bootstrap.
