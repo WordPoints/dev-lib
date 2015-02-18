@@ -22,6 +22,16 @@ export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
 export WPCS_GIT_TREE=923b63a15c4b9a61f08ab059c3f9e7efa85cb31d
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
 
+# WP L10n Validator
+export WPL10NV_DIR=/tmp/wp-l10n-validator
+export WPL10NV_GITHUB_SRC=JDGrimes/wp-l10n-validator
+export WPL10NV_GIT_TREE=master
+
+# WP L10n Validator config
+export WPL10NV_CONFIG_DIR=/tmp/wp-l10n-config
+export WPL10NV_CONFIG_GITHUB_SRC=WordPoints/l10n-validator-config
+export WPL10NV_CONFIG_GIT_TREE=master
+
 # State
 export RUN_UNINSTALL_TESTS=$(if grep -q '<group>uninstall</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)

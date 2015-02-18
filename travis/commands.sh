@@ -19,6 +19,18 @@ setup-composer() {
 	fi
 }
 
+# Install a package from GitHub.
+install-from-github() {
+
+	local GITHUB_SRC=${1}_GITHUB_SRC
+	local GITHUB_TREE=${1}_GITHUB_TREE
+	local DIR=${1}_DIR
+
+    mkdir -p "$DIR"
+    curl -L "https://github.com/${!GITHUB_SRC}/archive/${!GITHUB_TREE}.tar.gz" \
+        | tar xvz --strip-components=1 -C "${!DIR}"
+}
+
 # Set up for the PHPUnit pass.
 setup-phpunit() {
 
@@ -76,16 +88,19 @@ setup-codesniff() {
 	fi
 
 	# Install PHP_CodeSniffer.
-    mkdir -p "$PHPCS_DIR"
-    curl -L "https://github.com/$PHPCS_GITHUB_SRC/archive/$PHPCS_GIT_TREE.tar.gz" \
-        | tar xvz --strip-components=1 -C "$PHPCS_DIR"
+	install-from-github PHPCS
 
 	# Install WordPress Coding Standards for PHPCS.
-    mkdir -p "$WPCS_DIR"
-    curl -L "https://github.com/$WPCS_GITHUB_SRC/archive/$WPCS_GIT_TREE.tar.gz" \
-    	| tar xvz --strip-components=1 -C "$WPCS_DIR"
+	install-from-github WPCS
 
-    "$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
+	# Configure PHPCS to use WPCS.
+	"$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
+
+	# Install WP L10n Validator.
+	install-from-github WPL10NV
+	
+	# Install WP L10n Validator config.
+	install-from-github WPL10NV_CONFIG
 }
 
 # Check php files for syntax errors.
