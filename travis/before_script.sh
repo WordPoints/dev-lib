@@ -27,11 +27,6 @@ export WPL10NV_DIR=/tmp/wp-l10n-validator
 export WPL10NV_GITHUB_SRC=JDGrimes/wp-l10n-validator
 export WPL10NV_GIT_TREE=master
 
-# WP L10n Validator config
-export WPL10NV_CONFIG_DIR=/tmp/wp-l10n-config
-export WPL10NV_CONFIG_GITHUB_SRC=WordPoints/l10n-validator-config
-export WPL10NV_CONFIG_GIT_TREE=master
-
 # State
 export RUN_UNINSTALL_TESTS=$(if grep -q '<group>uninstall</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)

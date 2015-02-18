@@ -98,9 +98,6 @@ setup-codesniff() {
 
 	# Install WP L10n Validator.
 	install-from-github WPL10NV
-	
-	# Install WP L10n Validator config.
-	install-from-github WPL10NV_CONFIG
 }
 
 # Check php files for syntax errors.
