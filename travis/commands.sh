@@ -83,21 +83,21 @@ setup-codesniff() {
 		npm install -g jshint
 	fi
 
-	if [[ $DO_PHPCS != 1 ]]; then
-		return;
+	if [[ $DO_PHPCS == 1 ]]; then
+		# Install PHP_CodeSniffer.
+		install-from-github PHPCS
+
+		# Install WordPress Coding Standards for PHPCS.
+		install-from-github WPCS
+
+		# Configure PHPCS to use WPCS.
+		"$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
 	fi
 
-	# Install PHP_CodeSniffer.
-	install-from-github PHPCS
-
-	# Install WordPress Coding Standards for PHPCS.
-	install-from-github WPCS
-
-	# Configure PHPCS to use WPCS.
-	"$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
-
-	# Install WP L10n Validator.
-	install-from-github WPL10NV
+	if [[ $DO_WPL10NV == 1 ]]; then
+		# Install WP L10n Validator.
+		install-from-github WPL10NV
+	fi
 }
 
 # Check php files for syntax errors.
@@ -130,8 +130,8 @@ codesniff-jshint() {
 
 # Check PHP files for proper localization.
 codesniff-l10n() {
-	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		./vendor/jdgrimes/wp-l10n-validator/bin/wp-l10n-validator
+	if [[ $TRAVISCI_RUN == codesniff && $DO_WPL10NV == 1 ]]; then
+		"$WPL10NV_DIR"/bin/wp-l10n-validator
 	else
 		echo 'Not running wp-l10n-validator.'
 	fi

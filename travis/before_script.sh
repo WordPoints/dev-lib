@@ -23,6 +23,7 @@ export WPCS_GIT_TREE=923b63a15c4b9a61f08ab059c3f9e7efa85cb31d
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
 
 # WP L10n Validator
+export DO_WPL10NV=$(if [ -e wp-l10n-validator.json ]; then echo 1; else echo 0; fi)
 export WPL10NV_DIR=/tmp/wp-l10n-validator
 export WPL10NV_GITHUB_SRC=JDGrimes/wp-l10n-validator
 export WPL10NV_GIT_TREE=master
