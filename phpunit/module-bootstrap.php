@@ -115,11 +115,14 @@ if ( $has_uninstall_tester ) {
 	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/bootstrap.php' );
 }
 
-/**
- * The module's tests bootstrap.
- *
- * @since 1.0.0
- */
-require_once( WORDPOINTS_MODULE_TESTS_DIR . '/includes/bootstrap.php' );
+if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/bootstrap.php' ) ) {
+
+	/**
+	 * The module's tests bootstrap.
+	 *
+	 * @since 1.0.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/includes/bootstrap.php' );
+}
 
 // EOF
