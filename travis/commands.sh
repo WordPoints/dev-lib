@@ -26,7 +26,7 @@ install-from-github() {
 	local GITHUB_TREE=${1}_GITHUB_TREE
 	local DIR=${1}_DIR
 
-    mkdir -p "$DIR"
+    mkdir -p "${!DIR}"
     curl -L "https://github.com/${!GITHUB_SRC}/archive/${!GITHUB_TREE}.tar.gz" \
         | tar xvz --strip-components=1 -C "${!DIR}"
 }
