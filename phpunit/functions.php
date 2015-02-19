@@ -67,9 +67,13 @@ function wordpoints_dev_lib_load_module( $module_file ) {
 
 	require( $module_file );
 
+	$module = wordpoints_module_basename( $module_file );
 	$network_wide = is_multisite() && getenv( 'WORDPOINTS_NETWORK_ACTIVE' );
 
-	wordpoints_activate_module( $module_file, '', $network_wide );
+	/**
+	 * @since 1.1.0
+	 */
+	do_action( "wordpoints_module_activate-{$module}", $network_wide );
 }
 
 /**
