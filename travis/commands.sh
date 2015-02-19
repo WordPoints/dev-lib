@@ -76,8 +76,6 @@ setup-phpunit() {
 # Set up for the codesniff pass.
 setup-codesniff() {
 
-	setup-composer
-
 	# Install JSHint.
 	if ! command -v jshint >/dev/null 2>&1; then
 		npm install -g jshint
