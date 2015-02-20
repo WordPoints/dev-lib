@@ -19,6 +19,18 @@ setup-composer() {
 	fi
 }
 
+# Install a package from GitHub.
+install-from-github() {
+
+	local GITHUB_SRC=${1}_GITHUB_SRC
+	local GIT_TREE=${1}_GIT_TREE
+	local DIR=${1}_DIR
+
+    mkdir -p "${!DIR}"
+    curl -L "https://github.com/${!GITHUB_SRC}/archive/${!GIT_TREE}.tar.gz" \
+        | tar xvz --strip-components=1 -C "${!DIR}"
+}
+
 # Set up for the PHPUnit pass.
 setup-phpunit() {
 
@@ -64,28 +76,26 @@ setup-phpunit() {
 # Set up for the codesniff pass.
 setup-codesniff() {
 
-	setup-composer
-
 	# Install JSHint.
 	if ! command -v jshint >/dev/null 2>&1; then
 		npm install -g jshint
 	fi
 
-	if [[ $DO_PHPCS != 1 ]]; then
-		return;
+	if [[ $DO_PHPCS == 1 ]]; then
+		# Install PHP_CodeSniffer.
+		install-from-github PHPCS
+
+		# Install WordPress Coding Standards for PHPCS.
+		install-from-github WPCS
+
+		# Configure PHPCS to use WPCS.
+		"$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
 	fi
 
-	# Install PHP_CodeSniffer.
-    mkdir -p "$PHPCS_DIR"
-    curl -L "https://github.com/$PHPCS_GITHUB_SRC/archive/$PHPCS_GIT_TREE.tar.gz" \
-        | tar xvz --strip-components=1 -C "$PHPCS_DIR"
-
-	# Install WordPress Coding Standards for PHPCS.
-    mkdir -p "$WPCS_DIR"
-    curl -L "https://github.com/$WPCS_GITHUB_SRC/archive/$WPCS_GIT_TREE.tar.gz" \
-    	| tar xvz --strip-components=1 -C "$WPCS_DIR"
-
-    "$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
+	if [[ $DO_WPL10NV == 1 ]]; then
+		# Install WP L10n Validator.
+		install-from-github WPL10NV
+	fi
 }
 
 # Check php files for syntax errors.
@@ -118,8 +128,8 @@ codesniff-jshint() {
 
 # Check PHP files for proper localization.
 codesniff-l10n() {
-	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		./vendor/jdgrimes/wp-l10n-validator/bin/wp-l10n-validator
+	if [[ $TRAVISCI_RUN == codesniff && $DO_WPL10NV == 1 ]]; then
+		"$WPL10NV_DIR"/bin/wp-l10n-validator
 	else
 		echo 'Not running wp-l10n-validator.'
 	fi
