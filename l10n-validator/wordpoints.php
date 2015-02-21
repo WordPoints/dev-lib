@@ -30,6 +30,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_get_points_type_setting' => true,
 			'wordpoints_list_post_types' => true,
 			'wordpoints_load_module_textdomain' => true,
+			'wordpoints_modules_url' => true,
 			'wordpoints_points_show_top_users' => array( 3 ),
 			'wordpoints_prepare__in' => true,
 			'wordpoints_register_points_logs_query' => true,
