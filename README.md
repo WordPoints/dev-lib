@@ -16,24 +16,13 @@ To update:
 git submodule update --remote dev-lib
 ```
 
-After updating it is recommended that you update your `.travis.yml` file by copying
-the corresponding file from this repo (see below).
+After updating it is recommended that you update run the `init.sh` script again, as
+shown below.
 
 ## Set Up
 
 ### Modules
 
 ```bash
-# Copy the Travis CI configuration file. This is copied rather than symlinked because
-# Travis needs to be able to retrieve it from GitHub.
-cp dev-lib/travis/module.yml .travis.yml
-
-# Symlink the PHPCS configuration if you want to use PHPCS.
-ln -s dev-lib/phpcs/WordPoints/ruleset.xml phpcs.ruleset.xml
-
-# Symlink the PHPUnit configuration for PHPUnit testing.
-ln -s dev-lib/phpunit/module.xml.dist phpunit.xml.dist
-
-# Symlink the Coveralls configuration file if you want to use code coverage.
-ln -s dev-lib/travis/.coveralls.yml .
+dev-lib/bin/init.sh
 ```
