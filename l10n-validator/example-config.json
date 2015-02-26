@@ -2,7 +2,7 @@
 	"textdomain": "your-textdomain",
 	"basedir": "./src",
 	"bootstrap": "dev-lib/l10n-validator/bootstrap.php",
-	"cache": "./tools/wp-l10n-validator/cache.json",
-	"ignores-cache": "./tools/wp-l10n-validator/ignores-cache.json",
+	"cache": "./.wp-l10n-validator-cache.json",
+	"ignores-cache": "./.wp-l10n-validator-ignores-cache.json",
 	"ignores-tolerance": 25
 }
