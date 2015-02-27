@@ -27,9 +27,8 @@ fi
 if [ ! -e wp-l10n-validator.json ]; then
 	echo Copying L10n Validator config
 	cp dev-lib/l10n-validator/example-config.json wp-l10n-validator.json
-	mkdir -p tools/wp-l10n-validator
 
-	text_domain=$(grep -o "Text Domain: .*" src/*.php)
+	text_domain=$(grep -oh "Text Domain: .*" src/*.php)
 	text_domain=${text_domain#"Text Domain: "}
 
 	if [[ $text_domain == '' ]]; then
