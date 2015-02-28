@@ -11,7 +11,7 @@ fi
 
 # Get the project type from .travis.yml
 project_type=$(grep -o "WORDPOINTS_PROJECT_TYPE=.*" .travis.yml)
-project_type=${text_domain#"WORDPOINTS_PROJECT_TYPE= "}
+project_type=${project_type#"WORDPOINTS_PROJECT_TYPE="}
 
 if [[ $project_type == module ]]; then
 	project_type=wordpoints-module
