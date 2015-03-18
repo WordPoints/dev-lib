@@ -31,15 +31,9 @@ fi
 # Copy the l10n validator configuration file.
 if [ ! -e wp-l10n-validator.json ]; then
 	echo Copying L10n Validator config
-
-	text_domain=$(grep -oh "Text Domain: .*" src/*.php)
-	text_domain=${text_domain#"Text Domain: "}
 	cp "$DEV_LIB_PATH"/l10n-validator/example-config.json wp-l10n-validator.json
 
-	if [[ $text_domain == '' ]]; then
-		echo Please enter the textdomain for your project:
-		read text_domain
-	fi
+	get-textdomain
 
 	echo Updating textdomain to $text_domain in L10n validator config
 	sed -i '' s/your-textdomain/"$text_domain"/ wp-l10n-validator.json
