@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+export DEV_LIB_PATH=dev-lib
+export WORDPOINTS_PROJECT_TYPE=module
+
+if [ -e .wordpoints-dev-lib-config.sh ]; then
+    source .wordpoints-dev-lib-config.sh
+fi
+
+source "$DEV_LIB_PATH"/bin/functions.sh
+
+source "$DEV_LIB_PATH"/bin/"$1".sh
+
+# EOF

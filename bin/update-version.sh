@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if [ -z $1 ];
-	then echo "Usage: $0 <new-version>";
+if [ -z $2 ];
+	then echo "Usage: $0 $1 <new-version>";
 	exit;
 fi
 
