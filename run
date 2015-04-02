@@ -9,6 +9,9 @@ if [ -e .wordpoints-dev-lib-config.sh ]; then
     source .wordpoints-dev-lib-config.sh
 fi
 
+# Load the rest of the environment.
+source "$DEV_LIB_PATH"/bin/env.sh
+
 # Load the functions.
 source "$DEV_LIB_PATH"/bin/functions.sh
 
