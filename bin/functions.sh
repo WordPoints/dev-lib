@@ -16,6 +16,16 @@ get-textdomain () {
 	fi
 }
 
+# Run all codesniffers.
+wpdl-codesniff() {
+	wpdl-codesniff-php-syntax
+	wpdl-codesniff-phpcs
+	wpdl-codesniff-l10n
+	wpdl-codesniff-bash
+	wpdl-codesniff-jshint
+	wpdl-codesniff-xmllint
+}
+
 # Check php files for syntax errors.
 wpdl-codesniff-php-syntax() {
 	find "${CODESNIFF_PATH[@]}" \( -name '*.php' -o -name '*.inc' \) -exec php -lf {} \;
