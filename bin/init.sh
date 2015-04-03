@@ -13,7 +13,7 @@ if [[ $project_type == '' ]]; then
 fi
 
 # Get the path to the dev_lib tool.
-dev_lib_path=$( dirname $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) )
+dev_lib_path=$( dirname "$( dirname "${BASH_SOURCE[0]}" )" )
 
 # Copy the Travis CI configuration file. This is copied rather than symlinked because
 # Travis needs to be able to retrieve it from GitHub.
