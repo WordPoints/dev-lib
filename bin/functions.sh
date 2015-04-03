@@ -25,7 +25,13 @@ wpdl-codesniff-php-syntax() {
 wpdl-codesniff-phpcs() {
 	local files=$(find "${CODESNIFF_PATH[@]}" -name '*.php')
 
-	"$PHPCS_DIR"/scripts/phpcs -ns --standard="$WPCS_STANDARD" "${files[@]}"
+	if [ ! -e $PHPCS_DIR ]; then
+		local phpcs=phpcs
+	else
+		local phpcs="$PHPCS_DIR"/scripts/phpcs
+	fi
+
+	"$phpcs" -ns --standard="$WPCS_STANDARD" ${files[@]}
 }
 
 # Check JS files with jshint.
