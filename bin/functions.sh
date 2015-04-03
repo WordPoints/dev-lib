@@ -41,7 +41,11 @@ wpdl-codesniff-jshint() {
 
 # Check PHP files for proper localization.
 wpdl-codesniff-l10n() {
-	"$WPL10NV_DIR"/bin/wp-l10n-validator
+	if [ ! -e $WPL10NV_DIR ]; then
+		wp-l10n-validator
+	else
+		"$WPL10NV_DIR"/bin/wp-l10n-validator
+	fi
 }
 
 # Check XML files for syntax errors.
