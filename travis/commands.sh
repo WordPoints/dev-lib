@@ -6,7 +6,7 @@ setup-composer() {
 	# We always need to do this when collecting code coverage, even if there are no
 	# composer dependencies.
 	if [[ $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
-		composer require satooshi/php-coveralls:dev-master
+		composer require --prefer-source satooshi/php-coveralls:dev-master
 		mkdir -p build/logs
 		return;
 	fi
@@ -19,10 +19,10 @@ setup-composer() {
 	# Composer requires PHP 5.3.
 	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
 		phpenv global 5.3
-		composer install
+		composer install --prefer-source
 		phpenv global "$TRAVIS_PHP_VERSION"
 	else
-		composer install
+		composer install --prefer-source
 	fi
 }
 
