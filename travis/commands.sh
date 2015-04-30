@@ -43,7 +43,7 @@ setup-phpunit() {
 
 	setup-composer
 
-	mkdir -p "WP_DEVELOP_DIR"
+	mkdir -p "$WP_DEVELOP_DIR"
 
 	# Back-compat.
 	if [[ $WP_VERSION == 'nightly' ]]; then
@@ -53,10 +53,10 @@ setup-phpunit() {
 	fi
 
 	# Clone the WordPress develop repo.
-	git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ "WP_DEVELOP_DIR"
+	git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ "$WP_DEVELOP_DIR"
 
 	# Set up tests config.
-	cd "WP_DEVELOP_DIR"
+	cd "$WP_DEVELOP_DIR"
 	cp wp-tests-config-sample.php wp-tests-config.php
 	sed -i "s/youremptytestdbnamehere/wordpress_test/" wp-tests-config.php
 	sed -i "s/yourusernamehere/root/" wp-tests-config.php
