@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 # Paths
-export WP_TESTS_DIR=/tmp/wordpress-tests/
+export WP_DEVELOP_DIR=/tmp/wordpress/
+export WP_TESTS_DIR=/tmp/wordpress/tests/phpunit/
+export WP_CORE_DIR=/tmp/wordpress/src/
 export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
 CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*")
@@ -32,6 +34,8 @@ export RUN_AJAX_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>ajax</group
 export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then echo 1; else echo 0; fi)
 
 # WordPoints
+export WORDPOINTS_DEVELOP_DIR=/tmp/wordpoints
+export WORDPOINTS_TESTS_DIR=/tmp/wordpoints/tests/phpunit/
 if [[ -z $WORDPOINTS_VERSION ]]; then
 	export WORDPOINTS_VERSION=master
 fi

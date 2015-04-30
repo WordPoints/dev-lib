@@ -43,40 +43,47 @@ setup-phpunit() {
 
 	setup-composer
 
-    wget -O /tmp/install-wp-tests.sh \
-        https://raw.githubusercontent.com/wp-cli/wp-cli/master/templates/install-wp-tests.sh
+	mkdir -p "WP_DEVELOP_DIR"
 
+	# Back-compat.
 	if [[ $WP_VERSION == 'nightly' ]]; then
-		sed -i "s/\${ARCHIVE_NAME}.tar.gz/nightly-builds\/wordpress-latest.zip/" \
-			/tmp/install-wp-tests.sh
-
-		sed -i 's/wordpress.tar.gz/wordpress.zip/' /tmp/install-wp-tests.sh
-		sed -i 's/tar --strip-components=1 -zxmf \/tmp\/wordpress.zip -C $WP_CORE_DIR/unzip \/tmp\/wordpress.zip -d \/tmp/' \
-			/tmp/install-wp-tests.sh
+		WP_VERSION=master
+	elif [[ $WP_VERSION == 'latest' ]]; then
+		WP_VERSION=4.2
 	fi
 
-	bash /tmp/install-wp-tests.sh wordpress_test root '' localhost "$WP_VERSION"
+	# Clone the WordPress develop repo.
+	git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ "WP_DEVELOP_DIR"
+
+	# Set up tests config.
+	cd "WP_DEVELOP_DIR"
+	cp wp-tests-config-sample.php wp-tests-config.php
+	sed -i "s/youremptytestdbnamehere/wordpress_test/" wp-tests-config.php
+	sed -i "s/yourusernamehere/root/" wp-tests-config.php
+	sed -i "s/yourpasswordhere//" wp-tests-config.php
+	cd -
+
+	# Set up database.
+	mysql -e 'CREATE DATABASE wordpress_test;' -uroot
 
  	if [[ $RUN_AJAX_TESTS == 1 ]]; then
 		sed -i 's/do_action( '"'"'admin_init'"'"' )/if ( ! isset( $GLOBALS['"'"'_did_admin_init'"'"'] ) \&\& $GLOBALS['"'"'_did_admin_init'"'"'] = true ) do_action( '"'"'admin_init'"'"' )/' \
-			/tmp/wordpress-tests/includes/testcase-ajax.php
+			"$WP_TESTS_DIR"/includes/testcase-ajax.php
 	fi
 
 	if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
 
 		# Install WordPoints.
-		mkdir -p /tmp/wordpoints
+		mkdir -p "$WORDPOINTS_DEVELOP_DIR"
 		curl -L "https://github.com/WordPoints/wordpoints/archive/$WORDPOINTS_VERSION.tar.gz" \
-			| tar xvz --strip-components=1 -C /tmp/wordpoints
-		ln -s /tmp/wordpoints/src /tmp/wordpress/wp-content/plugins/wordpoints
+			| tar xvz --strip-components=1 -C "$WORDPOINTS_DEVELOP_DIR"
+		ln -s  "$WORDPOINTS_DEVELOP_DIR"/src "$WP_CORE_DIR"/wp-content/plugins/wordpoints
 
-		export WORDPOINTS_TESTS_DIR=/tmp/wordpoints/tests/phpunit/
-
-		mkdir /tmp/wordpress/wp-content/wordpoints-modules
-		ln -s "$PROJECT_DIR" /tmp/wordpress/wp-content/wordpoints-modules/"$PROJECT_SLUG"
+		mkdir "$WP_CORE_DIR"/wp-content/wordpoints-modules
+		ln -s "$PROJECT_DIR" "$WP_CORE_DIR"/wp-content/wordpoints-modules/"$PROJECT_SLUG"
 
 	else
-		ln -s "$PROJECT_DIR" /tmp/wordpress/wp-content/plugins/"$PROJECT_SLUG"
+		ln -s "$PROJECT_DIR" "$WP_CORE_DIR"/wp-content/plugins/"$PROJECT_SLUG"
 	fi
 }
 
@@ -107,7 +114,7 @@ setup-codesniff() {
 
 # Check php files for syntax errors.
 codesniff-php-syntax() {
-	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == latest && $TRAVIS_PHP_VERSION != '5.3' ]]; then
+	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master && $TRAVIS_PHP_VERSION != '5.3' ]]; then
 		wpdl-codesniff-php-syntax
 	else
 		echo 'Not running PHP syntax check.'
