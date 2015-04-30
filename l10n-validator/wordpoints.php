@@ -70,9 +70,13 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Points_Widget::get_field_id' => true,
 			'WordPoints_Points_Widget::get_field_name' => true,
 			'WordPoints_Shortcodes::register' => true,
-			'WordPoints_Un_Installer_Base::update_' => true,
 			'WordPoints_Un_Installer_Base::get_updates_for' => true,
+			'WordPoints_Un_Installer_Base::map_uninstall_shortcut' => true,
+			'WordPoints_Un_Installer_Base::maybe_update_tables_to_utf8mb4' => true,
 			'WordPoints_Un_Installer_Base::set_component_version' => true,
+			'WordPoints_Un_Installer_Base::uninstall_metadata' => true,
+			'WordPoints_Un_Installer_Base::uninstall_' => true,
+			'WordPoints_Un_Installer_Base::update_' => true,
 
 			// Instance methods.
 			'$hook->get_description' => true,
