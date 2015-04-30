@@ -12,10 +12,10 @@ php:
 
 env:
     - TRAVISCI_RUN=codesniff
-    - TRAVISCI_RUN=phpunit WP_VERSION=nightly WORDPOINTS_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=nightly WORDPOINTS_VERSION=stable
-    - TRAVISCI_RUN=phpunit WP_VERSION=latest WORDPOINTS_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=latest WORDPOINTS_VERSION=stable
+    - TRAVISCI_RUN=phpunit WP_VERSION=master WORDPOINTS_VERSION=master
+    - TRAVISCI_RUN=phpunit WP_VERSION=master WORDPOINTS_VERSION=stable
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.1 WORDPOINTS_VERSION=master
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.1 WORDPOINTS_VERSION=stable
     - TRAVISCI_RUN=phpunit WP_VERSION=4.0 WORDPOINTS_VERSION=master
     - TRAVISCI_RUN=phpunit WP_VERSION=4.0 WORDPOINTS_VERSION=stable
     - TRAVISCI_RUN=phpunit WP_VERSION=3.9 WORDPOINTS_VERSION=master
@@ -25,12 +25,12 @@ sudo: false
 
 matrix:
   include:
-    # Only run HHVM against the latest for now.
+    # Only run HHVM against trunk for now.
     - php: hhvm
-      env: TRAVISCI_RUN=phpunit WP_VERSION=latest
-    # Only run nightly against latest.
+      env: TRAVISCI_RUN=phpunit WP_VERSION=master
+    # Only run nightly against trunk.
     - php: nightly
-      env: TRAVISCI_RUN=phpunit WP_VERSION=latest
+      env: TRAVISCI_RUN=phpunit WP_VERSION=master
   exclude:
     # The codesniff pass only needs to be run once, I chose PHP 5.3, since WPCS requires it.
     - php: 5.2

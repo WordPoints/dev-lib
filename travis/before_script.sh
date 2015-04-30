@@ -6,7 +6,10 @@ shopt -s expand_aliases
 # Load environment vars.
 source "$DEV_LIB_PATH"/bin/env.sh
 
-# Load commands.
+# Load core functions.
+source "$DEV_LIB_PATH"/bin/functions.sh
+
+# Load travis commands.
 source "$DEV_LIB_PATH"/travis/commands.sh
 
 # Load customisation.
