@@ -16,6 +16,18 @@ if [ ! -e phpcs.ruleset.xml ]; then
 	ln -s "$DEV_LIB_PATH"/phpcs/WordPoints/ruleset.xml phpcs.ruleset.xml
 fi
 
+# Symlink the jshint configuration.
+if [ ! -e .jshintrc ]; then
+	echo Symlinking jshint config
+	ln -s "$DEV_LIB_PATH"/jshint/.jshintrc .
+fi
+
+# Symlink the jshint ignores configuration.
+if [ ! -e .jshintrc ]; then
+	echo Symlinking jshint ignores config
+	ln -s "$DEV_LIB_PATH"/jshint/.jshintignore .
+fi
+
 # Symlink the PHPUnit configuration for PHPUnit testing.
 if [ ! -e phpunit.xml.dist ]; then
 	echo Symlinking PHPUnit config
