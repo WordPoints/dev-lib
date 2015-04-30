@@ -55,6 +55,7 @@ script:
     - codesniff-l10n
     - codesniff-xmllint
     - codesniff-bash
+    - codesniff-symlinks
     - phpunit-basic
     - phpunit-ms
     - phpunit-ms-network
