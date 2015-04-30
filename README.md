@@ -24,7 +24,7 @@ shown below.
 ### Modules
 
 ```bash
-dev-lib/bin/run init
+dev-lib/run init
 ```
 
 ### Other

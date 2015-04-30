@@ -108,7 +108,7 @@ setup-codesniff() {
 # Check php files for syntax errors.
 codesniff-php-syntax() {
 	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == latest && $TRAVIS_PHP_VERSION != '5.3' ]]; then
-		find "${CODESNIFF_PATH[@]}" \( -name '*.php' -o -name '*.inc' \) -exec php -lf {} \;
+		wpdl-codesniff-php-syntax
 	else
 		echo 'Not running PHP syntax check.'
 	fi
@@ -117,8 +117,7 @@ codesniff-php-syntax() {
 # Check php files with PHPCodeSniffer.
 codesniff-phpcs() {
 	if [[ $TRAVISCI_RUN == codesniff && $DO_PHPCS == 1 ]]; then
-		"$PHPCS_DIR"/scripts/phpcs -ns --standard="$WPCS_STANDARD" \
-			$(find "${CODESNIFF_PATH[@]}" -name '*.php')
+		wpdl-codesniff-phpcs
 	else
 		echo 'Not running PHPCS.'
 	fi
@@ -127,7 +126,7 @@ codesniff-phpcs() {
 # Check JS files with jshint.
 codesniff-jshint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		jshint .
+		wpdl-codesniff-jshint
 	else
 		echo 'Not running jshint.'
 	fi
@@ -136,7 +135,7 @@ codesniff-jshint() {
 # Check PHP files for proper localization.
 codesniff-l10n() {
 	if [[ $TRAVISCI_RUN == codesniff && $DO_WPL10NV == 1 ]]; then
-		"$WPL10NV_DIR"/bin/wp-l10n-validator
+		wpdl-codesniff-l10n
 	else
 		echo 'Not running wp-l10n-validator.'
 	fi
@@ -145,7 +144,7 @@ codesniff-l10n() {
 # Check XML files for syntax errors.
 codesniff-xmllint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		xmllint --noout $(find "${CODESNIFF_PATH[@]}" -type f \( -name '*.xml' -o -name '*.xml.dist' \))
+		wpdl-codesniff-xmllint
 	else
 		echo 'Not running xmlint.'
 	fi
@@ -154,7 +153,7 @@ codesniff-xmllint() {
 # Check bash files for syntax errors.
 codesniff-bash() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
-		find "${CODESNIFF_PATH[@]}" -name '*.sh' -exec bash -n {} \;
+		wpdl-codesniff-bash
 	else
 		echo 'Not running bash syntax check.'
 	fi
@@ -167,39 +166,7 @@ phpunit-basic() {
 		return
 	fi
 
-	local TEST_GROUP=${1-''}
-	local CLOVER_FILE=${2-basic}
-
-	local GROUP_OPTION=()
-	local COVERAGE_OPTION=()
-
-	if [[ $TEST_GROUP != '' ]]; then
-		if [[ $TEST_GROUP == ajax && $RUN_AJAX_TESTS == 0 ]]; then
-			echo 'Not running Ajax tests.'
-			return
-		elif [[ $TEST_GROUP == uninstall && $RUN_UNINSTALL_TESTS == 0 ]]; then
-			echo 'Not running uninstall tests.'
-			return
-		fi
-
-		if [[ $WP_VERSION == '3.8' && $TEST_GROUP == ajax && $WP_MULTISITE == 1 ]]; then
-			echo 'Not running multisite Ajax tests on 3.8, see https://github.com/WordPoints/wordpoints/issues/239.'
-			return
-		fi
-
-		GROUP_OPTION=(--group="$TEST_GROUP")
-		CLOVER_FILE+="-$TEST_GROUP"
-
-		if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
-			sed -i '' -e "s/<group>$TEST_GROUP<\/group>//" ./phpunit.xml.dist
-		fi
-	fi
-
-	if [[ $DO_CODE_COVERAGE == 1 ]]; then
-		COVERAGE_OPTION=(--coverage-clover "build/logs/clover-$CLOVER_FILE.xml")
-	fi
-
-	phpunit "${GROUP_OPTION[@]}" "${COVERAGE_OPTION[@]}"
+	wpdl-phpunit "${@:1}"
 }
 
 # Run uninstall PHPUnit tests.
@@ -241,3 +208,5 @@ phpunit-ms-network-uninstall() {
 phpunit-ms-network-ajax() {
 	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic ajax ms-network
 }
+
+# EOF
