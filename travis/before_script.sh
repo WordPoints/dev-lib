@@ -13,6 +13,16 @@ source "$DEV_LIB_PATH"/bin/functions.sh
 source "$DEV_LIB_PATH"/travis/commands.sh
 
 # Load customisation.
+if [ -e .wordpoints-dev-lib-config.sh ]; then
+    source .wordpoints-dev-lib-config.sh
+fi
+
+# Allow config vars and functions to be overridden.
+if [ "$(declare -f wordpoints-dev-lib-config )" ]; then
+	wordpoints-dev-lib-config
+fi
+
+# Back-compat.
 if [ -e .ci-env.sh ]; then
     source .ci-env.sh
 fi
