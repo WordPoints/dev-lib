@@ -13,9 +13,7 @@ php:
 env:
     - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.1
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.0
-    - TRAVISCI_RUN=phpunit WP_VERSION=3.9
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.2
 
 sudo: false
 
