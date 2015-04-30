@@ -15,6 +15,11 @@ source "$DEV_LIB_PATH"/bin/env.sh
 # Load the functions.
 source "$DEV_LIB_PATH"/bin/functions.sh
 
+# Allow config vars and functions to be overridden.
+if [ "$(declare -f wordpoints-dev-lib-config )" ]; then
+	wordpoints-dev-lib-config
+fi
+
 # If this command is handled by a function, call it. Otherwise, source the file.
 if [ "$(declare -f wpdl-$1 )" ]; then
 	"wpdl-$1" "${@:2}"
