@@ -24,6 +24,7 @@ wpdl-codesniff() {
 	wpdl-codesniff-bash
 	wpdl-codesniff-jshint
 	wpdl-codesniff-xmllint
+	wpdl-codesniff-symlinks
 }
 
 # Check php files for syntax errors.
@@ -70,6 +71,16 @@ wpdl-codesniff-xmllint() {
 # Check bash files for syntax errors.
 wpdl-codesniff-bash() {
 	find "${CODESNIFF_PATH[@]}" -name '*.sh' -exec bash -n {} \;
+}
+
+# Check for broken symlinks.
+wpdl-codesniff-symlinks() {
+	local files=$(find "${CODESNIFF_PATH[@]}" -type l ! -exec [ -e {} ] \; -print)
+
+	if [ ${#files[@]} != 0 ]; then
+		echo "${files[@]}"
+		return 1
+	fi
 }
 
 # Run basic PHPUnit tests.

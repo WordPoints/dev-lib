@@ -166,6 +166,15 @@ codesniff-bash() {
 	fi
 }
 
+# Check bash files for syntax errors.
+codesniff-symlinks() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		wpdl-codesniff-symlinks
+	else
+		echo 'Not running broken symlink check.'
+	fi
+}
+
 # Run basic PHPUnit tests.
 phpunit-basic() {
 	if [[ $TRAVISCI_RUN != phpunit ]]; then
