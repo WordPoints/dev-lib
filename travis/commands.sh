@@ -173,7 +173,7 @@ phpunit-basic() {
 		return
 	fi
 
-	wpdl-phpunit "${@:1}"
+	wpdl-test-phpunit "${@:1}"
 }
 
 # Run uninstall PHPUnit tests.
