@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Paths
-export WP_DEVELOP_DIR=/tmp/wordpress/
-export WP_TESTS_DIR=/tmp/wordpress/tests/phpunit/
-export WP_CORE_DIR=/tmp/wordpress/src/
+export WP_DEVELOP_DIR=/tmp/wordpress
+export WP_TESTS_DIR=/tmp/wordpress/tests/phpunit
+export WP_CORE_DIR=/tmp/wordpress/src
 export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
 CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*")
