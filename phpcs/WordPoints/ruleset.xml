@@ -14,7 +14,6 @@
 		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" /><!-- WordPoints/wordpoints#90 -->
 		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" /><!-- WordPoints/wordpoints#90 -->
 		<exclude name="WordPress.VIP.SlowDBQuery" /><!-- WordPoints/wordpoints#90 -->
-		<exclude name="WordPress.VIP.ValidatedSanitizedInput" /><!-- #293 -->
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
 		<exclude-pattern>/tests/*</exclude-pattern><!-- because of PHPUnit method names -->
@@ -47,6 +46,13 @@
 	<rule ref="PSR2.ControlStructures.ElseIfDeclaration" />
 
 	<rule ref="WordPoints.PHP.MissingEcho" />
+
+	<rule ref="WordPress.CSRF.NonceVerification">
+		<properties>
+			<property name="customNonceVerificationFunctions" value="wordpoints_verify_nonce" type="array" />
+		</properties>
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
 
 	<exclude-pattern>/vendor/*,/dev-lib/*</exclude-pattern>
 
