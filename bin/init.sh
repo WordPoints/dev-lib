@@ -23,7 +23,7 @@ if [ ! -e .jshintrc ]; then
 fi
 
 # Symlink the jshint ignores configuration.
-if [ ! -e .jshintrc ]; then
+if [ ! -e .jshintignore ]; then
 	echo Symlinking jshint ignores config
 	ln -s "$DEV_LIB_PATH"/jshint/.jshintignore .
 fi
