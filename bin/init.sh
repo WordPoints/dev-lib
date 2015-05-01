@@ -51,4 +51,10 @@ if [ ! -e wp-l10n-validator.json ]; then
 	sed -i '' s/your-textdomain/"$text_domain"/ wp-l10n-validator.json
 fi
 
+# Warn about a deprecated config file.
+if [ -e .ci-env ]; then
+	echo "$(tput setaf 1)Warning:$(tput sgr 0) found deprecated .ci-env config file"
+	echo Use .wordpoints-dev-lib-config instead
+fi
+
 # EOF
