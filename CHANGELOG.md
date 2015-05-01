@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.0.2] - 2015-05-01
+### Fixed
+- Failure of broken symlink sniff even when there were no broken symlinks. #66
+
 ## [2.0.1] - 2015-05-01
 ### Changed
 - WPCS version to latest commit on `develop`. #63
