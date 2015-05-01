@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Default environment.
+export DEV_LIB_PATH=dev-lib
+export WORDPOINTS_PROJECT_TYPE=module
+
+# This file is used to override the above defaults.
+if [ -e .wordpoints-dev-lib-config.sh ]; then
+    source .wordpoints-dev-lib-config.sh
+fi
+
+# Load the rest of the environment.
+source "$DEV_LIB_PATH"/bin/env.sh
+
+# Load the functions.
+source "$DEV_LIB_PATH"/bin/functions.sh
+
+# Allow config vars and functions to be overridden.
+if [ "$(declare -f wordpoints-dev-lib-config )" ]; then
+	wordpoints-dev-lib-config
+fi
+
+# If this command is handled by a function, call it. Otherwise, source the file.
+if [ "$(declare -f wpdl-$1 )" ]; then
+	"wpdl-$1" "${@:2}"
+else
+	source "$DEV_LIB_PATH"/bin/"$1".sh
+fi
+
+# EOF

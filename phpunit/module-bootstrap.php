@@ -8,9 +8,11 @@
  */
 
 if ( ! getenv( 'WP_TESTS_DIR' ) ) {
-	exit( 'WP_TESTS_DIR is not set.' . PHP_EOL );
+	echo( 'WP_TESTS_DIR is not set.' . PHP_EOL );
+	exit( 1 );
 } elseif ( ! getenv( 'WORDPOINTS_TESTS_DIR' ) ) {
-	exit( 'WORDPOINTS_TESTS_DIR is not set.' . PHP_EOL );
+	echo( 'WORDPOINTS_TESTS_DIR is not set.' . PHP_EOL );
+	exit( 1 );
 }
 
 /**

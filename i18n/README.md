@@ -2,12 +2,12 @@
 
 ## POT Generation
 
-The `makepot.sh` script will generate or refresh your module's POT file. It will also
+The `makepot` script will generate or refresh your module's POT file. It will also
 refresh any PO files, and regenerate the MO files, too. To use it, all you need to do
 is run this from your project's root:
 
 ```bash
-dev-lib/i18n/makepot.sh
+dev-lib/run makepot
 ```
 
 The textdomain for your project will automatically be determined from the `Text 
