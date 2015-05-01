@@ -52,9 +52,9 @@ if [ ! -e wp-l10n-validator.json ]; then
 fi
 
 # Warn about a deprecated config file.
-if [ -e .ci-env ]; then
-	echo "$(tput setaf 1)Warning:$(tput sgr 0) found deprecated .ci-env config file"
-	echo Use .wordpoints-dev-lib-config instead
+if [ -e .ci-env.sh ]; then
+	echo "$(tput setaf 1)Warning:$(tput sgr 0) found deprecated .ci-env.sh config file"
+	echo Use .wordpoints-dev-lib-config.sh instead
 fi
 
 # EOF
