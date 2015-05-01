@@ -23,7 +23,7 @@ if [ ! -e .jshintrc ]; then
 fi
 
 # Symlink the jshint ignores configuration.
-if [ ! -e .jshintrc ]; then
+if [ ! -e .jshintignore ]; then
 	echo Symlinking jshint ignores config
 	ln -s "$DEV_LIB_PATH"/jshint/.jshintignore .
 fi
@@ -52,9 +52,9 @@ if [ ! -e wp-l10n-validator.json ]; then
 fi
 
 # Warn about a deprecated config file.
-if [ -e .ci-env ]; then
-	echo "$(tput setaf 1)Warning:$(tput sgr 0) found deprecated .ci-env config file"
-	echo Use .wordpoints-dev-lib-config instead
+if [ -e .ci-env.sh ]; then
+	echo "$(tput setaf 1)Warning:$(tput sgr 0) found deprecated .ci-env.sh config file"
+	echo Use .wordpoints-dev-lib-config.sh instead
 fi
 
 # EOF

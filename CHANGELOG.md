@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.0.1] - 2015-05-01
+### Changed
+- WPCS version to latest commit on `develop`. #63
+
+### Fixed
+- The `init` command not symlinking the `.jshintignore` file. #65
+- The `init` command not showing deprecated warning for `.ci-env.sh` file. #64
+
 ## [2.0.0] - 2015-05-01
 ### Added
 - This change log. #61
