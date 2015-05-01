@@ -77,7 +77,7 @@ wpdl-codesniff-bash() {
 wpdl-codesniff-symlinks() {
 	local files=$(find "${CODESNIFF_PATH[@]}" -type l ! -exec [ -e {} ] \; -print)
 
-	if [ ${#files[@]} != 0 ]; then
+	if [[ "${files[@]}" != '' ]]; then
 		echo "${files[@]}"
 		return 1
 	fi
