@@ -51,11 +51,14 @@
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
+		<properties>
+			<property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce" type="array" />
+		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.XSS.EscapeOutput">
 		<properties>
-			<property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce,wordpoints_format_points,wordpoints_sanitize_wp_error" type="array" />
+			<property name="customEscapingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_format_points,wordpoints_sanitize_wp_error" type="array" />
 		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
