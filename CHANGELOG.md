@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.0.3] - 2015-05-23
+### Added
+- `WordPress-Extra` and `WordPress-Docs` to the PHPCS ruleset. #69
+- `WordPoints_installables::*` and `WordPoints_Un_Installer_Base::map_shortcuts` to 
+the l10n validator ignores list. #68
+
+### Changed
+- WPCS version to latest commit on `develop`. #69
+
 ## [2.0.2] - 2015-05-01
 ### Fixed
 - Failure of broken symlink sniff even when there were no broken symlinks. #66
