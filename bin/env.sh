@@ -18,7 +18,7 @@ export PHPCS_GIT_TREE=master
 # WPCS
 export WPCS_DIR=/tmp/wpcs
 export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
-export WPCS_GIT_TREE=e7464c59c730ec304ea8c4f74beeacdb3dc785ab
+export WPCS_GIT_TREE=ec5ea0f31fdb1b354a427d31d53676227f1afdc3
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
 
 # WP L10n Validator
