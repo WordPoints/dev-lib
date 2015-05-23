@@ -2,6 +2,32 @@
 <ruleset name="WordPoints">
 	<description>Sniffs for the coding standards of the WordPoints plugin</description>
 
+	<rule ref="WordPress-Extra">
+		<exclude name="WordPress.Variables.GlobalVariables" />
+	</rule>
+
+	<rule ref="WordPress-Docs">
+		<!-- I usually put an empty line before the file comment -->
+		<exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen" />
+		<!-- This conflicts with heading comments within classes and EOF comments -->
+		<exclude name="Squiz.Commenting.InlineComment" />
+		<!-- These conflict with just putting a @since on child class var/method -->
+		<exclude name="Generic.Commenting.DocComment.MissingShort" />
+		<exclude name="Squiz.Commenting.VariableComment.MissingVar" />
+		<!-- Forbids having a blank line before a block comment. -->
+		<exclude name="Squiz.Commenting.BlockComment.HasEmptyLineBefore" />
+		<!-- Conflicts with array hash notation. -->
+		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
+		<!-- I like to leave out param docs on child methods and hooks. -->
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
+		<!-- https://github.com/squizlabs/PHP_CodeSniffer/issues/601 -->
+		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
+	</rule>
+	<!-- This will flag // Silence is golden index.php files. -->
+	<rule ref="Squiz.Commenting.FileComment.WrongStyle">
+		<exclude-pattern>*/index.php</exclude-pattern>
+	</rule>
+
 	<rule ref="WordPress-VIP">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
 		<exclude name="WordPress.VIP.SuperGlobalInputUsage" />
