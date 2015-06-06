@@ -31,7 +31,8 @@
 	<rule ref="WordPress-VIP">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
 		<exclude name="WordPress.VIP.SuperGlobalInputUsage" />
-		<exclude name="WordPress.VIP.DirectDatabaseQuery" /><!-- WordPoints/wordpoints#75 -->
+		<exclude name="WordPress.VIP.DirectDatabaseQuery.SchemaChange" />
+		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
 		<!--
 			These rules are excluded because they produce error-level false
 			positives. They will be added back in when the changes are committed to
@@ -48,6 +49,9 @@
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.VIP.DirectDatabaseQuery">
+		<properties>
+			<property name="customCacheDeleteFunctions" value="wordpoints_flush_points_logs_caches" type="array" />
+		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
