@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.0.4] - 2015-06-06
+## Added
+- `customUnslashingSanitizingFunctions` property configuration for the 
+`WordPress.VIP.ValidatedSanitizedInput` sniff. #71
+
+### Changed
+- WPCS version to latest commit on `develop`. #72
+- Enabled the `WordPress.VIP.DirectDatabaseQuery` sniff. #72
+
 ## [2.0.3] - 2015-05-23
 ### Added
 - `WordPress-Extra` and `WordPress-Docs` to the PHPCS ruleset. #69
