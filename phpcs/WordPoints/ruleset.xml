@@ -53,6 +53,7 @@
 	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
 		<properties>
 			<property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce" type="array" />
+			<property name="customUnslashingSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint" type="array" />
 		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
