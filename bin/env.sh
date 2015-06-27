@@ -2,7 +2,9 @@
 
 # Paths
 export WP_DEVELOP_DIR=/tmp/wordpress
-export WP_TESTS_DIR=/tmp/wordpress/tests/phpunit
+if [[ -z $WP_TESTS_DIR ]]; then
+	export WP_TESTS_DIR=/tmp/wordpress/tests/phpunit
+fi
 export WP_CORE_DIR=/tmp/wordpress/src
 export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
