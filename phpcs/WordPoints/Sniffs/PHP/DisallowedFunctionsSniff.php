@@ -36,7 +36,7 @@ class WordPoints_Sniffs_PHP_DisallowedFunctionsSniff
 			'wp_remote' => array(
 				'type'      => 'error',
 				'message'   => 'Using wp_remote_*() can lead to unsafe internal requests, use wp_safe_remote_*() instead.',
-				'functions' => array( 'wp_remote_*' ),
+				'functions' => array( 'wp_remote_(post|get|head|request)' ),
 			),
 		);
 	}
