@@ -4,17 +4,24 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.1.1] - 2015-07-22
+### Changed
+- WPCS version to latest commit on `develop` (0.6.0).
+
+### Fixed
+- Latest development version of the WP L10n Validator not being used. #80
+
 ## [2.1.0] - 2015-06-27
-## Added
+### Added
 - `WordPoints.PHP.DisallowedFunctions` sniff to flag usage of unserializing functions 
 (#76), non-`safe` `wp_remote_*()` functions (#73), and non-`safe` `wp_redirect()` 
 (#67).
 
-## Fixed
+### Fixed
 - Local `WP_TESTS_DIR` value being overwritten when running tests or `makepot`.
 
 ## [2.0.4] - 2015-06-06
-## Added
+### Added
 - `customUnslashingSanitizingFunctions` property configuration for the 
 `WordPress.VIP.ValidatedSanitizedInput` sniff. #71
 
