@@ -27,7 +27,7 @@ export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml;
 export DO_WPL10NV=$(if [ -e wp-l10n-validator.json ]; then echo 1; else echo 0; fi)
 export WPL10NV_DIR=/tmp/wp-l10n-validator
 export WPL10NV_GITHUB_SRC=JDGrimes/wp-l10n-validator
-export WPL10NV_GIT_TREE=master
+export WPL10NV_GIT_TREE=develop
 
 # PHPUnit
 export DO_PHPUNIT=$(if [ -e phpunit.xml.dist ]; then echo 1; else echo 0; fi)
