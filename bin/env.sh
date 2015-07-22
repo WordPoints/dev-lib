@@ -20,14 +20,14 @@ export PHPCS_GIT_TREE=master
 # WPCS
 export WPCS_DIR=/tmp/wpcs
 export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
-export WPCS_GIT_TREE=20fed0bcf6f72f6740a0ad3be6bcb3d99b69ca52
+export WPCS_GIT_TREE=a9a032ef2ce775bd5c45b52db98fda45efa87148
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
 
 # WP L10n Validator
 export DO_WPL10NV=$(if [ -e wp-l10n-validator.json ]; then echo 1; else echo 0; fi)
 export WPL10NV_DIR=/tmp/wp-l10n-validator
 export WPL10NV_GITHUB_SRC=JDGrimes/wp-l10n-validator
-export WPL10NV_GIT_TREE=master
+export WPL10NV_GIT_TREE=develop
 
 # PHPUnit
 export DO_PHPUNIT=$(if [ -e phpunit.xml.dist ]; then echo 1; else echo 0; fi)
