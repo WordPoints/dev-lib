@@ -80,6 +80,7 @@
 	<rule ref="PSR2.ControlStructures.ElseIfDeclaration" />
 
 	<rule ref="WordPoints.PHP.MissingEcho" />
+	<rule ref="WordPoints.PHP.RequiredParentMethodCall" />
 
 	<rule ref="WordPress.CSRF.NonceVerification">
 		<properties>
