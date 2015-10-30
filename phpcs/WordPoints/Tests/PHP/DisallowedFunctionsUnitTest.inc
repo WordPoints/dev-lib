@@ -12,3 +12,5 @@ wp_remote_get( $args ); // Bad
 wp_safe_remote_get( $args ); // OK
 
 $body = wp_remote_retrieve_body( $response ); // OK
+
+esc_sql( $data ); // Bad
