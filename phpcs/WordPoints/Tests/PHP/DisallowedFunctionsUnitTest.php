@@ -26,6 +26,7 @@ class WordPoints_Tests_PHP_DisallowedFunctionsUnitTest extends AbstractSniffUnit
 			9 => 1,
 			11 => 1,
 			16 => 1,
+			18 => 1,
 		);
 	}
 

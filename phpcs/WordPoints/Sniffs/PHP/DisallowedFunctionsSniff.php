@@ -23,6 +23,11 @@ class WordPoints_Sniffs_PHP_DisallowedFunctionsSniff
 	public function getGroups() {
 
 		return array(
+			'esc_js' => array(
+				'type'      => 'error',
+				'message'   => 'Do not use esc_js(), use wp_json_encode() instead.',
+				'functions' => array( 'esc_js' ),
+			),
 			'esc_sql' => array(
 				'type'      => 'error',
 				'message'   => 'Do not use esc_sql(), use $wpdb->prepare() instead.',
