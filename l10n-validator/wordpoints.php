@@ -44,6 +44,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Installables::install' => true,
 			'WordPoints_Installables::register' => true,
 			'WordPoints_Installables::uninstall' => true,
+			'WordPoints_Modules::register' => true,
 			'WordPoints_Points_Hook::_set' => true,
 			'WordPoints_Points_Hook::get_description' => true,
 			'WordPoints_Points_Hook::get_field_id' => true,
@@ -82,6 +83,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Un_Installer_Base::uninstall_metadata' => true,
 			'WordPoints_Un_Installer_Base::uninstall_' => true,
 			'WordPoints_Un_Installer_Base::update_' => true,
+			'WordPoints_Widget::get_field_name' => true,
 
 			// Instance methods.
 			'$hook->get_description' => true,

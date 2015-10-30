@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.2.0] - 2015-10-30
+### Added
+- `WordPoints.PHP.RequiredParentMethodCall` sniff to flag missing calls to
+`parent::setUp()`, etc. (#75).
+- `WordPoints_Modules::register()` and `WordPoints_Widget::get_field_name()`
+to the l10n validator ignores (#85 and #92).
+- `do_meta_boxes()`, `settings_errors()` and `$this->display_content` to the list of
+output functions in the `WordPoints.PHP.MissingEcho` sniff (#91).
+- `esc_sql()` to the list of disallowed functions in the
+`WordPoints.PHP.DisallowedFunctions` sniff (#90).
+- Exclusion for test files for the `WordPress.WP.PreparedSQL` sniff (#84).
+- WordPress 4.3 to the Travis CI config for PHPUnit tests.
+- `esc_js()` to the list of disallowed functions in the
+`WordPoints.PHP.DisallowedFunctions` sniff (#98).
+
+### Changed
+- `makepot` to inclue fuzzy strings in `.mo` files (#83).
+- Default PHPCS version to `4122da6604e2967c257d6c81151122d08cae60cf` (#95).
+- Default WPCS version to `a54499411fb9ca55a35fc7003422868cdd072ef2` (#96).
+
+### Removed
+- `boss` from jshint config (#93).
+
 ## [2.1.1] - 2015-07-22
 ### Changed
 - WPCS version to latest commit on `develop` (0.6.0).
@@ -132,3 +155,21 @@ automatically installed if there is a config file for it. #23
 ## [1.0.0] - 2015-02-17
 ### Added
 - Initial code.
+
+[Unreleased]: https://github.com/WordPoints/dev-lib/compare/master...develop
+[2.2.0]: https://github.com/WordPoints/dev-lib/compare/2.1.1...2.2.0
+[2.1.1]: https://github.com/WordPoints/dev-lib/compare/2.1.0...2.1.1
+[2.1.0]: https://github.com/WordPoints/dev-lib/compare/2.0.4...2.1.0
+[2.0.4]: https://github.com/WordPoints/dev-lib/compare/2.0.3...2.0.4
+[2.0.3]: https://github.com/WordPoints/dev-lib/compare/2.0.2...2.0.3
+[2.0.2]: https://github.com/WordPoints/dev-lib/compare/2.0.1...2.0.2
+[2.0.1]: https://github.com/WordPoints/dev-lib/compare/2.0.0...2.0.1
+[2.0.0]: https://github.com/WordPoints/dev-lib/compare/1.3.3...2.0.0
+[1.3.3]: https://github.com/WordPoints/dev-lib/compare/1.3.2...1.3.3
+[1.3.2]: https://github.com/WordPoints/dev-lib/compare/1.3.1...1.3.2
+[1.3.1]: https://github.com/WordPoints/dev-lib/compare/1.3.0...1.3.1
+[1.3.0]: https://github.com/WordPoints/dev-lib/compare/1.2.0...1.3.0
+[1.2.0]: https://github.com/WordPoints/dev-lib/compare/1.1.0...1.2.0
+[1.1.0]: https://github.com/WordPoints/dev-lib/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/WordPoints/dev-lib/compare/...1.0.0
+
