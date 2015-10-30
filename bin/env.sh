@@ -15,7 +15,7 @@ export CODESNIFF_PATH
 export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
 export PHPCS_DIR=/tmp/phpcs
 export PHPCS_GITHUB_SRC=squizlabs/PHP_CodeSniffer
-export PHPCS_GIT_TREE=master
+export PHPCS_GIT_TREE=4122da6604e2967c257d6c81151122d08cae60cf
 
 # WPCS
 export WPCS_DIR=/tmp/wpcs
