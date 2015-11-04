@@ -92,7 +92,12 @@
 	<rule ref="WordPress.WP.PreparedSQL">
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
-	
-	<exclude-pattern>/vendor/*,/dev-lib/*</exclude-pattern>
+
+	<rule ref="WordPoints.PHPUnit.MissingCovers">
+		<exclude-pattern>^((?!(.*/MissingCoversUnitTest\.inc$|/tests/phpunit/tests/.*)))</exclude-pattern>
+	</rule>
+
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/dev-lib/*</exclude-pattern>
 
 </ruleset>
