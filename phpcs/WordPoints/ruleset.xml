@@ -96,6 +96,9 @@
 	<rule ref="WordPoints.PHPUnit.MissingCovers">
 		<exclude-pattern>^((?!(.*/MissingCoversUnitTest\.inc$|/tests/phpunit/tests/.*)))</exclude-pattern>
 	</rule>
+	
+	<rule ref="Squiz.Scope.MethodScope"/>
+	<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
 
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/dev-lib/*</exclude-pattern>
