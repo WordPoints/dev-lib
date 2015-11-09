@@ -64,7 +64,7 @@ wpdl-codesniff-xmllint() {
 	local files=$(find "${CODESNIFF_PATH[@]}" -type f \( -name '*.xml' -o -name '*.xml.dist' \))
 
 	if [ ${#files[@]} != 0 ]; then
-		xmllint --noout "${files[@]}"
+		xmllint --noout ${files[@]}
 	fi
 }
 
