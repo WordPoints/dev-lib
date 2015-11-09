@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.3.0] - 2015-11-09
+### Added
+- `WordPoints.PHPUnit.MissingCovers` sniff to flag tests missing `@covers`
+annotations (#74).
+- `Squiz.Scope.MethodScope` and `Squiz.WhiteSpace.ScopeKeywordSpacing` sniffs (#101).
+
+### Removed
+- `WordPress.VIP.RestrictedFunctions.custom_role` error (#102).
+ 
+### Fixed
+- `xmllint` sniffing when multiple XML files are present (#103).
+
 ## [2.2.0] - 2015-10-30
 ### Added
 - `WordPoints.PHP.RequiredParentMethodCall` sniff to flag missing calls to
@@ -157,6 +169,7 @@ automatically installed if there is a config file for it. #23
 - Initial code.
 
 [Unreleased]: https://github.com/WordPoints/dev-lib/compare/master...develop
+[2.3.0]: https://github.com/WordPoints/dev-lib/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/WordPoints/dev-lib/compare/2.1.1...2.2.0
 [2.1.1]: https://github.com/WordPoints/dev-lib/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/WordPoints/dev-lib/compare/2.0.4...2.1.0
