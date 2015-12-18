@@ -3,7 +3,7 @@
 language: php
 
 php:
-  - nightly
+  - 7.0
 
 # Use the new infrustructure.
 sudo: false
