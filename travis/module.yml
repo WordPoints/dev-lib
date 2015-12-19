@@ -9,11 +9,14 @@ php:
     - 5.4
     - 5.5
     - 5.6
+    - 7.0
 
 env:
     - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=master WORDPOINTS_VERSION=master
     - TRAVISCI_RUN=phpunit WP_VERSION=master WORDPOINTS_VERSION=stable
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.4 WORDPOINTS_VERSION=master
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.4 WORDPOINTS_VERSION=stable
     - TRAVISCI_RUN=phpunit WP_VERSION=4.3 WORDPOINTS_VERSION=master
     - TRAVISCI_RUN=phpunit WP_VERSION=4.3 WORDPOINTS_VERSION=stable
     - TRAVISCI_RUN=phpunit WP_VERSION=4.2 WORDPOINTS_VERSION=master
@@ -38,6 +41,8 @@ matrix:
     - php: 5.5
       env: TRAVISCI_RUN=codesniff
     - php: 5.6
+      env: TRAVISCI_RUN=codesniff
+    - php: 7.0
       env: TRAVISCI_RUN=codesniff
   allow_failures:
     - php: hhvm

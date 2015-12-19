@@ -74,6 +74,12 @@ function wordpoints_dev_lib_load_module( $module_file ) {
 	 * @since 1.1.0
 	 */
 	do_action( "wordpoints_module_activate-{$module}", $network_wide );
+
+	WordPoints_Installables::install(
+		'module'
+		, WordPoints_Modules::get_slug( $module )
+		, $network_wide
+	);
 }
 
 /**
