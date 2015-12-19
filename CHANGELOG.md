@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.3.1] - 2015-12-19
+### Added
+- WordPress 4.4 to Travis CI matrixes.
+- PHP 7.0 to Travis CI matrixes.
+- Support for installing modules that use the installables API.
+
 ## [2.3.0] - 2015-11-09
 ### Added
 - `WordPoints.PHPUnit.MissingCovers` sniff to flag tests missing `@covers`
@@ -169,6 +175,7 @@ automatically installed if there is a config file for it. #23
 - Initial code.
 
 [Unreleased]: https://github.com/WordPoints/dev-lib/compare/master...develop
+[2.3.1]: https://github.com/WordPoints/dev-lib/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/WordPoints/dev-lib/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/WordPoints/dev-lib/compare/2.1.1...2.2.0
 [2.1.1]: https://github.com/WordPoints/dev-lib/compare/2.1.0...2.1.1
