@@ -3,7 +3,7 @@
 language: php
 
 php:
-  - nightly
+  - 7.0
 
 # Use the new infrustructure.
 sudo: false
@@ -20,7 +20,7 @@ script:
   - phpenv global 5.4 && find . -name '*.php' -exec php -lf {} \;
   - phpenv global 5.5 && find . -name '*.php' -exec php -lf {} \;
   - phpenv global 5.6 && find . -name '*.php' -exec php -lf {} \;
-  - phpenv global nightly && find . -name '*.php' -exec php -lf {} \;
+  - phpenv global 7.0 && find . -name '*.php' -exec php -lf {} \;
   - phpenv global hhvm && find . -name '*.php' -exec php -lf {} \;
 
 # EOF
