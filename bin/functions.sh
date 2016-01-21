@@ -115,7 +115,7 @@ wpdl-test-phpunit() {
 	fi
 
 	if [[ $DO_CODE_COVERAGE == 1 ]]; then
-		COVERAGE_OPTION=(--root_dir src --coverage-clover "build/logs/clover-$CLOVER_FILE.xml")
+		COVERAGE_OPTION=(--coverage-clover "build/logs/clover-$CLOVER_FILE.xml")
 	fi
 
 	phpunit "${GROUP_OPTION[@]}" "${COVERAGE_OPTION[@]}"
