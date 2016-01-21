@@ -100,6 +100,16 @@ if ( ! $has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() ) 
  */
 require( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/includes/bootstrap.php' );
 
+if ( file_exists( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php' ) ) {
+
+	/**
+	 * The speed trap listener from WordPress's test suite.
+	 *
+	 * @since 1.0.0
+	 */
+	require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php' );
+}
+
 if ( $has_uninstall_tester ) {
 
 	/**
