@@ -10,17 +10,19 @@ sudo: false
 
 before_script:
   - gem install travis-lint
+  - source bin/functions.sh
+  - export CODESNIFF_PATH=(.)
 
 script:
-  - xmllint --noout $(find . -type f \( -name '*.xml' -o -name '*.xml.dist' \))
-  - find . -name '*.sh' -exec bash -n {} \;
+  - wpdl-codesniff-xmllint
+  - wpdl-codesniff-bash
   - find ./travis -name '*.yml' ! -name '.coveralls.yml' -exec travis-lint {} \;
-  - phpenv global 5.2 && find . ! -path './phpcs/*' ! -path './l10n-validator/*' -name '*.php' -exec php -l {} \;
-  - phpenv global 5.3 && find . -name '*.php' -exec php -l {} \;
-  - phpenv global 5.4 && find . -name '*.php' -exec php -l {} \;
-  - phpenv global 5.5 && find . -name '*.php' -exec php -l {} \;
-  - phpenv global 5.6 && find . -name '*.php' -exec php -l {} \;
-  - phpenv global 7.0 && find . -name '*.php' -exec php -l {} \;
-  - phpenv global hhvm && find . -name '*.php' -exec php -l {} \;
+  - phpenv global 5.2 && CODESNIFF_PATH=(. ! -path './phpcs/*' ! -path './l10n-validator/*') wpdl-codesniff-php-syntax
+  - phpenv global 5.3 && wpdl-codesniff-php-syntax
+  - phpenv global 5.4 && wpdl-codesniff-php-syntax
+  - phpenv global 5.5 && wpdl-codesniff-php-syntax
+  - phpenv global 5.6 && wpdl-codesniff-php-syntax
+  - phpenv global 7.0 && wpdl-codesniff-php-syntax
+  - phpenv global hhvm && wpdl-codesniff-php-syntax
 
 # EOF
