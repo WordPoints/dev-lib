@@ -17,7 +17,7 @@ script:
   - wpdl-codesniff-xmllint
   - wpdl-codesniff-bash
   - find ./travis -name '*.yml' ! -name '.coveralls.yml' -exec travis-lint {} \;
-  - phpenv global 5.2 && CODESNIFF_PATH=(. ! -path './phpcs/*' ! -path './l10n-validator/*') wpdl-codesniff-php-syntax
+  - phpenv global 5.2 && CODESNIFF_PATH=(. '!' -path './phpcs/*' '!' -path './l10n-validator/*') wpdl-codesniff-php-syntax
   - phpenv global 5.3 && wpdl-codesniff-php-syntax
   - phpenv global 5.4 && wpdl-codesniff-php-syntax
   - phpenv global 5.5 && wpdl-codesniff-php-syntax
