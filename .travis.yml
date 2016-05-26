@@ -12,7 +12,7 @@ before_script:
   - gem install travis-lint
   - source bin/functions.sh
   - export CODESNIFF_PATH=(.)
-  - export CODESNIFF_PATH_5_2=(. '!' -path './phpcs/*' '!' -path './l10n-validator/*')
+  - CODESNIFF_PATH_5_2=(. '!' -path './phpcs/*' '!' -path './l10n-validator/*'); export CODESNIFF_PATH_5_2
 
 script:
   - wpdl-codesniff-xmllint
