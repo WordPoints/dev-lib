@@ -29,7 +29,7 @@ wpdl-codesniff() {
 
 # Check php files for syntax errors.
 wpdl-codesniff-php-syntax() {
-	find "${CODESNIFF_PATH[@]}" \( -name '*.php' -o -name '*.inc' \) -exec php -lf {} \;
+	find "${CODESNIFF_PATH[@]}" \( -name '*.php' -o -name '*.inc' \) -exec php -l {} \;
 }
 
 # Check php files with PHPCodeSniffer.
