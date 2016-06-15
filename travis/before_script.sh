@@ -30,6 +30,7 @@ fi
 # Set up.
 if [[ $TRAVISCI_RUN == phpunit ]]; then
 	setup-phpunit
+	setup-wpcept
 elif [[ $TRAVISCI_RUN == codesniff ]]; then
 	setup-codesniff
 fi

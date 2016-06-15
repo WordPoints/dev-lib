@@ -1,0 +1,2 @@
+tests/codeception/_output/*
+tests/codeception/**/_generated
