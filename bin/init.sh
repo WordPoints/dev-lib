@@ -51,6 +51,39 @@ if [ ! -e wp-l10n-validator.json ]; then
 	sed -i '' s/your-textdomain/"$text_domain"/ wp-l10n-validator.json
 fi
 
+# Update the .gitignore file
+if [ ! -e .gitignore ]; then
+
+	echo Symlinking .gitignore file
+	ln -s "$DEV_LIB_PATH"/git/.gitignore .gitignore
+
+elif [ ! -L .gitignore ]; then
+
+	# Make sure that the file ends in a newline, otherwise last line won't match.
+	sed -i '' -e '$a\' .gitignore
+
+	lines=$(diff "$DEV_LIB_PATH/git/.gitignore" .gitignore | grep "<" | sed 's/^< //g')
+
+	if [[ $lines != '' ]]; then
+		echo Updating .gitignore file
+		echo "$lines" >> .gitignore
+	fi
+fi
+
+# Symlink the Codeception configuration for Codeception testing.
+if [ ! -e codeception.dist.yml ]; then
+	echo Symlinking Codeception config
+	ln -s "$DEV_LIB_PATH"/wpcept/codeception.dist.yml codeception.dist.yml
+fi
+
+# Copy the Codeception tests scaffold.
+if [ ! -e tests/codeception ]; then
+	echo Copying Codeception tests scaffold
+	mkdir -p tests/codeception
+	cp -r "$DEV_LIB_PATH"/wpcept/scaffold/* tests/codeception
+	ln -s ../../"$DEV_LIB_PATH"/wpcept/bootstrap.php tests/codeception/bootstrap.php
+fi
+
 # Warn about a deprecated config file.
 if [ -e .ci-env.sh ]; then
 	echo "$(tput setaf 1)Warning:$(tput sgr 0) found deprecated .ci-env.sh config file"

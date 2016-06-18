@@ -8,7 +8,15 @@ fi
 export WP_CORE_DIR=/tmp/wordpress/src
 export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
+
+# Codesniff path
 CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*")
+
+# Codeception requires PHP 5.4+.
+if [[ $TRAVIS_PHP_VERSION == '5.2' || $TRAVIS_PHP_VERSION == '5.3' ]]; then
+	CODESNIFF_PATH+=('!' -path "./tests/codeception/*")
+fi
+
 export CODESNIFF_PATH
 
 # PHPCS
@@ -34,6 +42,10 @@ export DO_PHPUNIT=$(if [ -e phpunit.xml.dist ]; then echo 1; else echo 0; fi)
 export RUN_UNINSTALL_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>uninstall</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then echo 1; else echo 0; fi)
+
+# WP Browser (Codeception)
+export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '5.6' ]]; then echo 1; else echo 0; fi)
+export WP_CEPT_SERVER='127.0.0.1:8080'
 
 # WordPoints
 export WORDPOINTS_DEVELOP_DIR=/tmp/wordpoints

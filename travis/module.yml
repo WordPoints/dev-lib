@@ -72,6 +72,7 @@ script:
     - phpunit-ajax
     - phpunit-ms-ajax
     - phpunit-ms-network-ajax
+    - wpcept-run
 
 after_script:
     - source $DEV_LIB_PATH/travis/after_script.sh
