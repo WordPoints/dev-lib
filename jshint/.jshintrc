@@ -1,10 +1,15 @@
 {
+	"bitwise": true,
 	"curly": true,
 	"eqeqeq": true,
 	"eqnull": true,
 	"es3": true,
 	"expr": true,
+	"forin": true,
+	"freeze": true,
 	"immed": true,
+	"laxbreak": true,
+	"laxcomma": true,
 	"noarg": true,
 	"onevar": true,
 	"quotmark": "single",
@@ -13,6 +18,7 @@
 	"unused": true,
 
 	"browser": true,
+	"browserify": true,
 
 	"globals": {
 		"_": false,
