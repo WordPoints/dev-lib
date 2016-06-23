@@ -1,4 +1,4 @@
 **/vendor/**
-**.min.js
-**.manifested.js
+**/*.min.js
+**/*.manifested.js
 **/node_modules/**
