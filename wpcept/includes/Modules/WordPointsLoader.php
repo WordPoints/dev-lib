@@ -24,6 +24,11 @@ class WordPointsLoader extends Module {
 	/**
 	 * @since 1.0.0
 	 */
+	protected $config = array( 'module' => null );
+
+	/**
+	 * @since 1.0.0
+	 */
 	public function _cleanup() {
 
 		parent::_cleanup();
@@ -39,7 +44,10 @@ class WordPointsLoader extends Module {
 		// Load everything up and install it.
 		$this->load_wordpress();
 		$this->load_wordpoints();
-		$this->load_wordpoints_module();
+
+		if ( $this->config['module'] ) {
+			$this->load_wordpoints_module( $this->config['module'] );
+		}
 
 		// Disable time-consuming unnecessary features, like update checks.
 		$this->streamline_wordpress();
@@ -110,6 +118,10 @@ class WordPointsLoader extends Module {
 			);
 		}
 
+		// Initialize autoloading, since this is normally hooked to the modules
+		// loaded action, which has already been called.
+		\WordPoints_Class_Autoloader::init();
+
 		echo(
 			'Running WordPoints '
 			. WORDPOINTS_VERSION
@@ -123,23 +135,22 @@ class WordPointsLoader extends Module {
 	 *
 	 * @since 1.0.0
 	 *
+	 * @param string $module The module, e.g., 'module/module.php'.
+	 *
 	 * @throws ModuleException If there is an error activating the module.
 	 */
-	protected function load_wordpoints_module() {
+	protected function load_wordpoints_module( $module ) {
 
-		$result = wordpoints_activate_module( 'hooks-api/hooks-api.php' );
+		$result = wordpoints_activate_module( $module );
 
 		if ( is_wp_error( $result ) ) {
 			throw new ModuleException(
 				__CLASS__
-				,
-				"\nError activating WordPoints module: " . $result->get_error_message()
+				, "\nError activating WordPoints module: " . $result->get_error_message()
 			);
 		}
 
-		// Initialize autoloading, since this is normally hooked to the modules
-		// loaded action, which has already been called.
-		\WordPoints_Class_Autoloader::init();
+		echo "Running module {$module}\n";
 	}
 
 	/**
