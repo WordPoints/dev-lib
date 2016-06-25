@@ -157,7 +157,7 @@ class WordPointsLoader extends Module {
 			);
 		}
 
-		echo "Running module {$module}\n";
+		echo "Running WordPoints module {$module}\n";
 	}
 
 	/**
