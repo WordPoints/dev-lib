@@ -46,6 +46,13 @@ class WordPointsLoader extends Module {
 		$this->load_wordpoints();
 
 		if ( $this->config['module'] ) {
+
+			// Fix a bug in Codeception 2.2.1.
+			// (https://github.com/Codeception/Codeception/issues/3218)
+			if ( '%WORDPOINTS_MODULE%' === $this->config['module'] ) {
+				$this->config['module'] = getenv( 'WORDPOINTS_MODULE' );
+			}
+
 			$this->load_wordpoints_module( $this->config['module'] );
 		}
 

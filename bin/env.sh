@@ -54,4 +54,9 @@ if [[ -z $WORDPOINTS_VERSION ]]; then
 	export WORDPOINTS_VERSION=master
 fi
 
+# WordPoints Module
+if [[ $PROJECT_TYPE == module ]]; then
+	export WORDPOINTS_MODULE="${PROJECT_SLUG}\\${PROJECT_SLUG}.php"
+fi
+
 # EOF

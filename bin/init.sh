@@ -73,7 +73,7 @@ fi
 # Symlink the Codeception configuration for Codeception testing.
 if [ ! -e codeception.dist.yml ]; then
 	echo Symlinking Codeception config
-	ln -s "$DEV_LIB_PATH"/wpcept/codeception.dist.yml codeception.dist.yml
+	ln -s "$DEV_LIB_PATH"/wpcept/"$WORDPOINTS_PROJECT_TYPE".yml codeception.dist.yml
 fi
 
 # Copy the Codeception tests scaffold.
