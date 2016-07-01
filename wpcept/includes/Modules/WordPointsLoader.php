@@ -125,10 +125,6 @@ class WordPointsLoader extends Module {
 			);
 		}
 
-		// Initialize autoloading, since this is normally hooked to the modules
-		// loaded action, which has already been called.
-		\WordPoints_Class_Autoloader::init();
-
 		echo(
 			'Running WordPoints '
 			. WORDPOINTS_VERSION
