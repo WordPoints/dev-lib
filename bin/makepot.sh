@@ -14,7 +14,7 @@ php "$DEV_LIB_PATH/i18n/makepot.php" "$project_type" src "src/languages/$text_do
 echo 'Updating po/mo files (if any)'
 for file in $(find "src/languages" -name '*.po' -type f); do
 	msgmerge --backup=off --update "$file" "src/languages/$text_domain.pot"
-	msgfmt --use-fuzzy -o "${file%po}mo" "$file"
+	msgfmt -o "${file%po}mo" "$file"
 done
 
 echo Done.
