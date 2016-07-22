@@ -37,30 +37,11 @@ wpdl-codesniff-php-syntax() {
 
 # Check php autoloader fallback files for validity.
 wpdl-codesniff-php-autoloaders() {
-	if find "${CODESNIFF_PATH[@]}" -path '*/classes/index.php' \
-		| while read file; do wpdl-codesniff-php-autoloader "$file"; done \
+	if find "${CODESNIFF_PATH[@]}" -path './src/*/classes' \
+		| while read dir; do "${DEV_LIB_PATH}"/bin/verify-php-autoloader.sh "${dir}"/; done \
 		| grep "^Fatal error"
 	then
 		return 1;
-	fi
-}
-
-# Check a php autoloader fallback file for validity.
-wpdl-codesniff-php-autoloader() {
-	local autoloader=$1
-
-	if [[ 'src/includes/classes/index.php' != $autoloader ]]; then
-		local B='require("src/includes/classes/index.php");'
-
-		if [[ 'src/admin/includes/classes/index.php' != $autoloader ]] \
-			&& [[ $autoloader == *admin* ]]
-		then
-			B+='require("src/admin/includes/classes/index.php");'
-		fi
-
-		echo "\n" | php -B "${B}" -F "${autoloader}" --
-	else
-		php "${autoloader}"
 	fi
 }
 

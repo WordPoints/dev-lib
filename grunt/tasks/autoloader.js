@@ -9,7 +9,7 @@ var spawnSync;
 
 module.exports = function ( grunt ) {
 
-	grunt.registerMultiTask( 'autoloader', 'Generate the autoloader backup file.', function() {
+	grunt.registerMultiTask( 'autoloader', 'Generate the class map files for WordPoints\'s PHP autoloader', function() {
 
 		var src_dir = this.data.src_dir || 'src/',
 		 	failures = false,
@@ -23,6 +23,7 @@ module.exports = function ( grunt ) {
 				! generate_autoloader_file(
 					src_dir + class_dirs[ i ] + '/'
 					, this.data.filter
+					, this.data.prefix
 				)
 			) {
 				failures = true;
@@ -35,27 +36,31 @@ module.exports = function ( grunt ) {
 	/**
 	 * Generate the autoloader file for a directory.
 	 *
-	 * Generates a fallback file for the WordPoints autoloader, and checks that it
-	 * can successfully execute. A failure to execute successfully generally
-	 * indicates that the classes need to be sorted so that they load in a different
-	 * order.
+	 * Generates a class map file for the WordPoints autoloader, and verifies that
+	 * it will work as a fallback when SPL autoloading is disabled. A failure
+	 * usually indicates that the classes need to be sorted so that they load in a
+	 * different order when SPL is disabled.
 	 *
-	 * @param classes_dir {string} The path to the class directory to generate the
-	 *                             autoloader file for.
-	 * @param filter      {func}   A function to pass the list of files to for
-	 *                             filtering and sorting. Note that only class files
-	 *                             are passed, not interface files.
+	 * @param classes_dir {string}      The path to the class directory to generate
+	 *                                  the autoloader file for.
+	 * @param filter      {func}        A function to pass the list of files to for
+	 *                                  filtering and sorting. Note that only class
+	 *                                  files are passed, not interface files. The
+	 *                                  class directory is passed as the second
+	 *                                  parameter.
+	 * @param prefix      {string|func} A prefix for the classes in this directory,
+	 *                                  or a callback function to get the prefix. The
+	 *                                  callback will be passed the class directory.
 	 *
-	 * @returns {boolean} Whether the autoloader file was generated successfully. A
-	 *                    false result indicates that the generated file could not be
-	 *                    successfully executed by PHP.
+	 * @returns {boolean} Whether the autoloader file was generated successfully.
 	 */
-	function generate_autoloader_file( classes_dir, filter ) {
+	function generate_autoloader_file( classes_dir, filter, prefix ) {
 
-		var before = 'require_once( $dir . \'/',
-			after = '\' );\n',
-			includes = '$dir = dirname( __FILE__ );\n',
+		var includes = '',
 			contents,
+			class_name,
+			error,
+			result,
 			interfaces = [],
 			file = classes_dir + 'index.php',
 			class_files = grunt.file.expand(
@@ -84,22 +89,29 @@ module.exports = function ( grunt ) {
 		// We load interfaces first.
 		class_files = interfaces.concat( class_files );
 
-		// Implode all of the class files.
-		if ( class_files ) {
-			includes += before;
-			includes += class_files.join( after + before );
-			includes += after;
+		// Prepare the class map.
+		if ( typeof prefix === 'function' ) {
+			prefix = prefix( classes_dir );
+		}
+
+		for ( i = 0; i < class_files.length; i++ ) {
+
+			class_name = class_files[ i ].substr( 0, class_files[ i ].length - 4 /* .php */ );
+			class_name = class_name.replace( /\//g, '_' );
+
+			includes += '\t\'' + prefix + class_name + '\' => \''
+				+ class_files[ i ] + '\',\n';
 		}
 
 		if ( grunt.file.exists( file ) ) {
 			contents = grunt.file.read( file );
 		} else {
-			contents = '<?php\n// auto-generated {}\n';
+			contents = '<?php\nreturn array(\n\t// auto-generated {}\n);\n';
 		}
 
 		contents = contents.replace(
 			/auto-generated \{[^}]*}/,
-			'auto-generated {\n' + includes + '// }'
+			'auto-generated {\n' + includes + '\t// }'
 		);
 
 		grunt.file.write( file, contents );
@@ -109,27 +121,21 @@ module.exports = function ( grunt ) {
 			spawnSync = require( 'child_process' ).spawnSync;
 		}
 
-		var args = [ file ];
+		result = spawnSync(
+			__dirname + '/../../bin/verify-php-autoloader.sh'
+			, [ classes_dir ]
+		);
 
-		// Some files assume that others will already be loaded.
-		if ( 'src/includes/classes' !== classes_dir ) {
-			args = [ '-B', 'require("src/includes/classes/index.php");', '-F', file, '--' ];
-
-			if (
-				'src/admin/includes/classes' !== classes_dir
-				&& -1 !== classes_dir.indexOf( 'admin' )
-			) {
-				args[1] += 'require("src/admin/includes/classes/index.php");';
-			}
+		if ( result.error ) {
+			error = result.error.message;
+		} else if ( result.stderr && result.stderr.length ) {
+			error = result.stderr.toString();
 		}
 
-		var result = spawnSync( 'php', args,  { input: '\n' } );
-
-		if ( result.stderr && result.stderr.length ) {
+		if ( error ) {
 
 			grunt.log.error(
-				'Error executing autoload file ' + file + ':\n'
-					+ result.stderr.toString()
+				'Error testing autoload file ' + file + ':\n' + error
 			);
 
 			return false;
