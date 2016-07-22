@@ -9,6 +9,7 @@ php:
 sudo: false
 
 before_script:
+  - npm install -g jshint
   - gem install travis-lint
   - source bin/functions.sh
   - export CODESNIFF_PATH=(.)
