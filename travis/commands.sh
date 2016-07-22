@@ -138,6 +138,15 @@ codesniff-php-syntax() {
 	fi
 }
 
+# Check php autoloader fallback files for errors.
+codesniff-php-autoloaders() {
+	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master && $TRAVIS_PHP_VERSION != '5.3' ]]; then
+		wpdl-codesniff-php-autoloaders
+	else
+		echo 'Not running PHP autoloader fallback file check.'
+	fi
+}
+
 # Check php files with PHPCodeSniffer.
 codesniff-phpcs() {
 	if [[ $TRAVISCI_RUN == codesniff && $DO_PHPCS == 1 ]]; then
