@@ -15,7 +15,7 @@ module.exports = function ( grunt ) {
 		 	failures = false,
 			class_dirs = grunt.file.expand(
 				{ cwd: src_dir }
-				, [ '**/includes/classes' ]
+				, [ '**/classes' ]
 			);
 
 		for ( var i = 0; i < class_dirs.length; i++ ) {

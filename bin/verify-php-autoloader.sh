@@ -30,11 +30,11 @@ function simulate_autoload_fallback( $dir ) {
 $dir = $argv[1];
 
 // Sometimes classes in one map depend on classes in another, so we load those first.
-if ( $dir !== 'src/includes/classes/' ) {
-	simulate_autoload_fallback( 'src/includes/classes/' );
+if ( $dir !== 'src/classes/' ) {
+	simulate_autoload_fallback( 'src/classes/' );
 
-	if ( $dir !== 'src/admin/includes/classes/' && strpos( $dir, 'admin' ) ) {
-		simulate_autoload_fallback( 'src/admin/includes/classes/' );
+	if ( $dir !== 'src/admin/classes/' && strpos( $dir, 'admin' ) ) {
+		simulate_autoload_fallback( 'src/admin/classes/' );
 	}
 }
 
