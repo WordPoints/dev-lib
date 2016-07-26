@@ -55,7 +55,7 @@ if [[ -z $WORDPOINTS_VERSION ]]; then
 fi
 
 # WordPoints Module
-if [[ $PROJECT_TYPE == module ]]; then
+if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
 	export WORDPOINTS_MODULE="${PROJECT_SLUG}\\${PROJECT_SLUG}.php"
 fi
 
