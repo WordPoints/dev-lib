@@ -9,7 +9,7 @@ new_version=$2
 
 main_file=$(grep -l "Version:" src/*.php)
 
-sed -i '' -e 's/\(\* @\{0,1\}[Vv]\{1\}ersion:\{0,1\} *\)\([^\n ]*\)/\1'"$new_version"'/' \
+sed -i '' -e 's/\(@\{0,1\}[Vv]\{1\}ersion:\{0,1\} *\)\([^\n ]*\)/\1'"$new_version"'/' \
 	"$main_file";
 
 if [ -e ./src/includes/constants.php ]; then
