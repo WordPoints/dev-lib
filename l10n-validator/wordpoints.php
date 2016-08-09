@@ -92,6 +92,12 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 		)
 	);
 
+	$parser->add_ignored_properties(
+		array(
+			'WordPoints_Un_Installer_Base::$type' => true,
+		)
+	);
+
 	$parser->add_ignored_strings( array( '%points%' ) );
 });
 
