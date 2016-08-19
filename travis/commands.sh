@@ -98,7 +98,7 @@ setup-wpcept() {
 	composer require --prefer-source lucatume/wp-browser:1.10.11
 
 	# We start the server up early so that it has time to prepare.
-	php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" >/dev/null &
+	php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" >/dev/null 2>&1 &
 
 	# Start up the webdriver so that it has time to prepare as well.
 	phantomjs --webdriver=4444 >/dev/null &
