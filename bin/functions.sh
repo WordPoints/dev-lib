@@ -118,7 +118,12 @@ wpdl-codesniff-xmllint() {
 wpdl-codesniff-bash() {
 	local path=$(wpdl-get-codesniff-path BASH SYNTAX)
 
-	find "${!path}" -exec bash -n {} \;
+	local errors=$(find "${!path}" -exec bash -n {} \; 2>&1)
+
+	if [[ $errors != '' ]]; then
+		echo "${errors}"
+		return 1
+	fi
 }
 
 # Check for broken symlinks.
