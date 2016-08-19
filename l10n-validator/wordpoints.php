@@ -13,9 +13,9 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 		array(
 			// Functions.
 			'wordpoints_add_network_option' => true,
-			'wordpoints_add_points' => true,
+			'wordpoints_add_points' => array( 1, 2, 3, 4 ),
 			'wordpoints_add_rank' => array( 2, 3, 4 ),
-			'wordpoints_alter_points' => true,
+			'wordpoints_alter_points' => array( 1, 2, 3, 4 ),
 			'wordpoints_debug_message' => true,
 			'wordpoints_dir_include' => true,
 			'wordpoints_display_points' => true,
@@ -36,7 +36,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_register_points_logs_query' => true,
 			'wordpoints_show_admin_message' => array( 2 ),
 			'wordpoints_show_points_logs_query' => true,
-			'wordpoints_subtract_points' => true,
+			'wordpoints_subtract_points' => array( 1, 2, 3, 4 ),
 			'wordpoints_verify_nonce' => true,
 
 			// Class methods.
