@@ -11,6 +11,7 @@
 	"laxbreak": true,
 	"laxcomma": true,
 	"noarg": true,
+	"nonbsp": true,
 	"onevar": true,
 	"quotmark": "single",
 	"trailing": true,
