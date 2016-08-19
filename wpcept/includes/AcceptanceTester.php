@@ -52,14 +52,14 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 	/**
-	 * Wait for a new reaction to be displayed on the screen.
+	 * Wait for an element to become interactable.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
-	 * @param string $context The context in which the reaction should appear.
+	 * @param string $element The element that should become interactable.
 	 * @param int    $timeout The number of seconds to wait before timing out.
 	 */
-	public function waitForNewReaction( $context = '', $timeout = null ) {
+	public function waitUntilElementInteractable( $element, $timeout = null ) {
 
 		$I = $this;
 
@@ -68,7 +68,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		// reaction  will result in an error: "Element is not currently interactable
 		// and may not be manipulated."
 		$I->waitForElementChange(
-			"{$context} .wordpoints-hook-reaction.new [name=description]"
+			$element
 			, function ( \Facebook\WebDriver\WebDriverElement $element ) {
 
 				try {
@@ -86,6 +86,22 @@ class AcceptanceTester extends \Codeception\Actor {
 
 				return ! isset( $e );
 			}
+			, $timeout
+		);
+	}
+
+	/**
+	 * Wait for a new reaction to be displayed on the screen.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $context The context in which the reaction should appear.
+	 * @param int    $timeout The number of seconds to wait before timing out.
+	 */
+	public function waitForNewReaction( $context = '', $timeout = null ) {
+
+		$this->waitUntilElementInteractable(
+			"{$context} .wordpoints-hook-reaction.new [name=description]"
 			, $timeout
 		);
 	}
