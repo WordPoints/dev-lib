@@ -3,8 +3,8 @@
 /**
  * WordPoints Loader Codeception test module.
  *
- * @package wordpoints-hooks-api
- * @since   1.0.0
+ * @package WordPoints_Dev_Lib
+ * @since   2.4.0
  */
 
 namespace WordPoints\Tests\Codeception\Modules;
@@ -17,17 +17,17 @@ use Codeception\TestCase;
 /**
  * A module to load and activate WordPoints in the context of the tests.
  *
- * @since 1.0.0
+ * @since 2.4.0
  */
 class WordPointsLoader extends Module {
 
 	/**
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected $config = array( 'module' => null );
 
 	/**
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	public function _cleanup() {
 
@@ -37,7 +37,7 @@ class WordPointsLoader extends Module {
 	}
 
 	/**
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	public function _initialize() {
 
@@ -71,7 +71,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Loads WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @throws ModuleException If the path to the tests directory isn't set.
 	 */
@@ -93,7 +93,7 @@ class WordPointsLoader extends Module {
 		/**
 		 * Sets up the WordPress test environment.
 		 *
-		 * @since 1.0.0
+		 * @since 2.4.0
 		 */
 		require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
 
@@ -110,7 +110,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Load and activate WordPoints.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @throws ModuleException If there is an error activating WordPoints.
 	 */
@@ -136,7 +136,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Load and activate the module.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param string $module The module, e.g., 'module/module.php'.
 	 *
@@ -159,7 +159,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Disable time-consuming WordPress features that are unneeded during our tests.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function streamline_wordpress() {
 
@@ -174,7 +174,7 @@ class WordPointsLoader extends Module {
 	 * Checking for updates can seriously slow down WordPress. We don't need to run
 	 * these checks during the tests, so we disable them.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function disable_update_checks() {
 
@@ -196,7 +196,7 @@ class WordPointsLoader extends Module {
 	 * Fetching these feeds can slow down WordPress. We don't need to fetch them
 	 * during the tests, so we disable them.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function disable_dashboard_feed_widgets() {
 
@@ -214,7 +214,7 @@ class WordPointsLoader extends Module {
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/compression_test/
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function disable_compression_testing() {
 		update_option( 'can_compress_scripts', 1 );
@@ -223,7 +223,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Get the name of the database dump file.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function get_db_dump_file_name() {
 
@@ -233,7 +233,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Creates a dump of the database using `mysqldump`.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param string $dump_file The file to dump the database to.
 	 *
@@ -265,7 +265,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Reset the database to the unaltered state.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function reset_db() {
 
@@ -276,7 +276,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Drop all of the database tables.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function drop_db_tables() {
 
@@ -300,7 +300,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Loads the data from the database dump into the database.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param string $dump_file The path to the dump file to load into the DB.
 	 *
@@ -332,7 +332,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Suspend object caching in WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function suspend_caching() {
 		wp_suspend_cache_addition( true );
@@ -341,7 +341,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * Flush the WordPress object cache.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	protected function flush_cache() {
 		wp_cache_flush();

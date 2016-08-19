@@ -3,8 +3,8 @@
 /**
  * Acceptance tester class.
  *
- * @package wordpoints-hooks-api
- * @since 1.0.0
+ * @package WordPoints_Dev_Lib
+ * @since 2.4.0
  */
 
 namespace WordPoints\Tests\Codeception;
@@ -12,7 +12,7 @@ namespace WordPoints\Tests\Codeception;
 /**
  * Tester for use in the acceptance tests.
  *
- * @since 1.0.0
+ * @since 2.4.0
  */
 class AcceptanceTester extends \Codeception\Actor {
 
@@ -27,7 +27,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * @link https://github.com/Codeception/Codeception/issues/2900
 	 * @link http://sqa.stackexchange.com/q/18244/18542
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	public function amLoggedInAsAdmin() {
 		$this->loginAsAdmin();
@@ -39,7 +39,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * This saves a step by taking you directly to the desired page after logging in,
 	 * instead of to the dashboard.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param string $page The page to redirect to after logging in.
 	 */
@@ -93,7 +93,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	/**
 	 * Wait for a new reaction to be displayed on the screen.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param string $context The context in which the reaction should appear.
 	 * @param int    $timeout The number of seconds to wait before timing out.
@@ -109,7 +109,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	/**
 	 * Asserts that a success message is being displayed.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 */
 	public function seeSuccessMessage() {
 		$this->seeElement( '.notice.updated' );
@@ -118,7 +118,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	/**
 	 * Assert that a dialog is displayed.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param string $title The title of the dialog.
 	 */
@@ -134,7 +134,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	/**
 	 * Creates a points type in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param array $settings Settings for this points type.
 	 */
@@ -150,7 +150,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	/**
 	 * Asserts taht a points type exists in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param string $slug The slug of the points type.
 	 */
@@ -161,7 +161,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	/**
 	 * Creates a points reaction in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param array $settings Settings for the reaction.
 	 *
@@ -195,7 +195,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	/**
 	 * Asserts that a points reaction is in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 2.4.0
 	 *
 	 * @param int $reaction_id The ID of the reaction.
 	 */

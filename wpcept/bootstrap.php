@@ -4,7 +4,7 @@
  * This is global bootstrap for autoloading for the codeception tests.
  *
  * @package WordPoints\Codeception
- * @since 1.0.0
+ * @since 2.4.0
  */
 
 Codeception\Util\Autoload::addNamespace(
