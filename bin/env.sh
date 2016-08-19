@@ -11,13 +11,23 @@ export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
 
 # Codesniff path
 CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*")
+CODESNIFF_PATH_PHP=("${CODESNIFF_PATH[@]}" '(' -name '*.php' -o -name '*.inc' ')')
+CODESNIFF_PATH_PHP_AUTOLOADERS=("${CODESNIFF_PATH_PHP[@]}" -path './src/*/classes')
 
 # Codeception requires PHP 5.4+.
 if [[ $TRAVIS_PHP_VERSION == '5.2' || $TRAVIS_PHP_VERSION == '5.3' ]]; then
-	CODESNIFF_PATH+=('!' -path "./tests/codeception/*")
+	CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./tests/codeception/*")
 fi
 
+CODESNIFF_PATH_XML=("${CODESNIFF_PATH[@]}" '(' -name '*.xml' -o -name '*.xml.dist' ')')
+CODESNIFF_PATH_BASH=("${CODESNIFF_PATH[@]}" -name '*.sh')
+
 export CODESNIFF_PATH
+export CODESNIFF_PATH_PHP
+export CODESNIFF_PATH_PHP_AUTOLOADERS
+export CODESNIFF_PATH_PHP_SYNTAX
+export CODESNIFF_PATH_XML
+export CODESNIFF_PATH_BASH
 
 # PHPCS
 export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)

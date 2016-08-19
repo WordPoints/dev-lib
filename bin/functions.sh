@@ -28,16 +28,47 @@ wpdl-codesniff() {
 	wpdl-codesniff-symlinks
 }
 
+# Get the path to sniff.
+wpdl-get-codesniff-path() {
+
+	local path_var=("CODESNIFF_PATH[@]")
+
+	if [ ! -z "$1" ]; then
+
+		local var="CODESNIFF_PATH_${1}"
+		local other_var=
+
+		if [ ! -z "${!var}" ]; then
+
+			if [ ! -z "$2" ]; then
+    			other_var="${var}_${2}"
+
+    			if [ ! -z "${!other_var}" ]; then
+    				var=$other_var
+    			fi
+    		fi
+
+			path_var="${var}[@]"
+		fi
+	fi
+
+	echo "${path_var}";
+}
+
 # Check php files for syntax errors.
 wpdl-codesniff-php-syntax() {
-	if find "${CODESNIFF_PATH[@]}" \( -name '*.php' -o -name '*.inc' \) -exec php -l {} \; | grep "^Parse error"; then
+	local path=$(wpdl-get-codesniff-path PHP SYNTAX)
+
+	if find "${!path}" -exec php -l {} \; | grep "^Parse error"; then
 		return 1;
 	fi;
 }
 
 # Check php autoloader fallback files for validity.
 wpdl-codesniff-php-autoloaders() {
-	if find "${CODESNIFF_PATH[@]}" -path './src/*/classes' \
+	local path=$(wpdl-get-codesniff-path PHP AUTOLOADERS)
+
+	if find "${!path}" \
 		| while read dir; do "${DEV_LIB_PATH}"/bin/verify-php-autoloader.sh "${dir}"/; done \
 		| grep "^Fatal error"
 	then
@@ -47,7 +78,8 @@ wpdl-codesniff-php-autoloaders() {
 
 # Check php files with PHPCodeSniffer.
 wpdl-codesniff-phpcs() {
-	local files=$(find "${CODESNIFF_PATH[@]}" -name '*.php')
+	local path=$(wpdl-get-codesniff-path PHP PHPCS)
+	local files=$(find "${!path}")
 
 	if [ ! -e $PHPCS_DIR ]; then
 		local phpcs=phpcs
@@ -74,7 +106,8 @@ wpdl-codesniff-l10n() {
 
 # Check XML files for syntax errors.
 wpdl-codesniff-xmllint() {
-	local files=$(find "${CODESNIFF_PATH[@]}" -type f \( -name '*.xml' -o -name '*.xml.dist' \))
+	local path=$(wpdl-get-codesniff-path XML XMLLINT)
+	local files=$(find "${!path}" -type f)
 
 	if [ ${#files[@]} != 0 ]; then
 		xmllint --noout ${files[@]}
@@ -83,12 +116,15 @@ wpdl-codesniff-xmllint() {
 
 # Check bash files for syntax errors.
 wpdl-codesniff-bash() {
-	find "${CODESNIFF_PATH[@]}" -name '*.sh' -exec bash -n {} \;
+	local path=$(wpdl-get-codesniff-path BASH SYNTAX)
+
+	find "${!path}" -exec bash -n {} \;
 }
 
 # Check for broken symlinks.
 wpdl-codesniff-symlinks() {
-	local files=$(find "${CODESNIFF_PATH[@]}" -type l ! -exec [ -e {} ] \; -print)
+	local path=$(wpdl-get-codesniff-path SYMLINKS)
+	local files=$(find "${!path}" -type l ! -exec [ -e {} ] \; -print)
 
 	if [[ "${files[@]}" != '' ]]; then
 		echo "${files[@]}"
