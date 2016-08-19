@@ -17,4 +17,8 @@ if [ -e ./src/includes/constants.php ]; then
 		./src/includes/constants.php
 fi
 
+if [ -e ./package.json ]; then
+	sed -i '' -e 's/"version": "[^"]*"/"version": "'"${new_version}"'"/' ./package.json
+fi
+
 # EOF
