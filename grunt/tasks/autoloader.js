@@ -122,7 +122,7 @@ module.exports = function ( grunt ) {
 		}
 
 		result = spawnSync(
-			__dirname + '/../../bin/verify-php-autoloader.sh'
+			__dirname + '/../../bin/verify-php-autoloader'
 			, [ classes_dir ]
 		);
 

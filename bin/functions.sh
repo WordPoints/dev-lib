@@ -69,7 +69,7 @@ wpdl-codesniff-php-autoloaders() {
 	local path=$(wpdl-get-codesniff-path PHP AUTOLOADERS)
 
 	if find "${!path}" \
-		| while read dir; do "${DEV_LIB_PATH}"/bin/verify-php-autoloader.sh "${dir}"/; done \
+		| while read dir; do "${DEV_LIB_PATH}"/bin/verify-php-autoloader "${dir}"/; done \
 		| grep "^Fatal error"
 	then
 		return 1;
