@@ -14,7 +14,7 @@ params:
 modules:
     config:
         WPWebDriver:
-            url: 'http://wptests.local'
+            url: 'http://127.0.0.1:8080'
             browser: phantomjs
             window_size: '1024x768'
             adminUsername: admin

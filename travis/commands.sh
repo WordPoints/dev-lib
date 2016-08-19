@@ -266,8 +266,6 @@ wpcept-run() {
 	echo "require_once(ABSPATH . 'wp-settings.php');" >> wp-config.php
 	cd -
 
-	sed -i "s/wptests.local/$WP_CEPT_SERVER/" codeception.dist.yml
-
 	vendor/bin/wpcept run
 }
 
