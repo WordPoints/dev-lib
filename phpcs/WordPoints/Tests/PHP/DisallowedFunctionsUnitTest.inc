@@ -16,3 +16,5 @@ $body = wp_remote_retrieve_body( $response ); // OK
 esc_sql( $data ); // Bad
 
 esc_js( $data ); // Bad
+
+gmdate( $data ); // Bad

@@ -33,6 +33,11 @@ class WordPoints_Sniffs_PHP_DisallowedFunctionsSniff
 				'message'   => 'Do not use esc_sql(), use $wpdb->prepare() instead.',
 				'functions' => array( 'esc_sql' ),
 			),
+			'gmdate' => array(
+				'type'      => 'error',
+				'message'   => 'No need to use gmdate(), use date() instead, as it is always UTC in WordPress.',
+				'functions' => array( 'gmdate' ),
+			),
 			'unserialize' => array(
 				'type'      => 'error',
 				'message'   => 'Do not unserialize untrusted data.',
