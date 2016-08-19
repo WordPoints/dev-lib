@@ -127,6 +127,13 @@ if ( $has_uninstall_tester ) {
 	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/bootstrap.php' );
 }
 
+/**
+ * The class autoloader for the PHPUnit helper classes.
+ *
+ * @since 2.4.0
+ */
+require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
+
 if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/bootstrap.php' ) ) {
 
 	/**
