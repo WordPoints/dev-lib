@@ -12,7 +12,7 @@ before_script:
   - npm install -g jshint
   - gem install travis-lint
   - export DEV_LIB_PATH=none
-  - source bin/evn.sh
+  - source bin/env.sh
   - source bin/functions.sh
 
 script:
