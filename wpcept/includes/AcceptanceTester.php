@@ -179,7 +179,7 @@ class AcceptanceTester extends \Codeception\Actor {
 			'log_text'    => 'Test log text.',
 		);
 
-		$settings = array_merge( $settings, $defaults );
+		$settings = array_merge( $defaults, $settings );
 
 		if ( ! wordpoints_is_points_type( $settings['points_type'] ) ) {
 			$this->hadCreatedAPointsType(
