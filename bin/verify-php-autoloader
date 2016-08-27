@@ -37,10 +37,10 @@ for ( $i = 2; $i < $count; $i++ ) {
 }
 
 // Sometimes classes in one map depend on classes in another, so we load those first.
-if ( $dir !== 'src/classes/' ) {
+if ( 'src/classes/' !== $dir ) {
 	simulate_autoload_fallback( 'src/classes/' );
 
-	if ( $dir !== 'src/admin/classes/' && strpos( $dir, 'admin' ) ) {
+	if ( 'src/admin/classes/' !== $dir && strpos( $dir, 'admin' ) ) {
 		simulate_autoload_fallback( 'src/admin/classes/' );
 	}
 }
