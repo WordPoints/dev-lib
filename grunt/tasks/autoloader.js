@@ -12,7 +12,7 @@ module.exports = function ( grunt ) {
 	grunt.registerMultiTask( 'autoloader', 'Generate the class map files for WordPoints\'s PHP autoloader', function() {
 
 		var src_dir = this.data.src_dir || 'src/',
-		 	failures = false,
+			failures = false,
 			class_dirs = grunt.file.expand(
 				{ cwd: src_dir }
 				, [ '**/classes' ]
@@ -24,6 +24,7 @@ module.exports = function ( grunt ) {
 					src_dir + class_dirs[ i ] + '/'
 					, this.data.filter
 					, this.data.prefix
+					, this.data.dependencies
 				)
 			) {
 				failures = true;
@@ -51,10 +52,12 @@ module.exports = function ( grunt ) {
 	 * @param prefix      {string|func} A prefix for the classes in this directory,
 	 *                                  or a callback function to get the prefix. The
 	 *                                  callback will be passed the class directory.
+	 * @param dependencies {string[]}   Autoload files for any dependencies of the
+	 * 									classes.
 	 *
 	 * @returns {boolean} Whether the autoloader file was generated successfully.
 	 */
-	function generate_autoloader_file( classes_dir, filter, prefix ) {
+	function generate_autoloader_file( classes_dir, filter, prefix, dependencies ) {
 
 		var includes = '',
 			contents,
@@ -77,7 +80,6 @@ module.exports = function ( grunt ) {
 
 				interfaces.push( class_files[ i ] );
 				class_files.splice( i, 1 );
-
 			}
 		}
 
@@ -123,7 +125,7 @@ module.exports = function ( grunt ) {
 
 		result = spawnSync(
 			__dirname + '/../../bin/verify-php-autoloader'
-			, [ classes_dir ]
+			, [ classes_dir ].concat( dependencies )
 		);
 
 		if ( result.error ) {

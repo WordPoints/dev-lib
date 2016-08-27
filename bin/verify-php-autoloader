@@ -29,6 +29,13 @@ function simulate_autoload_fallback( $dir ) {
 
 $dir = $argv[1];
 
+// Load dependencies.
+$count = count( $argv );
+
+for ( $i = 2; $i < $count; $i++ ) {
+	simulate_autoload_fallback( $argv[ $i ] );
+}
+
 // Sometimes classes in one map depend on classes in another, so we load those first.
 if ( $dir !== 'src/classes/' ) {
 	simulate_autoload_fallback( 'src/classes/' );
