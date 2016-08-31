@@ -20,7 +20,6 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_debug_message' => true,
 			'wordpoints_dir_include' => true,
 			'wordpoints_display_points' => true,
-			'wordpoints_enqueue_datatables' => array( 1 ),
 			'wordpoints_escape_mysql_identifier' => true,
 			'wordpoints_format_points' => true,
 			'wordpoints_get_array_option' => true,
