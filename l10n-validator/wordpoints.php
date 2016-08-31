@@ -156,6 +156,8 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Entity_Attr_Field::$field' => true,
 			'WordPoints_Entity_Attr_Field::$storage_type' => true,
 			'WordPoints_Entity::$context' => true,
+			'WordPoints_Entity::$human_id_field' => true,
+			'WordPoints_Entity::$id_field' => true,
 			'WordPoints_Entity_Context::$parent_slug' => true,
 			'WordPoints_Entity_Relationship::$primary_entity_slug' => true,
 			'WordPoints_Entity_Relationship::$related_entity_slug' => true,
