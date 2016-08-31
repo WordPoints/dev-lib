@@ -200,7 +200,14 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 		)
 	);
 
-	$parser->add_ignored_strings( array( '%points%' ) );
+	$parser->add_ignored_strings(
+		array(
+			'%points%', // Placeholder.
+			'db', // Entity storage info.
+			'table', // Entity storage info.
+			'WordPoints_Hook_Arg',
+		)
+	);
 });
 
 // EOF
