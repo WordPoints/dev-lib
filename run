@@ -17,7 +17,26 @@ source "$DEV_LIB_PATH"/bin/functions.sh
 
 # Allow config vars and functions to be overridden.
 if [ "$(declare -f wordpoints-dev-lib-config )" ]; then
+
+	# Back up the base path.
+	BACKUP_CODESNIFF_PATH=$CODESNIFF_PATH
+
 	wordpoints-dev-lib-config
+
+	# If it was modified, make sure that this path is updated as well. This assumes
+	# that something was added to it, and nothing removed from it. We do this for
+	# back-compat.
+	if [[ ${#CODESNIFF_PATH} != ${#BACKUP_CODESNIFF_PATH} ]]; then
+
+		CODESNIFF_PATH_PHP+=${BACKUP_CODESNIFF_PATH[@]:${#CODESNIFF_PATH[@]}}
+		CODESNIFF_PATH_PHP_AUTOLOADERS+=${BACKUP_CODESNIFF_PATH[@]:${#CODESNIFF_PATH[@]}}
+		CODESNIFF_PATH_XML+=${BACKUP_CODESNIFF_PATH[@]:${#CODESNIFF_PATH[@]}}
+		CODESNIFF_PATH_BASH+=${BACKUP_CODESNIFF_PATH[@]:${#CODESNIFF_PATH[@]}}
+
+		if [ -z ${CODESNIFF_PATH_PHP_SYNTAX} ]; then
+			CODESNIFF_PATH_PHP_SYNTAX+=${BACKUP_CODESNIFF_PATH[@]:${#CODESNIFF_PATH[@]}}
+		fi
+	fi
 fi
 
 # If this command is handled by a function, call it. Otherwise, source the file.

@@ -1,0 +1,6 @@
+node_modules
+tests/codeception/_output/*
+tests/codeception/**/_generated
+vendor
+codeception.yml
+phpunit.xml

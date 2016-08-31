@@ -70,6 +70,7 @@
 	</rule>
 	<rule ref="WordPress.VIP.FileSystemWritesDisallow">
 		<exclude-pattern>/tools/*</exclude-pattern>
+		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
@@ -77,7 +78,7 @@
 			<property name="blank_line_after_check" value="0" />
 		</properties>
 	</rule>
-	
+
 	<rule ref="PSR2.ControlStructures.ElseIfDeclaration" />
 
 	<rule ref="WordPoints.PHP.MissingEcho" />
@@ -97,9 +98,13 @@
 	<rule ref="WordPoints.PHPUnit.MissingCovers">
 		<exclude-pattern>^((?!(.*/MissingCoversUnitTest\.inc$|/tests/phpunit/tests/.*)))</exclude-pattern>
 	</rule>
-	
+
 	<rule ref="Squiz.Scope.MethodScope"/>
 	<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
+
+	<rule ref="Generic.Files.LowercasedFilename.NotFound">
+		<exclude-pattern>/tests/codeception/*</exclude-pattern>
+	</rule>
 
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/dev-lib/*</exclude-pattern>

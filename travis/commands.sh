@@ -6,7 +6,7 @@ setup-composer() {
 	# We always need to do this when collecting code coverage, even if there are no
 	# composer dependencies.
 	if [[ $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
-		composer require --prefer-source satooshi/php-coveralls:dev-master
+		composer require --prefer-source satooshi/php-coveralls:0.7.0
 		mkdir -p build/logs
 		return;
 	fi
@@ -87,6 +87,23 @@ setup-phpunit() {
 	fi
 }
 
+# Set up for WP Browser (Codeception) tests.
+setup-wpcept() {
+
+	if [[ $DO_WP_CEPT == 0 ]]; then
+		return
+	fi
+
+	composer require --prefer-source codeception/codeception:2.1.4
+	composer require --prefer-source lucatume/wp-browser:1.10.11
+
+	# We start the server up early so that it has time to prepare.
+	php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" >/dev/null 2>&1 &
+
+	# Start up the webdriver so that it has time to prepare as well.
+	phantomjs --webdriver=4444 >/dev/null &
+}
+
 # Set up for the codesniff pass.
 setup-codesniff() {
 
@@ -118,6 +135,15 @@ codesniff-php-syntax() {
 		wpdl-codesniff-php-syntax
 	else
 		echo 'Not running PHP syntax check.'
+	fi
+}
+
+# Check php autoloader fallback files for errors.
+codesniff-php-autoloaders() {
+	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master && $TRAVIS_PHP_VERSION != '5.3' ]]; then
+		wpdl-codesniff-php-autoloaders
+	else
+		echo 'Not running PHP autoloader fallback file check.'
 	fi
 }
 
@@ -223,6 +249,24 @@ phpunit-ms-network-uninstall() {
 # Run Ajax tests in multisite in network mode.
 phpunit-ms-network-ajax() {
 	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic ajax ms-network
+}
+
+wpcept-run() {
+
+	if [[ $DO_WP_CEPT == 0 ]]; then
+		echo Not running codecept tests.
+		return
+	fi
+
+	# Configure WordPress for access through a web server.
+	# We don't do this during set up because it can mess up the PHPUnit tests.
+	cd "$WP_DEVELOP_DIR"
+	sed -i "s/example.org/$WP_CEPT_SERVER/" wp-tests-config.php
+	cp wp-tests-config.php wp-config.php
+	echo "require_once(ABSPATH . 'wp-settings.php');" >> wp-config.php
+	cd -
+
+	vendor/bin/wpcept run
 }
 
 # EOF

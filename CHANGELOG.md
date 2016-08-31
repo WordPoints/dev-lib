@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.4.0] - 2016-08-31
+### Added
+- Listener for slow PHPUnit tests. (#110)
+- Codeception testing support and basic scaffold to be copied over to projects on `init`. (#46)
+- Basic `.gitignore` file, which ignores composer and npm artifacts (#122). (#46)
+- `bitwise`, `forin`, `freeze`, `laxbreak`, `laxcomma`, `nonbsp` (#148), and `browserify` to the JSHint configuration. (#120)
+- `src` directory to the code coverage whitelist in the PHPUnit config. (#123)
+- Ignore browserified files when running JSHint. (#119)
+- Grunt task to automatically generate PHP class maps for WordPoints's autoloader. (#126)
+- `update` command to easily update the library: `dev-lib/run update`. (#118)
+- Autoloader for PHPUnit tests and helpers. (#127)
+- PHPCS rule to recommend `date()` over `gmdate()`. (#144)
+- Ignore rules relating to the new Hooks and Entities APIs to the l10n validator configuration. (#158)
+
+### Changed
+- WordPress versions in Travis build matrices to reflect the support for the latest version of WordPoints.
+- PHPCS config to allow filesystem writes in tests. (#132)
+- `makepot` command to no longer use fuzzy strings. (#140)
+- Codesniffing paths to be more granular. (#113)
+- `update-version` command to also update the version in `package.json`, if present. (#121)
+- Configuration for the l10n validator not to ignore the `$log_text` and `$meta` args for the `wordpoints_*_points()` functions. (#125)
+- WPCS version used to 0.10.0. (#112)
+
+### Fixed
+- PHP files being executed during the syntax check, resulting in build failures on HHVM. (#114)
+- Builds not failing when PHP syntax errors were detected. (#111)
+- `$WORDPOINTS_MODULE` env var not being set correctly.
+- Bash syntax checks not failing builds for syntax errors. (#152)
+
 ## [2.3.1] - 2015-12-19
 ### Added
 - WordPress 4.4 to Travis CI matrixes.
@@ -175,6 +204,7 @@ automatically installed if there is a config file for it. #23
 - Initial code.
 
 [Unreleased]: https://github.com/WordPoints/dev-lib/compare/master...develop
+[2.4.0]: https://github.com/WordPoints/dev-lib/compare/2.3.1...2.4.0
 [2.3.1]: https://github.com/WordPoints/dev-lib/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/WordPoints/dev-lib/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/WordPoints/dev-lib/compare/2.1.1...2.2.0

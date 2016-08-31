@@ -100,6 +100,16 @@ if ( ! $has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() ) 
  */
 require( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/includes/bootstrap.php' );
 
+if ( file_exists( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php' ) ) {
+
+	/**
+	 * The speed trap listener from WordPress's test suite.
+	 *
+	 * @since 1.0.0
+	 */
+	require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php' );
+}
+
 if ( $has_uninstall_tester ) {
 
 	/**
@@ -116,6 +126,13 @@ if ( $has_uninstall_tester ) {
 	 */
 	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/bootstrap.php' );
 }
+
+/**
+ * The class autoloader for the PHPUnit helper classes.
+ *
+ * @since 2.4.0
+ */
+require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
 
 if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/bootstrap.php' ) ) {
 

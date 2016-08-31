@@ -9,18 +9,23 @@ php:
 sudo: false
 
 before_script:
+  - npm install -g jshint
   - gem install travis-lint
+  - export DEV_LIB_PATH=none
+  - source bin/env.sh
+  - source bin/functions.sh
 
 script:
-  - xmllint --noout $(find . -type f \( -name '*.xml' -o -name '*.xml.dist' \))
-  - find . -name '*.sh' -exec bash -n {} \;
+  - wpdl-codesniff-xmllint
+  - wpdl-codesniff-bash
+  - wpdl-codesniff-jshint
   - find ./travis -name '*.yml' ! -name '.coveralls.yml' -exec travis-lint {} \;
-  - phpenv global 5.2 && find . ! -path './phpcs/*' ! -path './l10n-validator/*' -name '*.php' -exec php -lf {} \;
-  - phpenv global 5.3 && find . -name '*.php' -exec php -lf {} \;
-  - phpenv global 5.4 && find . -name '*.php' -exec php -lf {} \;
-  - phpenv global 5.5 && find . -name '*.php' -exec php -lf {} \;
-  - phpenv global 5.6 && find . -name '*.php' -exec php -lf {} \;
-  - phpenv global 7.0 && find . -name '*.php' -exec php -lf {} \;
-  - phpenv global hhvm && find . -name '*.php' -exec php -lf {} \;
+  - CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*' '!' -path './phpcs/*' '!' -path './l10n-validator/*'); phpenv global 5.2 && wpdl-codesniff-php-syntax
+  - CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*'); phpenv global 5.3 && wpdl-codesniff-php-syntax; CODESNIFF_PATH_PHP_SYNTAX= A=$?; [[ $A == 0 ]]
+  - phpenv global 5.4 && wpdl-codesniff-php-syntax
+  - phpenv global 5.5 && wpdl-codesniff-php-syntax
+  - phpenv global 5.6 && wpdl-codesniff-php-syntax
+  - phpenv global 7.0 && wpdl-codesniff-php-syntax
+  - phpenv global hhvm && wpdl-codesniff-php-syntax
 
 # EOF
