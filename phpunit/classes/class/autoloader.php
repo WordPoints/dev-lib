@@ -40,6 +40,15 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 	protected static $sorted = false;
 
 	/**
+	 * Whether we've registered ourselves as an autoloader yet.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var bool
+	 */
+	protected static $registered_autoloader = false;
+
+	/**
 	 * Register a directory to autoload classes from.
 	 *
 	 * @since 2.4.0
@@ -48,6 +57,11 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 	 * @param string $prefix The prefix used for class names in this directory.
 	 */
 	public static function register_dir( $dir, $prefix ) {
+
+		if ( ! self::$registered_autoloader ) {
+			spl_autoload_register( __CLASS__ . '::load_class' );
+			self::$registered_autoloader = true;
+		}
 
 		self::$prefixes[ $prefix ]['length'] = strlen( $prefix );
 		self::$prefixes[ $prefix ]['dirs'][] = rtrim( $dir, '/\\' ) . '/';
