@@ -84,6 +84,18 @@ if [ ! -e tests/codeception ]; then
 	ln -s ../../"$DEV_LIB_PATH"/wpcept/bootstrap.php tests/codeception/bootstrap.php
 fi
 
+# Copy the default Grunt file.
+if [ ! -e Gruntfile.js ]; then
+	echo Copying Grunt configuration file
+	cp "$DEV_LIB_PATH"/grunt/Gruntfile.js ./
+
+	sed -i '' "s/%class_prefix%/wordpoints_${PWD##*/}_/" Gruntfile.js
+
+	if [ ! -e package.json ]; then
+		cp "$DEV_LIB_PATH"/grunt/package.json ./
+	fi
+fi
+
 # Warn about a deprecated config file.
 if [ -e .ci-env.sh ]; then
 	echo "$(tput setaf 1)Warning:$(tput sgr 0) found deprecated .ci-env.sh config file"
