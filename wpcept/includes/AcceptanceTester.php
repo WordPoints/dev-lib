@@ -45,7 +45,9 @@ class AcceptanceTester extends \Codeception\Actor {
 	 */
 	public function amLoggedInAsAdminOnPage( $page ) {
 
-		$this->amOnPage( add_query_arg( 'redirect_to', $page, '/wp-login.php' ) );
+		$this->amOnPage(
+			add_query_arg( 'redirect_to', rawurlencode( $page ), '/wp-login.php' )
+		);
 		$this->fillField( '#user_login', 'admin' );
 		$this->fillField( '#user_pass', 'password' );
 		$this->click( '#wp-submit' );
