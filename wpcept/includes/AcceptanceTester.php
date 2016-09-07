@@ -253,6 +253,20 @@ class AcceptanceTester extends \Codeception\Actor {
 	public function hadActivatedComponent( $slug ) {
 		return WordPoints_Components::instance()->activate( $slug );
 	}
+
+	/**
+	 * Activate a module.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param string $module       The module to activate.
+	 * @param bool   $network_wide Whether to activate the module network-wide.
+	 *
+	 * @return void|\WP_Error An error object on failure.
+	 */
+	public function hadActivatedModule( $module, $network_wide = false ) {
+		return wordpoints_activate_module( $module, '', $network_wide );
+	}
 }
 
 // EOF
