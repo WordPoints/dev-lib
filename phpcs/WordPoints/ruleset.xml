@@ -49,7 +49,7 @@
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<properties>
-			<property name="customVariablesWhitelist" value="I,EZSQL_ERROR,textContent" type="array" />
+			<property name="customVariablesWhitelist" value="I,EZSQL_ERROR,textContent,preserveWhiteSpace" type="array" />
 		</properties>
 	</rule>
 	<rule ref="WordPress.VIP.RestrictedVariables">
