@@ -47,6 +47,11 @@
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
 		<exclude-pattern>/tests/*</exclude-pattern><!-- because of PHPUnit method names -->
 	</rule>
+	<rule ref="WordPress.NamingConventions.ValidVariableName">
+		<properties>
+			<property name="customVariablesWhitelist" value="I,EZSQL_ERROR" type="array" />
+		</properties>
+	</rule>
 	<rule ref="WordPress.VIP.RestrictedVariables">
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
