@@ -49,7 +49,7 @@ export WPL10NV_GIT_TREE=develop
 
 # PHPUnit
 export DO_PHPUNIT=$(if [ -e phpunit.xml.dist ]; then echo 1; else echo 0; fi)
-export RUN_UNINSTALL_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>uninstall</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
+export RUN_UNINSTALL_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && ([[ -e phpunit.uninstall.xml.dist ]] || grep -q '<group>ajax</group>' phpunit.xml.dist); then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then echo 1; else echo 0; fi)
 
