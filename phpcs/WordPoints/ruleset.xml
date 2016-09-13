@@ -112,6 +112,10 @@
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
 
+	<rule ref="WordPress.VIP.RestrictedFunctions.error_log">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/dev-lib/*</exclude-pattern>
 
