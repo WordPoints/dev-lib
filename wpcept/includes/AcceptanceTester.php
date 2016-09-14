@@ -251,7 +251,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * @return bool Whether the component was activated successfully.
 	 */
 	public function hadActivatedComponent( $slug ) {
-		return WordPoints_Components::instance()->activate( $slug );
+		return \WordPoints_Components::instance()->activate( $slug );
 	}
 
 	/**
