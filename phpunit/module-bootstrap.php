@@ -33,6 +33,13 @@ define( 'RUNNING_WORDPOINTS_MODULE_TESTS', true );
 define( 'WORDPOINTS_MODULE_TESTS_DIR', dirname( dirname( dirname( __FILE__ ) ) ) . '/tests/phpunit' );
 
 /**
+ * The class autoloader for the PHPUnit helper classes.
+ *
+ * @since 2.4.0
+ */
+require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
+
+/**
  * The bootstrap's utility functions.
  *
  * @since 1.1.0
@@ -126,13 +133,6 @@ if ( $has_uninstall_tester ) {
 	 */
 	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/bootstrap.php' );
 }
-
-/**
- * The class autoloader for the PHPUnit helper classes.
- *
- * @since 2.4.0
- */
-require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
 
 if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/bootstrap.php' ) ) {
 
