@@ -78,8 +78,13 @@ wpdl-codesniff-php-autoloaders() {
 
 # Check php files with PHPCodeSniffer.
 wpdl-codesniff-phpcs() {
-	local path=$(wpdl-get-codesniff-path PHP PHPCS)
-	local files=$(find "${!path}")
+
+	if [ -z $1 ]; then
+		local path=$(wpdl-get-codesniff-path PHP PHPCS)
+		local files=$(find "${!path}")
+	else
+		local files=("$1")
+	fi
 
 	if [ ! -e $PHPCS_DIR ]; then
 		local phpcs=phpcs
