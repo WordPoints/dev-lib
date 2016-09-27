@@ -9,6 +9,7 @@
 
 namespace WordPoints\Tests\Codeception\Modules;
 
+use WordPoints\Tests\Codeception\BlackHoleCache;
 use Codeception\Module;
 use Codeception\Configuration;
 use Codeception\Exception\ModuleException;
@@ -62,10 +63,8 @@ class WordPointsLoader extends Module {
 		// Now get a dump of the pristine database so that we can restore it later.
 		$this->create_db_dump( $this->get_db_dump_file_name() );
 
-		// Flush the cache and suspend caching, since the DB can be modified during
-		// the tests.
+		// Suspend caching, since the DB can be modified during the tests.
 		$this->suspend_caching();
-		$this->flush_cache();
 	}
 
 	/**
@@ -335,15 +334,22 @@ class WordPointsLoader extends Module {
 	 * @since 2.4.0
 	 */
 	protected function suspend_caching() {
-		wp_suspend_cache_addition( true );
+
+		global $wp_object_cache;
+
+		$wp_object_cache = new BlackHoleCache();
 	}
 
 	/**
 	 * Flush the WordPress object cache.
 	 *
 	 * @since 2.4.0
+	 * @deprecated 2.5.0 Now implied by self::suspend_caching().
 	 */
 	protected function flush_cache() {
+
+		_deprecated_function( __FUNCTION__, '2.5.0 of the dev-lib' );
+
 		wp_cache_flush();
 	}
 }
