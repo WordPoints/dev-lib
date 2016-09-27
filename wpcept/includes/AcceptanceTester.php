@@ -183,7 +183,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 *
 	 * @param array $settings Settings for the reaction.
 	 *
-	 * @return WordPoints_Hook_ReactionI The hook reaction.
+	 * @return \WordPoints_Hook_ReactionI The hook reaction.
 	 */
 	public function hadCreatedAPointsReaction( array $settings = array() ) {
 
@@ -228,6 +228,50 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 	/**
+	 * Asserts that a points reaction is not in the database.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param int $reaction_id The ID of the reaction.
+	 */
+	public function cantSeePointsReactionInDB( $reaction_id ) {
+
+		\PHPUnit_Framework_Assert::assertFalse(
+			wordpoints_hooks()->get_reaction_store( 'points' )->get_reaction(
+				$reaction_id
+			)
+		);
+	}
+
+	/**
+	 * Asserts that a condition for a points reaction is in the database.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param \WordPoints_Hook_ReactionI $reaction The reaction object.
+	 */
+	public function canSeePointsReactionConditionInDB( $reaction ) {
+
+		\PHPUnit_Framework_Assert::assertNotEmpty(
+			$reaction->get_meta( 'conditions' )
+		);
+	}
+
+	/**
+	 * Asserts that a condition for a points reaction is not the database.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param \WordPoints_Hook_ReactionI $reaction The reaction object.
+	 */
+	public function cantSeePointsReactionConditionInDB( $reaction ) {
+
+		\PHPUnit_Framework_Assert::assertFalse(
+			$reaction->get_meta( 'conditions' )
+		);
+	}
+
+	/**
 	 * Make this a site with some legacy points hooks disabled.
 	 *
 	 * @since 2.4.0
@@ -267,7 +311,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	public function hadActivatedModule( $module, $network_wide = false ) {
 		return wordpoints_activate_module( $module, '', $network_wide );
 	}
-	
+
 	/**
 	 * Install a test module on the site.
 	 *
