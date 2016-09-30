@@ -59,6 +59,16 @@ class Reaction extends Element {
 	}
 
 	/**
+	 * Cancel editing the reaction.
+	 *
+	 * @since 2.5.0
+	 */
+	public function cancel() {
+		$I = $this->actor;
+		$I->click( 'Cancel', $this->selector . '.action-buttons' );
+	}
+
+	/**
 	 * Save the reaction.
 	 *
 	 * Also tests that the save was a success.
