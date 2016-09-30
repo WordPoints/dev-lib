@@ -111,7 +111,6 @@ class Reaction extends Element {
 	public function addCondition( array $title ) {
 
 		$I = $this->actor;
-		$this->edit();
 		$I->see( 'Conditions', $this->selector );
 		$I->click( 'Add New Condition', $this->selector );
 		$this->selectCondition( $title );
