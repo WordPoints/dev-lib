@@ -100,21 +100,24 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 
 			foreach ( $data['dirs'] as $dir ) {
 
+				// So that we don't modify the file name within the loop.
+				$full_path = $dir . $file_name;
+
 				// Autoloading for tests, in case they sub-class one another (which
 				// generally they shouldn't).
 				if ( false !== strpos( $dir, '/phpunit/tests/' ) ) {
-					if ( '/test' === substr( $file_name, -9, 5 ) ) {
-						$file_name = substr( $file_name, 0, - 9 ) . '.php';
+					if ( '/test' === substr( $full_path, -9, 5 ) ) {
+						$full_path = substr( $full_path, 0, - 9 ) . '.php';
 					} else {
 						continue;
 					}
 				}
 
-				if ( ! file_exists( $dir . $file_name ) ) {
+				if ( ! file_exists( $full_path ) ) {
 					continue;
 				}
 
-				require_once( $dir . $file_name );
+				require_once( $full_path );
 
 				return;
 			}
