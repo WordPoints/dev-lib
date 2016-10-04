@@ -168,7 +168,7 @@ wpdl-test-phpunit() {
 		GROUP_OPTION=(--group="$TEST_GROUP")
 		CLOVER_FILE+="-$TEST_GROUP"
 
-		if [[ -e phpunit.uninstall.xml.dist ]]; then
+		if [[ $TEST_GROUP == uninstall && -e phpunit.uninstall.xml.dist ]]; then
 			GROUP_OPTION=(--configuration=phpunit.uninstall.xml.dist)
 		elif [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
 			sed -i '' -e "s/<group>$TEST_GROUP<\/group>//" ./phpunit.xml.dist
