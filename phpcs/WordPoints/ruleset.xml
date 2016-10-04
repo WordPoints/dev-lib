@@ -49,8 +49,9 @@
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<properties>
-			<property name="customVariablesWhitelist" value="I,EZSQL_ERROR,textContent,preserveWhiteSpace" type="array" />
+			<property name="customVariablesWhitelist" value="textContent,preserveWhiteSpace" type="array" />
 		</properties>
+		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.VIP.RestrictedVariables">
 		<exclude-pattern>/tests/*</exclude-pattern>
