@@ -76,23 +76,35 @@ wpdl-codesniff-php-autoloaders() {
 	fi
 }
 
-# Check php files with PHPCodeSniffer.
-wpdl-codesniff-phpcs() {
+# Check php files with PHPCodeSniffer tools.
+wpdl-codesniff-phpcs-base() {
 
-	if [ -z $1 ]; then
+	local command=${1-phpcs}
+
+	if [ -z $2 ]; then
 		local path=$(wpdl-get-codesniff-path PHP PHPCS)
 		local files=$(find "${!path}")
 	else
-		local files=("$1")
+		local files=("$2")
 	fi
 
 	if [ ! -e $PHPCS_DIR ]; then
-		local phpcs=phpcs
+		local phpcs="$command"
 	else
-		local phpcs="$PHPCS_DIR"/scripts/phpcs
+		local phpcs="$PHPCS_DIR"/scripts/"$command"
 	fi
 
 	"$phpcs" -ns --standard="$WPCS_STANDARD" ${files[@]}
+}
+
+# Check php files with PHPCS.
+wpdl-codesniff-phpcs() {
+	wpdl-codesniff-phpcs-base phpcs "${@:1}"
+}
+
+# Check php files with PHP Can Be Fixed.
+wpdl-codesniff-phpcbf() {
+	wpdl-codesniff-phpcs-base phpcbf "${@:1}"
 }
 
 # Check JS files with jshint.
