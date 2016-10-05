@@ -4,7 +4,7 @@
 
 	<rule ref="WordPress-Core">
 		<!-- https://github.com/WordPoints/dev-lib/issues/181 -->
-		<exclude name="Squiz.Commenting.LongConditionClosingComment" />
+		<exclude name="Squiz.Commenting.LongConditionClosingComment.Invalid" />
 	</rule>
 
 	<rule ref="WordPress-Extra">
