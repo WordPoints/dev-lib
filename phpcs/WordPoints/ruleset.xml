@@ -29,10 +29,6 @@
 		<!-- https://github.com/squizlabs/PHP_CodeSniffer/issues/601 -->
 		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
 	</rule>
-	<!-- This will flag // Silence is golden index.php files. -->
-	<rule ref="Squiz.Commenting.FileComment.WrongStyle">
-		<exclude-pattern>*/index.php</exclude-pattern>
-	</rule>
 
 	<rule ref="WordPress-VIP">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
