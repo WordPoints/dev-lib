@@ -9,6 +9,7 @@
 
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Variables.GlobalVariables" />
+		<exclude name="Generic.Strings.UnnecessaryStringConcat" />
 	</rule>
 
 	<rule ref="WordPress-Docs">
