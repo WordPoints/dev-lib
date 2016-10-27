@@ -47,6 +47,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Class_Autoloader::register_dir' => true,
 			'WordPoints_DB_Query::get' => array( 1 ),
 			'WordPoints_DB_Query::prepare_column__in' => array( 3 ),
+			'WordPoints_Entity_Restrictions::get' => array( 3 ),
 			'WordPoints_Entityish::__construct' => array( 1 ),
 			'WordPoints_Hook_Events::get_sub_app' => array( 1 ),
 			'WordPoints_Hook_Reaction::get_meta' => array( 1 ),
@@ -138,6 +139,8 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'$reaction->get_meta' => array( 1 ),
 			'$reactors->register' => array( 1, 2 ),
 			'$reaction_stores->register' => array( 1, 2, 3 ),
+			'$restrictions->get' => array( 3 ),
+			'$restrictions->register' => array( 1, 2, 3 ),
 			'$query->get' => array( 1 ),
 			'$wordpoints_components->activate' => true,
 
