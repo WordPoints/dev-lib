@@ -46,6 +46,7 @@ require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
  */
 require_once( dirname( __FILE__ ) . '/functions.php' );
 
+// This is mainly left here for back-compat with pre 2.5.0 behavior.
 $has_uninstall_tester = is_dir( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/wordpoints/module-uninstall-tester/' );
 
 if ( $has_uninstall_tester ) {
@@ -68,12 +69,44 @@ if ( $has_uninstall_tester ) {
 /**
  * The WordPress tests functions.
  *
- * We are loading this so that we can add our tests filter to load the module and
- * WordPoints, using tests_add_filter().
+ * We are loading this for legacy reasons. We used to have to include it to load the
+ * module and WordPoints using tests_add_filter().
  *
  * @since 1.0.0
  */
 require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php');
+
+if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload_52.php' ) ) {
+
+	/**
+	 * The PHP 5.2 compatible Composer autoloader for the module's dependencies.
+	 *
+	 * @since 2.5.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload_52.php' );
+
+} elseif ( file_exists( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload.php' ) ) {
+
+	/**
+	 * The Composer generated autoloader for the module's dependencies.
+	 *
+	 * @since 2.5.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload.php' );
+}
+
+if (
+	class_exists( 'WPPPB_Loader' )
+	&& file_exists( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/classes/bootstrap/loader.php' )
+) {
+
+	/**
+	 * WordPoints's PHPUnit loader class.
+	 *
+	 * @since 2.5.0
+	 */
+	require_once( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/classes/bootstrap/loader.php' );
+}
 
 if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' ) ) {
 
@@ -85,7 +118,18 @@ if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' ) ) {
 	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' );
 }
 
-if ( ! $has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() ) {
+if (
+	class_exists( 'WordPoints_PHPUnit_Bootstrap_Loader' )
+	&& ! defined( 'WORDPOINTS_MODULE_TESTS_LOADER' )
+) {
+
+	$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
+	$loader->add_module(
+		wordpoints_dev_lib_the_module_basename()
+		, getenv( 'WORDPOINTS_MODULE_NETWORK_ACTIVE' )
+	);
+
+} elseif ( ! $has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() ) {
 
 	// Hook to load WordPoints.
 	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
