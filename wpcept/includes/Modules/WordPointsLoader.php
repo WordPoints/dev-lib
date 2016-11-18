@@ -242,11 +242,11 @@ class WordPointsLoader extends Module {
 
 		$result = shell_exec(
 			vsprintf(
-				'mysqldump --host=%s -u %s --password=%s %s 2>&1 1> %s'
+				'MYSQL_PWD=%s mysqldump --host=%s -u %s %s 2>&1 1> %s'
 				, array(
+					escapeshellarg( DB_PASSWORD ),
 					escapeshellarg( DB_HOST ),
 					escapeshellarg( DB_USER ),
-					escapeshellarg( DB_PASSWORD ),
 					escapeshellarg( DB_NAME ),
 					escapeshellarg( $dump_file ),
 				)
@@ -309,12 +309,12 @@ class WordPointsLoader extends Module {
 
 		$result = shell_exec(
 			vsprintf(
-				'cat %s | mysql --host=%s -u %s --password=%s %s 2>&1 1> /dev/null'
+				'cat %s | MYSQL_PWD=%s mysql --host=%s -u %s %s 2>&1 1> /dev/null'
 				, array(
 					escapeshellarg( $dump_file ),
+					escapeshellarg( DB_PASSWORD ),
 					escapeshellarg( DB_HOST ),
 					escapeshellarg( DB_USER ),
-					escapeshellarg( DB_PASSWORD ),
 					escapeshellarg( DB_NAME ),
 				)
 			)
