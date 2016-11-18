@@ -25,7 +25,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * in each time. However, that currently isn't working for some reason.
 	 *
 	 * @link https://github.com/Codeception/Codeception/issues/2900
-	 * @link http://sqa.stackexchange.com/q/18244/18542
+	 * @link https://sqa.stackexchange.com/q/18244/18542
 	 *
 	 * @since 2.4.0
 	 */
