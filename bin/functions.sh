@@ -99,12 +99,12 @@ wpdl-codesniff-phpcs-base() {
 
 # Check php files with PHPCS.
 wpdl-codesniff-phpcs() {
-	wpdl-codesniff-phpcs-base phpcs "${@:1}"
+	wpdl-codesniff-phpcs-base phpcs "${@}"
 }
 
 # Check php files with PHP Can Be Fixed.
 wpdl-codesniff-phpcbf() {
-	wpdl-codesniff-phpcs-base phpcbf "${@:1}"
+	wpdl-codesniff-phpcs-base phpcbf "${@}"
 }
 
 # Check JS files with jshint.

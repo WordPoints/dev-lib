@@ -208,7 +208,7 @@ phpunit-basic() {
 		return
 	fi
 
-	wpdl-test-phpunit "${@:1}"
+	wpdl-test-phpunit "${@}"
 }
 
 # Run uninstall PHPUnit tests.
@@ -251,6 +251,7 @@ phpunit-ms-network-ajax() {
 	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic ajax ms-network
 }
 
+# Run Codeception tests with WP Browser.
 wpcept-run() {
 
 	if [[ $DO_WP_CEPT == 0 ]]; then
@@ -276,7 +277,18 @@ wpcept-run() {
 
 	cd -
 
-	vendor/bin/wpcept run
+	wpcept-basic
+}
+
+# Run basic Codeception tests.
+wpcept-basic() {
+
+	if [[ $DO_WP_CEPT == 0 ]]; then
+		echo Not running codecept tests.
+		return
+	fi
+
+	vendor/bin/wpcept run "${@}"
 }
 
 # EOF
