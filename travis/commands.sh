@@ -263,7 +263,17 @@ wpcept-run() {
 	cd "$WP_DEVELOP_DIR"
 	sed -i "s/example.org/$WP_CEPT_SERVER/" wp-tests-config.php
 	cp wp-tests-config.php wp-config.php
-	echo "require_once(ABSPATH . 'wp-settings.php');" >> wp-config.php
+
+	echo "
+		if ( ! defined( 'WP_INSTALLING' ) && ( getenv( 'WP_MULTISITE' ) || file_exists( dirname( __FILE__ ) . '/is-multisite' ) ) ) {
+			define( 'MULTISITE', true );
+			define( 'SUBDOMAIN_INSTALL', false );
+			\$GLOBALS['base'] = '/';
+		}
+
+		require_once(ABSPATH . 'wp-settings.php');
+	" >> wp-config.php
+
 	cd -
 
 	vendor/bin/wpcept run

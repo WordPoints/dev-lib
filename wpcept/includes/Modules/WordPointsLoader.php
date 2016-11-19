@@ -86,6 +86,16 @@ class WordPointsLoader extends Module {
 			);
 		}
 
+		// We indicate whether to run as multisite via a file.
+		// Properly handling for this must be added to the site's wp-config.php.
+		$multisite_file = getenv( 'WP_TESTS_DIR' ) . '/../../is-multisite';
+
+		if ( getenv( 'WP_MULTISITE' ) ) {
+			touch( $multisite_file );
+		} elseif ( file_exists( $multisite_file ) ) {
+			unlink( $multisite_file );
+		}
+
 		// Catch output from PHPUnit bootstrap.
 		ob_start();
 
@@ -115,7 +125,11 @@ class WordPointsLoader extends Module {
 	 */
 	protected function load_wordpoints() {
 
-		$result = activate_plugin( 'wordpoints/wordpoints.php' );
+		$result = activate_plugin(
+			'wordpoints/wordpoints.php'
+			, ''
+			, (bool) getenv( 'WORDPOINTS_NETWORK_ACTIVE' )
+		);
 
 		if ( is_wp_error( $result ) ) {
 			throw new ModuleException(
@@ -143,7 +157,11 @@ class WordPointsLoader extends Module {
 	 */
 	protected function load_wordpoints_module( $module ) {
 
-		$result = wordpoints_activate_module( $module );
+		$result = wordpoints_activate_module(
+			$module
+			, ''
+			, (bool) getenv( 'WORDPOINTS_MODULE_NETWORK_ACTIVE' )
+		);
 
 		if ( is_wp_error( $result ) ) {
 			throw new ModuleException(
