@@ -262,7 +262,7 @@ wpcept-run() {
 	# Configure WordPress for access through a web server.
 	# We don't do this during set up because it can mess up the PHPUnit tests.
 	cd "$WP_DEVELOP_DIR"
-	sed -i "s/example.org/$WP_CEPT_SERVER/" wp-tests-config.php
+	sed -i "s/'example.org'/'$WP_CEPT_SERVER'/" wp-tests-config.php
 	cp wp-tests-config.php wp-config.php
 
 	echo "
