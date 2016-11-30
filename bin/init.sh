@@ -98,8 +98,10 @@ fi
 
 # Set up PHPUnit tests.
 if [ -e composer.json ]; then
-	echo Adding WPPPB to composer
-	composer require --dev jdgrimes/wpppb
+	if ! grep -q jdgrimes/wpppb composer.json; then
+		echo Adding WPPPB to composer
+		composer require --dev jdgrimes/wpppb
+	fi
 else
 	echo Copying composer.json
 	cp "$DEV_LIB_PATH"/phpunit/composer.json .
