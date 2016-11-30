@@ -21,6 +21,7 @@ wpdl-codesniff() {
 	wpdl-codesniff-php-syntax
 	wpdl-codesniff-php-autoloaders
 	wpdl-codesniff-phpcs
+	wpdl-codesniff-strings
 	wpdl-codesniff-l10n
 	wpdl-codesniff-bash
 	wpdl-codesniff-jshint
