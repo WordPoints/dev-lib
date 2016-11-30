@@ -21,4 +21,7 @@ if [ -e ./package.json ]; then
 	sed -i '' -e 's/"version": "[^"]*"/"version": "'"${new_version}"'"/' ./package.json
 fi
 
+# Also update the copyright year.
+"$DEV_LIB_PATH"/bin/update-year.sh
+
 # EOF
