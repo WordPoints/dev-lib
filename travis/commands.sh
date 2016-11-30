@@ -156,6 +156,15 @@ codesniff-phpcs() {
 	fi
 }
 
+# Check all files for disallowed strings.
+codesniff-strings() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		wpdl-codesniff-strings
+	else
+		echo 'Not running disallowed strings check.'
+	fi
+}
+
 # Check JS files with jshint.
 codesniff-jshint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
