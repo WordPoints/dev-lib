@@ -107,6 +107,18 @@ wpdl-codesniff-phpcbf() {
 	wpdl-codesniff-phpcs-base phpcbf "${@}"
 }
 
+# Check files for disallowed strings.
+wpdl-codesniff-strings() {
+
+	local path=$(wpdl-get-codesniff-path STRINGS)
+	local files=$(find "${!path}" -type f)
+
+	grep -e 'target="_blank"' -e http[^s] ${files[@]}
+
+	# grep exits with 1 if nothing was found.
+	[[ $? == '1' ]]
+}
+
 # Check JS files with jshint.
 wpdl-codesniff-jshint() {
 	jshint .

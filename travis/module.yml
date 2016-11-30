@@ -57,6 +57,7 @@ script:
     - codesniff-php-syntax
     - codesniff-php-autoloaders
     - codesniff-phpcs
+    - codesniff-strings
     - codesniff-jshint
     - codesniff-l10n
     - codesniff-xmllint
