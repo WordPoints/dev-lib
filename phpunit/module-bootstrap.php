@@ -39,6 +39,11 @@ define( 'WORDPOINTS_MODULE_TESTS_DIR', dirname( dirname( dirname( __FILE__ ) ) )
  */
 require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
 
+WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+	dirname( __FILE__ ) . '/classes/'
+	, 'WordPoints_Dev_Lib_PHPUnit_'
+);
+
 /**
  * The bootstrap's utility functions.
  *
