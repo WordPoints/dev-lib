@@ -21,7 +21,7 @@ fi
 
 CODESNIFF_PATH_XML=("${CODESNIFF_PATH[@]}" '(' -name '*.xml' -o -name '*.xml.dist' ')')
 CODESNIFF_PATH_BASH=("${CODESNIFF_PATH[@]}" -name '*.sh')
-CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" -type f '!' -name composer.lock '!' -path "*/_generated/*" '!' -path "*/_output/*")
+CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" -type f '!' -name composer.lock '!' -path "*/_generated/*" '!' -path "*/_output/*" '!' -path "*/.git/*")
 
 export CODESNIFF_PATH
 export CODESNIFF_PATH_PHP
