@@ -5,7 +5,7 @@
 	>
 	<testsuites>
 		<testsuite>
-			<file>tests/phpunit/test-uninstall.php</file>
+			<file>../../tests/phpunit/test-uninstall.php</file>
 		</testsuite>
 	</testsuites>
 	<filter>
