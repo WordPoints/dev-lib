@@ -183,6 +183,19 @@ if ( $has_uninstall_tester ) {
 	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/bootstrap.php' );
 }
 
+if (
+	( ! $has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() )
+	&& file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/../../src/admin/admin.php' )
+) {
+
+	/**
+	 * The module's admin-side code.
+	 *
+	 * @since 1.0.0
+	 */
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../src/admin/admin.php' );
+}
+
 if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/bootstrap.php' ) ) {
 
 	/**
