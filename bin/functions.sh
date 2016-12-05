@@ -114,7 +114,7 @@ wpdl-codesniff-strings() {
 	local path=$(wpdl-get-codesniff-path STRINGS)
 	local files=$(find "${!path}" -type f)
 
-	grep -n -e 'target="_blank"' -e http[^s_.-] ${files[@]}
+	grep -n -v "${CODESNIFF_IGNORED_STRINGS[@]}" ${files[@]} | grep -e 'target="_blank"' -e http[^s_.-]
 
 	# grep exits with 1 if nothing was found.
 	[[ $? == '1' ]]

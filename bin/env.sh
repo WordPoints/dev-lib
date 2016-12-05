@@ -22,6 +22,7 @@ fi
 CODESNIFF_PATH_XML=("${CODESNIFF_PATH[@]}" '(' -name '*.xml' -o -name '*.xml.dist' ')')
 CODESNIFF_PATH_BASH=("${CODESNIFF_PATH[@]}" -name '*.sh')
 CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" -type f '!' -name composer.lock '!' -path "*/_generated/*" '!' -path "*/_output/*" '!' -path "*/.git/*")
+CODESNIFF_IGNORED_STRINGS=(-e http://semver.org/ -e http://keepachangelog.com/ -e http://www.php-fig.org/ -e http://127.0.0.1:8080 -e CODESNIFF_IGNORED_STRINGS -e 'grep -e')
 
 export CODESNIFF_PATH
 export CODESNIFF_PATH_PHP
@@ -30,6 +31,7 @@ export CODESNIFF_PATH_PHP_SYNTAX
 export CODESNIFF_PATH_XML
 export CODESNIFF_PATH_BASH
 export CODESNIFF_PATH_STRINGS
+export CODESNIFF_IGNORED_STRINGS
 
 # PHPCS
 export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
