@@ -45,6 +45,8 @@ matrix:
       env: TRAVISCI_RUN=codesniff
     - php: 7.1
       env: TRAVISCI_RUN=codesniff
+    - php: 7.1
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.6 WORDPOINTS_VERSION=master
   allow_failures:
     - php: hhvm
     - php: nightly
