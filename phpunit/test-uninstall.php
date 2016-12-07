@@ -7,7 +7,8 @@
 /**
  * Tests uninstalling the module.
  */
-class My_Module_Uninstall_Test extends WPPPB_TestCase_Uninstall {
+class My_Module_Uninstall_Test
+	extends WordPoints_Dev_Lib_PHPUnit_TestCase_Module_Uninstall {
 
 	/**
 	 * Test installation and uninstallation.
