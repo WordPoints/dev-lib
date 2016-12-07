@@ -21,7 +21,7 @@ abstract class WordPoints_Dev_Lib_PHPUnit_TestCase_Module_Uninstall
 	public function setUp() {
 
 		$usage_simulator = dirname( __FILE__ )
-		    . '/../../../../tests/phpunit/includes/usage-simulator.php';
+		    . '/../../../../../tests/phpunit/includes/usage-simulator.php';
 
 		if ( file_exists( $usage_simulator ) ) {
 			$this->simulation_file = dirname( __FILE__ )
