@@ -20,7 +20,7 @@ And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 - Deprecated action/filter functions to the l10n validator exclude lists.
 - Support for placing acceptance tests that need to be run with WordPoints network-active in the `network` subdirectory. (#189)
 - Generic string sniffing with `codesniff-strings`, based on `grep`.
- - Flags `target="_blank"`. (#187)
+ - Flags links with `_blank` targets. (#187)
  - Non-HTTPS links. (#183)
  - Specific strings can be added to an ignore list via `$CODESNIFF_IGNORED_STRINGS`.
 
