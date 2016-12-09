@@ -40,6 +40,15 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 	protected static $sorted = false;
 
 	/**
+	 * Whether we've registered ourselves as an autoloader yet.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var bool
+	 */
+	protected static $registered_autoloader = false;
+
+	/**
 	 * Register a directory to autoload classes from.
 	 *
 	 * @since 2.4.0
@@ -48,6 +57,11 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 	 * @param string $prefix The prefix used for class names in this directory.
 	 */
 	public static function register_dir( $dir, $prefix ) {
+
+		if ( ! self::$registered_autoloader ) {
+			spl_autoload_register( __CLASS__ . '::load_class' );
+			self::$registered_autoloader = true;
+		}
 
 		self::$prefixes[ $prefix ]['length'] = strlen( $prefix );
 		self::$prefixes[ $prefix ]['dirs'][] = rtrim( $dir, '/\\' ) . '/';
@@ -86,21 +100,24 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 
 			foreach ( $data['dirs'] as $dir ) {
 
+				// So that we don't modify the file name within the loop.
+				$full_path = $dir . $file_name;
+
 				// Autoloading for tests, in case they sub-class one another (which
 				// generally they shouldn't).
 				if ( false !== strpos( $dir, '/phpunit/tests/' ) ) {
-					if ( '/test' === substr( $file_name, -9, 5 ) ) {
-						$file_name = substr( $file_name, 0, - 9 ) . '.php';
+					if ( '/test' === substr( $full_path, -9, 5 ) ) {
+						$full_path = substr( $full_path, 0, - 9 ) . '.php';
 					} else {
 						continue;
 					}
 				}
 
-				if ( ! file_exists( $dir . $file_name ) ) {
+				if ( ! file_exists( $full_path ) ) {
 					continue;
 				}
 
-				require_once( $dir . $file_name );
+				require_once( $full_path );
 
 				return;
 			}

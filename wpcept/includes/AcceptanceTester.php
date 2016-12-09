@@ -25,7 +25,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * in each time. However, that currently isn't working for some reason.
 	 *
 	 * @link https://github.com/Codeception/Codeception/issues/2900
-	 * @link http://sqa.stackexchange.com/q/18244/18542
+	 * @link https://sqa.stackexchange.com/q/18244/18542
 	 *
 	 * @since 2.4.0
 	 */
@@ -45,7 +45,9 @@ class AcceptanceTester extends \Codeception\Actor {
 	 */
 	public function amLoggedInAsAdminOnPage( $page ) {
 
-		$this->amOnPage( add_query_arg( 'redirect_to', $page, '/wp-login.php' ) );
+		$this->amOnPage(
+			add_query_arg( 'redirect_to', rawurlencode( $page ), '/wp-login.php' )
+		);
 		$this->fillField( '#user_login', 'admin' );
 		$this->fillField( '#user_pass', 'password' );
 		$this->click( '#wp-submit' );
@@ -181,7 +183,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 *
 	 * @param array $settings Settings for the reaction.
 	 *
-	 * @return WordPoints_Hook_ReactionI The hook reaction.
+	 * @return \WordPoints_Hook_ReactionI The hook reaction.
 	 */
 	public function hadCreatedAPointsReaction( array $settings = array() ) {
 
@@ -226,6 +228,50 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 	/**
+	 * Asserts that a points reaction is not in the database.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param int $reaction_id The ID of the reaction.
+	 */
+	public function cantSeePointsReactionInDB( $reaction_id ) {
+
+		\PHPUnit_Framework_Assert::assertFalse(
+			wordpoints_hooks()->get_reaction_store( 'points' )->get_reaction(
+				$reaction_id
+			)
+		);
+	}
+
+	/**
+	 * Asserts that a condition for a points reaction is in the database.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param \WordPoints_Hook_ReactionI $reaction The reaction object.
+	 */
+	public function canSeePointsReactionConditionInDB( $reaction ) {
+
+		\PHPUnit_Framework_Assert::assertNotEmpty(
+			$reaction->get_meta( 'conditions' )
+		);
+	}
+
+	/**
+	 * Asserts that a condition for a points reaction is not the database.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param \WordPoints_Hook_ReactionI $reaction The reaction object.
+	 */
+	public function cantSeePointsReactionConditionInDB( $reaction ) {
+
+		\PHPUnit_Framework_Assert::assertFalse(
+			$reaction->get_meta( 'conditions' )
+		);
+	}
+
+	/**
 	 * Make this a site with some legacy points hooks disabled.
 	 *
 	 * @since 2.4.0
@@ -249,7 +295,45 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * @return bool Whether the component was activated successfully.
 	 */
 	public function hadActivatedComponent( $slug ) {
-		return WordPoints_Components::instance()->activate( $slug );
+		return \WordPoints_Components::instance()->activate( $slug );
+	}
+
+	/**
+	 * Activate a module.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param string $module       The module to activate.
+	 * @param bool   $network_wide Whether to activate the module network-wide.
+	 *
+	 * @return void|\WP_Error An error object on failure.
+	 */
+	public function hadActivatedModule( $module, $network_wide = false ) {
+		return wordpoints_activate_module( $module, '', $network_wide );
+	}
+
+	/**
+	 * Install a test module on the site.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param string $module The module file or directory to symlink.
+	 */
+	public function haveTestModuleInstalled( $module ) {
+
+		$modules_dir = wordpoints_modules_dir();
+		$test_modules_dir = WORDPOINTS_DIR . '/../tests/phpunit/data/modules/';
+
+		if ( ! file_exists( $modules_dir . $module ) ) {
+
+			global $wp_filesystem;
+
+			WP_Filesystem();
+
+			$wp_filesystem->mkdir( $modules_dir . $module );
+
+			copy_dir( $test_modules_dir . $module, $modules_dir . $module );
+		}
 	}
 }
 

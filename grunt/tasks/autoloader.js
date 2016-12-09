@@ -125,7 +125,7 @@ module.exports = function ( grunt ) {
 
 		result = spawnSync(
 			__dirname + '/../../bin/verify-php-autoloader'
-			, [ classes_dir ].concat( dependencies )
+			, [ classes_dir ].concat( dependencies || [] )
 		);
 
 		if ( result.error ) {

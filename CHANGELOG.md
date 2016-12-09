@@ -4,6 +4,59 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.5.0] - 2016-10-09
+### Added
+- Default config file for Grunt, with a watch task to build the autoload classmaps. (#162)
+- `hadActivatedModule()` method to the acceptance tester class. (#164)
+- `textContent`, `preserveWhitespace`, and `longOptions` to the list of allowed non-snakecase properties in the PHPCS config. (#165)
+- `hadActivatedComponent()` method to the acceptance tester class. (#170)
+- Support for sniffing individul files with `codesniff-phpcs`. (#171)
+- `haveModuleInstalled()` method to the acceptance tester class. (#173)
+- `Element` class for code-reuse in the acceptance tests. (#175)
+ - `Reaction` and `ReactionCondition` element classes.
+- `cantSeePointsReactionInDB()`, `canSeePointsReactionConditionInDB()`, and `cantSeePointsReactionConditionInDB()` acceptance tester methods.
+- Support for running `phpcbf` command of PHPCS via `codesniff-phpcbf`. (#180)
+- Entity restriction API functions and component and module apps functions to the l10n validator exclude lists.
+- Deprecated action/filter functions to the l10n validator exclude lists.
+- Support for placing acceptance tests that need to be run with WordPoints network-active in the `network` subdirectory. (#189)
+- Generic string sniffing with `codesniff-strings`, based on `grep`.
+ - Flags `target="_blank"`. (#187)
+ - Non-HTTPS links. (#183)
+ - Specific strings can be added to an ignore list via `$CODESNIFF_IGNORED_STRINGS`.
+
+### Changed
+- PHPUnit autoloader to automatically be register itself when any autoload directories were added. (#160)
+- PHPCS config to exclude the `VIP.is_mobile` rule. (#165)
+- PHPCS config to allow debugging functions in tests. (#167)
+- PHPUnit bootstrap to fully support WPPPB. (#161)
+ - Support for `phpunit.uninstall.xml.dist`. (#168)
+ - Autoloader is included earlier, before non-dev-lib code.
+ - Module is now automatically loaded using WPPPB-like technique.
+ - WPPPB is now automatically installed via `composer` on `init`.
+ - Adds a module uninstall PHPUnit testcase.
+- Codesniffing to ignore the `.idea` directory. (#172)
+- Acceptance tests for fully suspend object caching. (#174)
+- Acceptance tests to be excluded from snakecase variable name PHPCS snif. (#166)
+- PHPCS config to not report formatting errors for long-condition ending comments. (#181)
+- Missing echo PHPCS sniff, adding points logs view methods to whitelist.
+- PHPCS config to exclude `Generic.Strings.UnnecessaryStringConcat` rule.
+- Acceptance tests to support running as multisite. (#138)
+- L10n validator config to ignore `class_exists()`.
+- `update-version` command to also automatically update the copyright year. (#150)
+- PHPUnit bootstrap to automatically load a module's admin-side code. (#195)
+- Travis config to run against PHP 7.1. (#194)
+- Codesniffing exclude paths to exclude the `node_modules` directory.
+
+### Removed
+- Exclusion for `index.php` files from having proper file doc-comments from the PHPCS config.
+
+### Fixed
+- `amLoggedInAsAdminOnPage()` method on the acceptance tester class dropping query args from the passed URL. (#163)
+- PHPUnit autoloader failing to autoload tests properly when multiple directories were registere for the same prefix. (#177)
+- Warnings from `mysql` and `mysqldump` command about passwords on some systems. (#188)
+- `update-version` command using too broad a pattern. (#178)
+- Codeception tests being run even when there weren't any. (#191)
+
 ## [2.4.0] - 2016-08-31
 ### Added
 - Listener for slow PHPUnit tests. (#110)
@@ -204,6 +257,7 @@ automatically installed if there is a config file for it. #23
 - Initial code.
 
 [Unreleased]: https://github.com/WordPoints/dev-lib/compare/master...develop
+[2.5.0]: https://github.com/WordPoints/dev-lib/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/WordPoints/dev-lib/compare/2.3.1...2.4.0
 [2.3.1]: https://github.com/WordPoints/dev-lib/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/WordPoints/dev-lib/compare/2.2.0...2.3.0

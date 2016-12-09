@@ -156,6 +156,15 @@ codesniff-phpcs() {
 	fi
 }
 
+# Check all files for disallowed strings.
+codesniff-strings() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		wpdl-codesniff-strings
+	else
+		echo 'Not running disallowed strings check.'
+	fi
+}
+
 # Check JS files with jshint.
 codesniff-jshint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
@@ -208,7 +217,7 @@ phpunit-basic() {
 		return
 	fi
 
-	wpdl-test-phpunit "${@:1}"
+	wpdl-test-phpunit "${@}"
 }
 
 # Run uninstall PHPUnit tests.
@@ -251,6 +260,7 @@ phpunit-ms-network-ajax() {
 	WORDPOINTS_NETWORK_ACTIVE=1 WP_MULTISITE=1 phpunit-basic ajax ms-network
 }
 
+# Run Codeception tests with WP Browser.
 wpcept-run() {
 
 	if [[ $DO_WP_CEPT == 0 ]]; then
@@ -261,12 +271,33 @@ wpcept-run() {
 	# Configure WordPress for access through a web server.
 	# We don't do this during set up because it can mess up the PHPUnit tests.
 	cd "$WP_DEVELOP_DIR"
-	sed -i "s/example.org/$WP_CEPT_SERVER/" wp-tests-config.php
+	sed -i "s/'example.org'/'$WP_CEPT_SERVER'/" wp-tests-config.php
 	cp wp-tests-config.php wp-config.php
-	echo "require_once(ABSPATH . 'wp-settings.php');" >> wp-config.php
+
+	echo "
+		if ( ! defined( 'WP_INSTALLING' ) && ( getenv( 'WP_MULTISITE' ) || file_exists( dirname( __FILE__ ) . '/is-multisite' ) ) ) {
+			define( 'MULTISITE', true );
+			define( 'SUBDOMAIN_INSTALL', false );
+			\$GLOBALS['base'] = '/';
+		}
+
+		require_once(ABSPATH . 'wp-settings.php');
+	" >> wp-config.php
+
 	cd -
 
-	vendor/bin/wpcept run
+	wpcept-basic
+}
+
+# Run basic Codeception tests.
+wpcept-basic() {
+
+	if [[ $DO_WP_CEPT == 0 ]]; then
+		echo Not running codecept tests.
+		return
+	fi
+
+	vendor/bin/wpcept run "${@}"
 }
 
 # EOF

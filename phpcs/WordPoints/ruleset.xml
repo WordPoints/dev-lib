@@ -2,8 +2,14 @@
 <ruleset name="WordPoints">
 	<description>Sniffs for the coding standards of the WordPoints plugin</description>
 
+	<rule ref="WordPress-Core">
+		<!-- https://github.com/WordPoints/dev-lib/issues/181 -->
+		<exclude name="Squiz.Commenting.LongConditionClosingComment.Invalid" />
+	</rule>
+
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Variables.GlobalVariables" />
+		<exclude name="Generic.Strings.UnnecessaryStringConcat" />
 	</rule>
 
 	<rule ref="WordPress-Docs">
@@ -23,14 +29,11 @@
 		<!-- https://github.com/squizlabs/PHP_CodeSniffer/issues/601 -->
 		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
 	</rule>
-	<!-- This will flag // Silence is golden index.php files. -->
-	<rule ref="Squiz.Commenting.FileComment.WrongStyle">
-		<exclude-pattern>*/index.php</exclude-pattern>
-	</rule>
 
 	<rule ref="WordPress-VIP">
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
 		<exclude name="WordPress.VIP.RestrictedFunctions.custom_role" />
+		<exclude name="WordPress.VIP.RestrictedFunctions.wp_is_mobile" />
 		<exclude name="WordPress.VIP.SuperGlobalInputUsage" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.SchemaChange" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
@@ -45,6 +48,12 @@
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
 		<exclude-pattern>/tests/*</exclude-pattern><!-- because of PHPUnit method names -->
+	</rule>
+	<rule ref="WordPress.NamingConventions.ValidVariableName">
+		<properties>
+			<property name="customVariablesWhitelist" value="longOptions,textContent,preserveWhiteSpace" type="array" />
+		</properties>
+		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.VIP.RestrictedVariables">
 		<exclude-pattern>/tests/*</exclude-pattern>
@@ -106,7 +115,12 @@
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
 
+	<rule ref="WordPress.VIP.RestrictedFunctions.error_log">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/dev-lib/*</exclude-pattern>
+	<exclude-pattern>/.idea/*</exclude-pattern>
 
 </ruleset>

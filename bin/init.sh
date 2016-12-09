@@ -28,12 +28,6 @@ if [ ! -e .jshintignore ]; then
 	ln -s "$DEV_LIB_PATH"/jshint/.jshintignore .
 fi
 
-# Symlink the PHPUnit configuration for PHPUnit testing.
-if [ ! -e phpunit.xml.dist ]; then
-	echo Symlinking PHPUnit config
-	ln -s "$DEV_LIB_PATH"/phpunit/"$WORDPOINTS_PROJECT_TYPE".xml.dist phpunit.xml.dist
-fi
-
 # Symlink the Coveralls configuration file if you want to use code coverage.
 if [ ! -e .coveralls.yml ]; then
 	echo Symlinking Coveralls config
@@ -84,10 +78,40 @@ if [ ! -e tests/codeception ]; then
 	ln -s ../../"$DEV_LIB_PATH"/wpcept/bootstrap.php tests/codeception/bootstrap.php
 fi
 
+# Copy the default Grunt file.
+if [ ! -e Gruntfile.js ]; then
+	echo Copying Grunt configuration file
+	cp "$DEV_LIB_PATH"/grunt/Gruntfile.js ./
+
+	sed -i '' "s/%class_prefix%/wordpoints_${PWD##*/}_/" Gruntfile.js
+
+	if [ ! -e package.json ]; then
+		cp "$DEV_LIB_PATH"/grunt/package.json ./
+	fi
+fi
+
 # Warn about a deprecated config file.
 if [ -e .ci-env.sh ]; then
 	echo "$(tput setaf 1)Warning:$(tput sgr 0) found deprecated .ci-env.sh config file"
 	echo Use .wordpoints-dev-lib-config.sh instead
+fi
+
+# Set up PHPUnit tests.
+if [ -e composer.json ]; then
+	if ! grep -q jdgrimes/wpppb composer.json; then
+		echo Adding WPPPB to composer
+		composer require --dev jdgrimes/wpppb
+	fi
+else
+	echo Copying composer.json
+	cp "$DEV_LIB_PATH"/phpunit/composer.json .
+	composer install
+fi
+
+if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+	"$DEV_LIB_PATH"/phpunit/wpppb-init
+else
+	vendor/bin/wpppb-init
 fi
 
 # EOF

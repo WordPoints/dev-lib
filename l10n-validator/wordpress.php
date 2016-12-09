@@ -16,6 +16,8 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'_deprecated_file' => true,
 			'_doing_it_wrong' => true,
 			'add_site_option' => true,
+			'apply_filters_deprecated' => array( 1, 3, 4, 5 ),
+			'do_action_deprecated' => array( 1, 3, 4, 5 ),
 		)
 	);
 

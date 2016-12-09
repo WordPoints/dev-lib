@@ -10,7 +10,7 @@ export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
 
 # Codesniff path
-CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*")
+CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*" '!' -path "./.idea/*" '!' -path "./node_modules/*")
 CODESNIFF_PATH_PHP=("${CODESNIFF_PATH[@]}" '(' -name '*.php' -o -name '*.inc' ')')
 CODESNIFF_PATH_PHP_AUTOLOADERS=("${CODESNIFF_PATH_PHP[@]}" -path './src/*/classes')
 
@@ -21,6 +21,8 @@ fi
 
 CODESNIFF_PATH_XML=("${CODESNIFF_PATH[@]}" '(' -name '*.xml' -o -name '*.xml.dist' ')')
 CODESNIFF_PATH_BASH=("${CODESNIFF_PATH[@]}" -name '*.sh')
+CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" -type f '!' -name composer.lock '!' -path "*/_generated/*" '!' -path "*/_output/*" '!' -path "*/.git/*")
+CODESNIFF_IGNORED_STRINGS=(-e http://semver.org/ -e http://keepachangelog.com/ -e http://www.php-fig.org/ -e http://127.0.0.1:8080 -e CODESNIFF_IGNORED_STRINGS -e 'grep -e')
 
 export CODESNIFF_PATH
 export CODESNIFF_PATH_PHP
@@ -28,6 +30,8 @@ export CODESNIFF_PATH_PHP_AUTOLOADERS
 export CODESNIFF_PATH_PHP_SYNTAX
 export CODESNIFF_PATH_XML
 export CODESNIFF_PATH_BASH
+export CODESNIFF_PATH_STRINGS
+export CODESNIFF_IGNORED_STRINGS
 
 # PHPCS
 export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
@@ -49,12 +53,12 @@ export WPL10NV_GIT_TREE=develop
 
 # PHPUnit
 export DO_PHPUNIT=$(if [ -e phpunit.xml.dist ]; then echo 1; else echo 0; fi)
-export RUN_UNINSTALL_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>uninstall</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
+export RUN_UNINSTALL_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && ([[ -e phpunit.uninstall.xml.dist ]] || grep -q '<group>ajax</group>' phpunit.xml.dist); then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
 export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then echo 1; else echo 0; fi)
 
 # WP Browser (Codeception)
-export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '5.6' ]]; then echo 1; else echo 0; fi)
+export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '5.6' ]] && (shopt -s nullglob; f=(tests/codeception/acceptance/*.cept.php); ((${#f[@]}))); then echo 1; else echo 0; fi)
 export WP_CEPT_SERVER='127.0.0.1:8080'
 
 # WordPoints

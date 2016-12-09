@@ -12,6 +12,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 	$parser->add_ignored_functions(
 		array(
 			// Functions.
+			'class_exists' => true,
 			'define' => true,
 		)
 	);
