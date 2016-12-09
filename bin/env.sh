@@ -21,7 +21,7 @@ fi
 
 CODESNIFF_PATH_XML=("${CODESNIFF_PATH[@]}" '(' -name '*.xml' -o -name '*.xml.dist' ')')
 CODESNIFF_PATH_BASH=("${CODESNIFF_PATH[@]}" -name '*.sh')
-CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" -type f '!' -name composer.lock '!' -path "*/_generated/*" '!' -path "*/_output/*" '!' -path "*/.git/*")
+CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" -type f '!' -name "*.lock" '!' -path "*/_generated/*" '!' -path "*/_output/*" '!' -path "*/.git/*")
 CODESNIFF_IGNORED_STRINGS=(-e http://semver.org/ -e http://keepachangelog.com/ -e http://www.php-fig.org/ -e http://127.0.0.1:8080 -e CODESNIFF_IGNORED_STRINGS -e 'grep -e')
 
 export CODESNIFF_PATH
