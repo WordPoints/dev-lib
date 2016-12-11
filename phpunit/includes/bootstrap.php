@@ -37,7 +37,7 @@ if ( ! defined( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR' ) ) {
 	 *
 	 * @since 2.6.0
 	 */
-	require_once( dirname( __FILE__ ) . '/../classes-deprecated/class/autoloader.php' );
+	require_once( dirname( __FILE__ ) . '/../classes/class/autoloader.php' );
 }
 
 /**
@@ -49,22 +49,22 @@ if ( ! defined( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR' ) ) {
  */
 require_once WORDPOINTS_TESTS_DIR . '/includes/functions.php';
 
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+WordPoints_PHPUnit_Class_Autoloader::register_dir(
 	WORDPOINTS_TESTS_DIR . '/tests/'
 	, 'WordPoints_'
 );
 
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+WordPoints_PHPUnit_Class_Autoloader::register_dir(
 	WORDPOINTS_TESTS_DIR . '/tests/classes/'
 	, 'WordPoints_'
 );
 
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+WordPoints_PHPUnit_Class_Autoloader::register_dir(
 	WORDPOINTS_TESTS_DIR . '/tests/points/classes/'
 	, 'WordPoints_Points_'
 );
 
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+WordPoints_PHPUnit_Class_Autoloader::register_dir(
 	WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes/'
 	, 'WordPoints_PHPUnit_'
 );
