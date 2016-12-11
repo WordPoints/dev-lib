@@ -16,6 +16,15 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
 }
 
 /**
+ * The WordPoints Dev Lib PHPUnit bootstrap directory.
+ *
+ * @since 2.6.0
+ *
+ * @type string
+ */
+define( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR', dirname( __FILE__ ) );
+
+/**
  * We're running tests for a module.
  *
  * We need to tell WordPoints' tests bootstrap this so that it won't load it's plugin
@@ -40,7 +49,12 @@ define( 'WORDPOINTS_MODULE_TESTS_DIR', dirname( dirname( dirname( __FILE__ ) ) )
 require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
 
 WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
-	dirname( __FILE__ ) . '/classes/'
+	WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes/'
+	, 'WordPoints_PHPUnit_'
+);
+
+WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
+	WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes-deprecated/'
 	, 'WordPoints_Dev_Lib_PHPUnit_'
 );
 
@@ -49,7 +63,7 @@ WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
  *
  * @since 1.1.0
  */
-require_once( dirname( __FILE__ ) . '/functions.php' );
+require_once( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/functions.php' );
 
 // This is mainly left here for back-compat with pre 2.5.0 behavior.
 $has_uninstall_tester = is_dir( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/wordpoints/module-uninstall-tester/' );
