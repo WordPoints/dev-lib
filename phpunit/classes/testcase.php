@@ -1101,6 +1101,30 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		throw new WordPoints_PHPUnit_Exception;
 	}
 
+	/**
+	 * Call a shortcode function by tag name.
+	 *
+	 * We can now avoid evil calls to do_shortcode( '[shortcode]' ).
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param string $tag     The shortcode whose function to call.
+	 * @param array  $atts    The attributes to pass to the shortcode function. Optional.
+	 * @param array  $content The shortcode's content. Default is null (none).
+	 *
+	 * @return string|false False on failure, the result of the shortcode on success.
+	 */
+	public function do_shortcode( $tag, array $atts = array(), $content = null ) {
+
+		global $shortcode_tags;
+
+		if ( ! isset( $shortcode_tags[ $tag ] ) ) {
+			return false;
+		}
+
+		return call_user_func( $shortcode_tags[ $tag ], $atts, $content, $tag );
+	}
+
 	//
 	// Assertions.
 	//
