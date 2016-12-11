@@ -63,7 +63,13 @@ export WP_CEPT_SERVER='127.0.0.1:8080'
 
 # WordPoints
 export WORDPOINTS_DEVELOP_DIR=/tmp/wordpoints
-export WORDPOINTS_TESTS_DIR=/tmp/wordpoints/tests/phpunit/
+
+if [[ $WORDPOINTS_PROJECT_TYPE == wordpoints ]]; then
+	export WORDPOINTS_TESTS_DIR=/home/travis/build/WordPoints/wordpoints/tests/phpunit/
+else
+	export export WORDPOINTS_TESTS_DIR=/tmp/wordpoints/tests/phpunit/
+fi
+
 if [[ -z $WORDPOINTS_VERSION ]]; then
 	export WORDPOINTS_VERSION=master
 fi
