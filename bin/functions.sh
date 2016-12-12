@@ -139,7 +139,7 @@ wpdl-codesniff-xmllint() {
 	local path=$(wpdl-get-codesniff-path XML XMLLINT)
 	local files=$(find "${!path}" -type f)
 
-	if [ ${#files[@]} != 0 ]; then
+	if [[ "${files[@]}" != '' ]]; then
 		xmllint --noout ${files[@]}
 	fi
 }
