@@ -114,17 +114,14 @@ if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload_52.php'
 	require_once( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload.php' );
 }
 
-if (
-	class_exists( 'WPPPB_Loader' )
-	&& file_exists( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/classes/bootstrap/loader.php' )
-) {
+if ( class_exists( 'WPPPB_Loader' ) ) {
 
 	/**
 	 * WordPoints's PHPUnit loader class.
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/classes/bootstrap/loader.php' );
+	require_once( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes/bootstrap/loader.php' );
 }
 
 if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' ) ) {
@@ -168,7 +165,7 @@ if (
  *
  * @since 1.0.0
  */
-require( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/includes/bootstrap.php' );
+require( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/includes/bootstrap.php' );
 
 if ( file_exists( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php' ) ) {
 
