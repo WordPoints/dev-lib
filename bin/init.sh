@@ -83,7 +83,12 @@ if [ ! -e Gruntfile.js ]; then
 	echo Copying Grunt configuration file
 	cp "$DEV_LIB_PATH"/grunt/Gruntfile.js ./
 
-	sed -i '' "s/%class_prefix%/wordpoints_${PWD##*/}_/" Gruntfile.js
+	namespace=$(grep -oh "Namespace: .*" src/*.php)
+	namespace=${namespace#"Namespace: "}
+	namespace=${namespace##* }
+	namespace=$(echo "$namespace" | tr '[:upper:]' '[:lower:]')
+
+	sed -i '' "s/%class_prefix%/wordpoints_${namespace}_/" Gruntfile.js
 
 	if [ ! -e package.json ]; then
 		cp "$DEV_LIB_PATH"/grunt/package.json ./
