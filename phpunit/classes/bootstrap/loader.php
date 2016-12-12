@@ -248,6 +248,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 		$factory->register( 'hook_action', 'WordPoints_PHPUnit_Factory_For_Hook_Action' );
 		$factory->register( 'hook_condition', 'WordPoints_PHPUnit_Factory_For_Hook_Condition' );
 		$factory->register( 'points_log', 'WordPoints_PHPUnit_Factory_For_Points_Log' );
+		$factory->register( 'points_type', 'WordPoints_PHPUnit_Factory_For_Points_Type' );
 		$factory->register( 'post_type', 'WordPoints_PHPUnit_Factory_For_Post_Type' );
 		$factory->register( 'rank', 'WordPoints_PHPUnit_Factory_For_Rank' );
 		$factory->register( 'user_role', 'WordPoints_PHPUnit_Factory_For_User_Role' );
