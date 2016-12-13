@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/.bash_profile
+
 export DOING_GIT_PRE_COMMIT=1
 
 dev-lib/run codesniff
