@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+export DOING_GIT_PRE_COMMIT=1
+
+dev-lib/run codesniff
+
+# EOF

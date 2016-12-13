@@ -10,7 +10,7 @@ export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
 
 # Codesniff path
-CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*" '!' -path "./.idea/*" '!' -path "./node_modules/*")
+CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*" '!' -path "./.idea/*" '!' -path "./node_modules/*" '!' -path "*/.git/*")
 CODESNIFF_PATH_PHP=("${CODESNIFF_PATH[@]}" '(' -name '*.php' -o -name '*.inc' ')')
 CODESNIFF_PATH_PHP_AUTOLOADERS=("${CODESNIFF_PATH_PHP[@]}" -path './src/*/classes')
 
@@ -19,12 +19,14 @@ if [[ $TRAVIS_PHP_VERSION == '5.2' || $TRAVIS_PHP_VERSION == '5.3' ]]; then
 	CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./tests/codeception/*")
 fi
 
+CODESNIFF_PATH_JS=("${CODESNIFF_PATH[@]}" -name '*.js')
 CODESNIFF_PATH_XML=("${CODESNIFF_PATH[@]}" '(' -name '*.xml' -o -name '*.xml.dist' ')')
 CODESNIFF_PATH_BASH=("${CODESNIFF_PATH[@]}" -name '*.sh')
-CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" -type f '!' -name "*.lock" '!' -path "*/_generated/*" '!' -path "*/_output/*" '!' -path "*/.git/*")
+CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" '!' -name "*.lock" '!' -path "*/_generated/*" '!' -path "*/_output/*")
 CODESNIFF_IGNORED_STRINGS=(-e http://semver.org/ -e http://keepachangelog.com/ -e http://www.php-fig.org/ -e http://127.0.0.1:8080 -e CODESNIFF_IGNORED_STRINGS -e 'grep -e')
 
 export CODESNIFF_PATH
+export CODESNIFF_PATH_JS
 export CODESNIFF_PATH_PHP
 export CODESNIFF_PATH_PHP_AUTOLOADERS
 export CODESNIFF_PATH_PHP_SYNTAX
@@ -77,6 +79,11 @@ fi
 # WordPoints Module
 if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
 	export WORDPOINTS_MODULE="${PROJECT_SLUG}\\${PROJECT_SLUG}.php"
+fi
+
+# Git Pre-commit Hook
+if [[ $DOING_GIT_PRE_COMMIT == 1 ]]; then
+	STAGED_FILES=$(git diff --diff-filter=AM --staged --name-only | awk '$0="./"$0')
 fi
 
 # EOF

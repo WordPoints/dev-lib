@@ -45,6 +45,12 @@ if [ ! -e wp-l10n-validator.json ]; then
 	sed -i '' s/your-textdomain/"$text_domain"/ wp-l10n-validator.json
 fi
 
+# Set up the git pre-commit hook.
+if [ ! -e .git/hooks/pre-commit ]; then
+	echo Symlinking git pre-commit hook
+	ln -s ../../"$DEV_LIB_PATH"/git/pre-commit .git/hooks
+fi
+
 # Update the .gitignore file
 if [ ! -e .gitignore ]; then
 
