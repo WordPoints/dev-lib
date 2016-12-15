@@ -298,6 +298,12 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 		foreach ( $args as $slug => $arg ) {
 
+			// Prevent infinite loops when an entity can be a parent of another
+			// entity of the same type.
+			if ( in_array( $slug, $target_stack ) ) {
+				continue;
+			}
+
 			$target_stack[] = $slug;
 
 			if ( $arg instanceof WordPoints_Entity_Relationship ) {
