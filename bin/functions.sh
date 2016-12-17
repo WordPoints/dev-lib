@@ -147,11 +147,14 @@ wpdl-codesniff-jshint() {
 
 # Check PHP files for proper localization.
 wpdl-codesniff-l10n() {
-	if [ ! -e $WPL10NV_DIR ]; then
-		wp-l10n-validator
-	else
-		"$WPL10NV_DIR"/bin/wp-l10n-validator
+
+	local validator=wp-l10n-validator
+
+	if [ -e $WPL10NV_DIR ]; then
+		validator="$WPL10NV_DIR"/bin/wp-l10n-validator
 	fi
+
+	wpdl-get-codesniff-files PHP L10N_VALIDATOR | xargs -0 "${validator}" --
 }
 
 # Check XML files for syntax errors.

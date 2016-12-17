@@ -13,6 +13,7 @@ export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
 CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*" '!' -path "./.idea/*" '!' -path "./node_modules/*" '!' -path "*/.git/*")
 CODESNIFF_PATH_PHP=("${CODESNIFF_PATH[@]}" '(' -name '*.php' -o -name '*.inc' ')')
 CODESNIFF_PATH_PHP_AUTOLOADERS=("${CODESNIFF_PATH_PHP[@]}" -path './src/*/classes')
+CODESNIFF_PATH_PHP_L10N_VALIDATOR=(src '(' -name '*.php' -o -name '*.inc' ')')
 
 # Codeception requires PHP 5.4+.
 if [[ $TRAVIS_PHP_VERSION == '5.2' || $TRAVIS_PHP_VERSION == '5.3' ]]; then
@@ -29,6 +30,7 @@ export CODESNIFF_PATH
 export CODESNIFF_PATH_JS
 export CODESNIFF_PATH_PHP
 export CODESNIFF_PATH_PHP_AUTOLOADERS
+export CODESNIFF_PATH_PHP_L10N_VALIDATOR
 export CODESNIFF_PATH_PHP_SYNTAX
 export CODESNIFF_PATH_XML
 export CODESNIFF_PATH_BASH
