@@ -48,6 +48,7 @@ fi
 # Set up the git pre-commit hook.
 if [ ! -e .git/hooks/pre-commit ]; then
 	echo Symlinking git pre-commit hook
+	mkdir .git/hooks
 	ln -s ../../"$DEV_LIB_PATH"/git/pre-commit .git/hooks
 fi
 
