@@ -45,6 +45,15 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	protected $expected_targets = array();
 
 	/**
+	 * The target currently being run against.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @var string[]
+	 */
+	protected $target;
+
+	/**
 	 * Whether the event is reversible.
 	 *
 	 * @since 2.6.0
@@ -176,7 +185,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 */
 	public function test_fires( $target, $reactor_slug ) {
 
-		self::$tested_targets[] = $target;
+		self::$tested_targets[] = $this->target = $target;
 		self::$_expected_targets = $this->expected_targets;
 
 		switch ( $reactor_slug ) {
