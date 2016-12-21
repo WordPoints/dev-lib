@@ -114,7 +114,7 @@ wpdl-codesniff-phpcs-base() {
 	if [ -z $2 ]; then
 		wpdl-get-codesniff-files PHP PHPCS
 	else
-		echo "${2}"
+		echo -n "${2}"
 	fi \
 		| xargs -0 "$phpcs" -ns --standard="$WPCS_STANDARD"
 }
