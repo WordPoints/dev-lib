@@ -266,7 +266,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 		$data = array_merge(
 			array(
 				'action_type' => 'test_fire',
-				'primary_arg_guid' => '',
+				'signature_arg_guids' => '',
 				'event' => 'test_event',
 				'reactor' => 'test_reactor',
 				'reaction_mode' => wordpoints_hooks()->get_current_mode(),
@@ -281,9 +281,9 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 			$data['reaction_context_id']
 		);
 
-		if ( is_array( $data['primary_arg_guid'] ) ) {
-			$data['primary_arg_guid'] = wp_json_encode(
-				$data['primary_arg_guid']
+		if ( is_array( $data['signature_arg_guids'] ) ) {
+			$data['signature_arg_guids'] = wp_json_encode(
+				$data['signature_arg_guids']
 			);
 		}
 
