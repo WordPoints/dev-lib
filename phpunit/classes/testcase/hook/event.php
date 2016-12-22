@@ -237,11 +237,33 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 		foreach ( (array) $base_entity_ids as $index => $base_entity_id ) {
 
-			$hierarchy = new WordPoints_Hook_Event_Args( array( $arg ) );
+			if ( is_array( $base_entity_id ) ) {
 
-			$hierarchy->descend( $target[0] );
-			$entity = $hierarchy->get_current();
-			$this->assertTrue( $entity->set_the_value( $base_entity_id ) );
+				$args = array( $arg );
+
+				foreach ( $base_entity_id as $slug => $id ) {
+					if ( $slug !== $target[0] ) {
+						$args[ $slug ] = new WordPoints_Hook_Arg( $slug );
+					}
+				}
+
+				$hierarchy = new WordPoints_Hook_Event_Args( $args );
+
+				foreach ( $base_entity_id as $slug => $id ) {
+					$hierarchy->descend( $slug );
+					$entity = $hierarchy->get_current();
+					$this->assertTrue( $entity->set_the_value( $id ) );
+					$hierarchy->ascend();
+				}
+
+			} else {
+
+				$hierarchy = new WordPoints_Hook_Event_Args( array( $arg ) );
+
+				$hierarchy->descend( $target[0] );
+				$entity = $hierarchy->get_current();
+				$this->assertTrue( $entity->set_the_value( $base_entity_id ) );
+			}
 
 			$target_entity = $hierarchy->get_from_hierarchy( $target );
 
@@ -386,7 +408,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 * Fire the event.
 	 *
 	 * The third arg is not actually declared for backward compatibility with pre-
-	 * 2.2.0.
+	 * WordPoints 2.2.0.
 	 *
 	 * @since 2.6.0
 	 *
@@ -394,8 +416,11 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 * @param string            $reactor_slug The reactor slug.
 	 * @param string            $arg_slug     The slug of the arg.
 	 *
-	 * @return mixed The ID of the $arg in the event. You may also return an
-	 *               array of args, for each of which the event has been fired.
+	 * @return mixed The ID of the $arg in the event. You may also return an array of
+	 *               args, for each of which the event has been fired. If the event
+	 *               has multiple signature args, you must return an array of arrays,
+	 *               with each child array containing the IDs of the signature args
+	 *               for a single event fire, indexed by arg slug.
 	 */
 	abstract protected function fire_event( $arg, $reactor_slug /* , $arg_slug = null */ );
 
@@ -406,9 +431,11 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 *
 	 * @since 2.6.0
 	 *
-	 * @param mixed $arg_id The ID of the arg the event is being reversed for.
-	 * @param mixed $index The index of this entity ID in the array of entity IDs
-	 *                     returned by self::fire_event().
+	 * @param mixed $arg_id The ID of the arg the event is being reversed for. Or, if
+	 *                      This event has multiple signature args, an array of IDs
+	 *                      Indexed by arg slug.
+	 * @param mixed $index  The index of this entity ID in the array of entity IDs
+	 *                      returned by self::fire_event().
 	 */
 	protected function reverse_event( $arg_id, $index ) {}
 }
