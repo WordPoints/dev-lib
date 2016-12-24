@@ -90,6 +90,12 @@ wpdl-codesniff-php-syntax() {
 
 # Check php autoloader fallback files for validity.
 wpdl-codesniff-php-autoloaders() {
+
+	# Only run if there are staged class files.
+	if [[ $DOING_GIT_PRE_COMMIT == 1 && "$(git diff --diff-filter=ACDMR --staged --name-only)" != */classes/* ]]; then
+		return;
+	fi
+
 	local path=$(wpdl-get-codesniff-path PHP AUTOLOADERS)
 
 	if find "${!path}" \
