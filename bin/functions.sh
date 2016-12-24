@@ -175,6 +175,12 @@ wpdl-codesniff-bash() {
 
 # Check for broken symlinks.
 wpdl-codesniff-symlinks() {
+
+	# Only run if there are staged files being added/copied/deleted/renamed.
+	if [[ $DOING_GIT_PRE_COMMIT == 1 && "$(git diff --diff-filter=ACDR --staged --name-only)" == '' ]]; then
+		return;
+	fi
+
 	local path=$(wpdl-get-codesniff-path SYMLINKS)
 	local files=$(find "${!path}" -type l ! -exec [ -e {} ] \; -print)
 
