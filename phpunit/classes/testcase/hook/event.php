@@ -99,33 +99,6 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	protected static $tested_targets = array();
 
 	/**
-	 * @since 2.6.0
-	 */
-	public static function tearDownAfterClass() {
-
-		parent::tearDownAfterClass();
-
-		foreach ( self::$_expected_targets as $expected_target ) {
-			if ( ! in_array( $expected_target, self::$tested_targets, true ) ) {
-				self::fail(
-					'Expected target not tested: '
-					. self::target_implode( $expected_target ) . PHP_EOL . PHP_EOL
-					. 'Tested targets:' . PHP_EOL
-					. implode(
-						PHP_EOL
-						, array_map(
-							array( __CLASS__, 'target_implode' )
-							, self::$tested_targets
-						)
-					)
-				);
-			}
-		}
-
-		self::$tested_targets = array();
-	}
-
-	/**
 	 * Create a human-readable string from a target hierarchy.
 	 *
 	 * @since 2.6.0
@@ -280,6 +253,35 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 				call_user_func( array( $this, $reverse_assertion ), $target_id );
 			}
 		}
+	}
+
+	/**
+	 * Tests that all of the expected targets were checked.
+	 *
+	 * @since 2.6.0
+	 */
+	public function test_checked_expected_targets() {
+
+		foreach ( self::$_expected_targets as $expected_target ) {
+			if ( ! in_array( $expected_target, self::$tested_targets, true ) ) {
+				$this->fail(
+					'Expected target not tested: '
+					. self::target_implode( $expected_target ) . PHP_EOL . PHP_EOL
+					. 'Tested targets:' . PHP_EOL
+					. implode(
+						PHP_EOL
+						, array_unique(
+							array_map(
+								array( __CLASS__, 'target_implode' )
+								, self::$tested_targets
+							)
+						)
+					)
+				);
+			}
+		}
+
+		self::$tested_targets = array();
 	}
 
 	/**
