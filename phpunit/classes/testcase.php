@@ -377,6 +377,15 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			) {
 				$this->markTestSkipped( 'WordPoints must not be network-activated.' );
 			}
+
+			if ( isset( $requires['WordPoints version'] ) ) {
+
+				$version = $annotations[ $depth ]['WordPoints-version'][0];
+
+				if ( ! version_compare( WORDPOINTS_VERSION, $version, '>=' ) ) {
+					$this->markTestSkipped( "WordPoints version must be >= ${version}." );
+				}
+			}
 		}
 	}
 
