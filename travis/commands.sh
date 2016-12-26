@@ -140,7 +140,11 @@ codesniff-php-syntax() {
 
 # Check php autoloader fallback files for errors.
 codesniff-php-autoloaders() {
-	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master && $TRAVIS_PHP_VERSION != '5.3' ]]; then
+	# This can't run on the codesniff pass for modules, because WordPoints isn't
+	# installed then, but is needed for autoloader classmap dependencies.
+	if [[ $TRAVISCI_RUN == codesniff && $WORDPOINTS_PROJECT_TYPE == wordpoints ]] \
+		|| [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master ]]
+	then
 		wpdl-codesniff-php-autoloaders
 	else
 		echo 'Not running PHP autoloader fallback file check.'
