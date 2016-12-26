@@ -100,7 +100,7 @@ wpdl-codesniff-php-autoloaders() {
 	local dependencies=()
 
 	if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
-		dependencies=("$WORDPOINTS_DIR/src/classes/")
+		dependencies=("$WORDPOINTS_DEVELOP_DIR/src/classes/")
 	fi
 
 	if find "${!path}" \

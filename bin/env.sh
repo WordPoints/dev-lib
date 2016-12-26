@@ -66,7 +66,9 @@ export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '5.6' ]] && (shopt -s nullglob;
 export WP_CEPT_SERVER='127.0.0.1:8080'
 
 # WordPoints
-export WORDPOINTS_DEVELOP_DIR=/tmp/wordpoints
+if [[ -z $WORDPOINTS_DEVELOP_DIR ]]; then
+	export WORDPOINTS_DEVELOP_DIR=/tmp/wordpoints
+fi
 
 if [[ $WORDPOINTS_PROJECT_TYPE == wordpoints ]]; then
 	export WORDPOINTS_TESTS_DIR=/home/travis/build/WordPoints/wordpoints/tests/phpunit/
