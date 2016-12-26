@@ -97,9 +97,14 @@ wpdl-codesniff-php-autoloaders() {
 	fi
 
 	local path=$(wpdl-get-codesniff-path PHP AUTOLOADERS)
+	local dependencies=()
+
+	if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+		dependencies=("$WORDPOINTS_DIR/src/classes/")
+	fi
 
 	if find "${!path}" \
-		| while read dir; do "${DEV_LIB_PATH}"/bin/verify-php-autoloader "${dir}"/; done \
+		| while read dir; do "${DEV_LIB_PATH}"/bin/verify-php-autoloader "${dir}"/ "${dependencies[@]}"; done \
 		| grep "^Fatal error"
 	then
 		return 1;
