@@ -354,6 +354,21 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		foreach ( array( 'class', 'method' ) as $depth ) {
 
+			if ( isset( $annotations[ $depth ]['WordPoints-requires'] ) ) {
+				foreach ( $annotations[ $depth ]['WordPoints-requires'] as $function ) {
+
+					$name = $function;
+
+					if ( ! function_exists( $function ) ) {
+						$function = array( $this, $function );
+					}
+
+					if ( ! call_user_func( $function ) ) {
+						$this->markTestSkipped( "{$name}() must be true." );
+					}
+				}
+			}
+
 			if ( empty( $annotations[ $depth ]['requires'] ) ) {
 				continue;
 			}
