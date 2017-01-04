@@ -92,7 +92,7 @@ wpdl-codesniff-php-syntax() {
 wpdl-codesniff-php-autoloaders() {
 
 	# Only run if there are staged class files.
-	if [[ $DOING_GIT_PRE_COMMIT == 1 && "$(git diff --diff-filter=ACDMR --staged --name-only)" != */classes/* ]]; then
+	if [[ $DOING_GIT_PRE_COMMIT == 1 && "$(git diff --diff-filter=ACDMR --staged --name-only)" != src*/classes/* ]]; then
 		return;
 	fi
 
