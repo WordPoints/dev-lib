@@ -73,7 +73,7 @@ fi
 if [[ $WORDPOINTS_PROJECT_TYPE == wordpoints ]]; then
 	export WORDPOINTS_TESTS_DIR=/home/travis/build/WordPoints/wordpoints/tests/phpunit/
 else
-	export export WORDPOINTS_TESTS_DIR=/tmp/wordpoints/tests/phpunit/
+	export WORDPOINTS_TESTS_DIR=/tmp/wordpoints/tests/phpunit/
 fi
 
 if [[ -z $WORDPOINTS_VERSION ]]; then
