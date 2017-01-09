@@ -121,7 +121,7 @@ module.exports = function( grunt, dir ) {
 				expand: true,
 				cwd: SOURCE_DIR,
 				dest: SOURCE_DIR,
-				src: ['**/*.css']
+				src: [ '**/*.css', '!**/*.min.css' ]
 			}
 		},
 		rtlcss: {
