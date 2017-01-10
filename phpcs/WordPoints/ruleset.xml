@@ -124,6 +124,10 @@
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
+	<rule ref="WordPress.WP.I18n.MissingTranslatorsComment">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/dev-lib/*</exclude-pattern>
 	<exclude-pattern>/.idea/*</exclude-pattern>
