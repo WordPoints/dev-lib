@@ -10,6 +10,11 @@
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Variables.GlobalVariables" />
 		<exclude name="Generic.Strings.UnnecessaryStringConcat" />
+		<!--
+			We check syntax separately, so no need to have PHPCS do it. (And it is a
+			huge performance hog since it does this with `shell_exec()`.)
+		-->
+		<exclude name="Generic.PHP.Syntax" />
 	</rule>
 
 	<rule ref="WordPress-Docs">
