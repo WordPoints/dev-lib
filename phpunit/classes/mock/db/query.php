@@ -32,6 +32,17 @@ class WordPoints_PHPUnit_Mock_DB_Query extends WordPoints_DB_Query {
 	/**
 	 * @since 2.6.0
 	 */
+	public $deprecated_args = array(
+		'deprecated' => array(
+			'replacement' => 'replacement',
+			'version'     => '2.6.0',
+			'class'       => __CLASS__,
+		),
+	);
+
+	/**
+	 * @since 2.6.0
+	 */
 	public function __construct( $args = array() ) {
 
 		global $wpdb;
