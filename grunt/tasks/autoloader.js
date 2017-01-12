@@ -45,6 +45,8 @@ module.exports = function ( grunt ) {
 			error = result.error.message;
 		} else if ( result.stderr && result.stderr.length ) {
 			error = result.stderr.toString();
+		} else if ( result.stdout && result.stdout.length ) {
+			error = result.stdout.toString();
 		}
 
 		if ( error ) {
