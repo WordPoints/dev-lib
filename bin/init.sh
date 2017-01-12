@@ -28,12 +28,6 @@ if [ ! -e .jshintignore ]; then
 	ln -s "$DEV_LIB_PATH"/jshint/.jshintignore .
 fi
 
-# Symlink the Coveralls configuration file if you want to use code coverage.
-if [ ! -e .coveralls.yml ]; then
-	echo Symlinking Coveralls config
-	ln -s "$DEV_LIB_PATH"/travis/.coveralls.yml .
-fi
-
 # Copy the l10n validator configuration file.
 if [ ! -e wp-l10n-validator.json ]; then
 	echo Copying L10n Validator config

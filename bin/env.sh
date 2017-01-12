@@ -59,7 +59,7 @@ export WPL10NV_GIT_TREE=develop
 export DO_PHPUNIT=$(if [ -e phpunit.xml.dist ]; then echo 1; else echo 0; fi)
 export RUN_UNINSTALL_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && ([[ -e phpunit.uninstall.xml.dist ]] || grep -q '<group>ajax</group>' phpunit.xml.dist); then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
-export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && [ -e .coveralls.yml ]; then echo 1; else echo 0; fi)
+export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && grep -q codecov README.md; then echo 1; else echo 0; fi)
 
 # WP Browser (Codeception)
 export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '5.6' ]] && (shopt -s nullglob; f=(tests/codeception/acceptance/*.cept.php); ((${#f[@]}))); then echo 1; else echo 0; fi)

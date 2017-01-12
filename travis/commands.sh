@@ -3,14 +3,6 @@
 # Install composer dependencies.
 setup-composer() {
 
-	# We always need to do this when collecting code coverage, even if there are no
-	# composer dependencies.
-	if [[ $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
-		composer require --prefer-source satooshi/php-coveralls:0.7.0
-		mkdir -p build/logs
-		return;
-	fi
-
 	# No dependencies, no need to continue.
 	if [ ! -e composer.json ]; then
 		return
@@ -44,6 +36,10 @@ setup-phpunit() {
 	setup-composer
 
 	mkdir -p "$WP_DEVELOP_DIR"
+
+	if [[ $DO_CODE_COVERAGE == 1 ]]; then
+		mkdir -p build/logs
+	fi
 
 	# Back-compat.
 	if [[ $WP_VERSION == 'nightly' ]]; then

@@ -20,7 +20,7 @@ script:
   - wpdl-codesniff-bash
   - wpdl-codesniff-jshint
   - wpdl-codesniff-strings
-  - find ./travis -name '*.yml' ! -name '.coveralls.yml' -exec travis-lint {} \;
+  - find ./travis -name '*.yml' -exec travis-lint {} \;
   - CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*' '!' -path './phpcs/*' '!' -path './l10n-validator/*'); phpenv global 5.2 && wpdl-codesniff-php-syntax
   - CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*'); phpenv global 5.3 && wpdl-codesniff-php-syntax; CODESNIFF_PATH_PHP_SYNTAX= A=$?; [[ $A == 0 ]]
   - phpenv global 5.4 && wpdl-codesniff-php-syntax
