@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@martin-pettersson/wp-get-file-data": "^0.1.0",
     "autoprefixer": "^6.6.1",
     "grunt": "^1.0.0",
     "grunt-browserify": "~3.8.0",

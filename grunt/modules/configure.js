@@ -43,7 +43,17 @@ module.exports = function( grunt, dir ) {
 				src_dir: SOURCE_DIR,
 				prefix:  function ( class_dir ) {
 
-					var prefix = 'wordpoints_';
+					var prefix = 'wordpoints_',
+						basename = require( 'path' ).basename( process.cwd() );
+
+					if ( 'wordpoints' !== basename ) {
+						var data = require( '@martin-pettersson/wp-get-file-data' )
+							.getFileDataSync( 'src/' + basename + '.php' );
+
+						if ( data.Namespace ) {
+							prefix += data.Namespace.toLowerCase() + '_';
+						}
+					}
 
 					switch ( class_dir ) {
 
