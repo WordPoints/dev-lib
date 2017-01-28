@@ -297,7 +297,9 @@ module.exports = function( grunt, dir ) {
 
 	// Make sure that we use an open port, in case there are multiple instances of
 	// livereload running.
-	grunt.task.run( 'openport:watch.livereload.options.livereload:35729' );
+	if ( grunt.cli.tasks.indexOf( 'watch' ) >= 0 ) {
+		grunt.task.run( 'openport:watch.livereload.options.livereload:35729' );
+	}
 };
 
 // EOF
