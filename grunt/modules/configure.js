@@ -294,6 +294,10 @@ module.exports = function( grunt, dir ) {
 	);
 
 	grunt.registerTask( 'default', 'build' );
+
+	// Make sure that we use an open port, in case there are multiple instances of
+	// livereload running.
+	grunt.task.run( 'openport:watch.livereload.options.livereload:35729' );
 };
 
 // EOF
