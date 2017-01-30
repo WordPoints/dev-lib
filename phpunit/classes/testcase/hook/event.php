@@ -140,10 +140,6 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 		$this->assertNotEmpty( $this->event->get_description() );
 
-		if ( $this->event instanceof WordPoints_Hook_Event_RetroactiveI ) {
-			$this->assertNotEmpty( $this->event->get_retroactive_description() );
-		}
-
 		if ( $this->event instanceof WordPoints_Hook_Event_ReversingI ) {
 			$this->assertNotEmpty( $this->event->get_reversal_text() );
 		}
@@ -155,6 +151,9 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 * @since 2.6.0
 	 *
 	 * @dataProvider data_provider_targets
+	 *
+	 * @param string[] $target       The target arg hierarchy.
+	 * @param string   $reactor_slug The reactor slug.
 	 */
 	public function test_fires( $target, $reactor_slug ) {
 
@@ -309,7 +308,10 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 		}
 
 		/** @var WordPoints_Hook_ArgI[] $args */
-		$args = $this->hooks->get_sub_app( 'events' )->get_sub_app( 'args' )->get_children( $this->event_slug );
+		$args = $this->hooks
+			->get_sub_app( 'events' )
+			->get_sub_app( 'args' )
+			->get_children( $this->event_slug );
 
 		return $this->get_targets_from_args( $args, $arg_types_index );
 	}
@@ -322,10 +324,10 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 *
 	 * @param WordPoints_Hook_ArgI[]|WordPoints_EntityishI[] $args            The args.
 	 * @param string[][]                                     $arg_types_index A list of reactor slugs indexed by arg slug.
-	 * @param array[][]                                      $targets         The targets data.
+	 * @param array[]                                        $targets         The targets data.
 	 * @param string[]                                       $target_stack    The target stack.
 	 *
-	 * @return array[][] The target data.
+	 * @return array[] The target data.
 	 */
 	protected function get_targets_from_args( $args, $arg_types_index, array $targets = array(), array $target_stack = array() ) {
 
@@ -362,7 +364,10 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 				}
 			}
 
-			$children = wordpoints_entities()->get_sub_app( 'children' )->get_children( $slug );
+			/** @var WordPoints_Entityish[] $children */
+			$children = wordpoints_entities()
+				->get_sub_app( 'children' )
+				->get_children( $slug );
 
 			$targets = $this->get_targets_from_args(
 				$children
