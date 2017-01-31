@@ -8,6 +8,10 @@ fi
 
 get-textdomain
 
+if [[ ! -e src/languages ]]; then
+	mkdir src/languages
+fi
+
 echo Generating POT file for "$text_domain" textdomain
 php "$DEV_LIB_PATH/i18n/makepot.php" "$project_type" src "src/languages/$text_domain.pot" "$text_domain"
 
