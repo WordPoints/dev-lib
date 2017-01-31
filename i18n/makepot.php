@@ -33,6 +33,11 @@ class WordPoints_MakePOT extends MakePOT {
 	public $projects = array( 'wordpoints', 'wordpoints-module' );
 
 	/**
+	 * @since 2.6.0
+	 */
+	protected $max_header_lines = 40;
+
+	/**
 	 * @since 1.3.0
 	 */
 	public function __construct() {
