@@ -11,6 +11,7 @@ setup-composer() {
 	# Composer requires PHP 5.3.
 	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
 		phpenv global 5.3
+		composer self-update
 		composer install --prefer-source
 		phpenv global "$TRAVIS_PHP_VERSION"
 	else
