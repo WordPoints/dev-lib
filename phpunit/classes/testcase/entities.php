@@ -44,7 +44,11 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 		$the_entity = call_user_func( $data['create_func'] );
 
-		$the_id = $the_entity->{$data['id_field']};
+		if ( isset( $data['id_field'] ) ) {
+			$the_id = $the_entity->{$data['id_field']};
+		} else {
+			$the_id = call_user_func( $data['get_id'], $the_entity );
+		}
 
 		if ( isset( $data['human_id_field'] ) ) {
 			$the_human_id = $the_entity->{$data['human_id_field']};
@@ -68,7 +72,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 			, $entity->get_human_id( $the_id )
 		);
 
-		$this->assertTrue( $entity->exists( $the_id ) );
+		$this->assertTrue( $entity->exists( $the_id ), 'The entity should be found by exists().' );
 
 		$this->assertTrue( $entity->set_the_value( $the_entity ) );
 		$this->assertEquals( $the_id, $entity->get_the_value() );
@@ -111,8 +115,11 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		}
 
 		if (
-			$entity instanceof WordPoints_Entity_Restricted_VisibilityI
-			|| ( $has_method = method_exists( $entity, 'user_can_view' ) )
+			isset( $data['cant_view'] )
+			&& (
+				$entity instanceof WordPoints_Entity_Restricted_VisibilityI
+				|| ( $has_method = method_exists( $entity, 'user_can_view' ) )
+			)
 		) {
 
 			if ( ! empty( $has_method ) ) {
