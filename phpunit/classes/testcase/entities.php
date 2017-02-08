@@ -179,6 +179,11 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 					$child->set_the_value_from_entity( $entity );
 
+					$this->assertNotNull(
+						$child->get_the_value()
+						, "The {$slug} attribute value should have been set to something other than null."
+					);
+
 				} elseif ( $child instanceof WordPoints_Entity_Relationship ) {
 
 					$this->assertEquals(
@@ -192,6 +197,11 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 					);
 
 					$child->set_the_value_from_entity( $entity );
+
+					$this->assertNotNull(
+						$child->get_the_value()
+						, "The {$slug} relationship value should have been set to something other than null."
+					);
 				}
 
 			} // End foreach ( $data['children'] ).
