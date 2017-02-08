@@ -158,13 +158,14 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 				$child = new $child_data['class']( $slug );
 
+				$this->assertInstanceOf( 'WordPoints_Entity_ChildI', $child );
+
+				/** @var $child WordPoints_EntityishI */
 				$this->assertNotEmpty( $child->get_title() );
 
-				$this->assertInstanceOf(
-					'WordPoints_Entityish_StoredI',
-					$child
-				);
+				$this->assertInstanceOf( 'WordPoints_Entityish_StoredI', $child );
 
+				/** @var $child WordPoints_Entityish_StoredI */
 				$this->assertEquals(
 					$child_data['storage_info']
 					, $child->get_storage_info()
@@ -237,6 +238,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 			foreach ( $data['children'] as $slug => $child_data ) {
 
+				/** @var WordPoints_Entity_ChildI $child */
 				$child = new $child_data['class']( $slug );
 
 				// We're just checking that there are no errors here. Whether the
@@ -253,6 +255,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 				$child->set_the_value_from_entity( $entity );
 
+				/** @var WordPoints_EntityishI $child */
 				$this->assertNull( $child->get_the_value() );
 			}
 		}
