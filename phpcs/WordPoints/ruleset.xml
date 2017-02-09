@@ -3,6 +3,11 @@
 	<description>Sniffs for the coding standards of the WordPoints plugin</description>
 
 	<rule ref="WordPress-Core">
+		<!--
+			When associative arrays have a single key we allow them to be on a
+			single line, but this sniff doesn't allow for that.
+		-->
+		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeKeyFound" />
 		<!-- https://github.com/WordPoints/dev-lib/issues/181 -->
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Invalid" />
 	</rule>
