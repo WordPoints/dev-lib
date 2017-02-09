@@ -41,9 +41,6 @@
 	</rule>
 
 	<rule ref="WordPress-VIP">
-		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
-		<exclude name="WordPress.VIP.RestrictedFunctions.custom_role" />
-		<exclude name="WordPress.VIP.RestrictedFunctions.wp_is_mobile" />
 		<exclude name="WordPress.VIP.SuperGlobalInputUsage" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.SchemaChange" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
@@ -52,8 +49,6 @@
 			positives. They will be added back in when the changes are committed to
 			the stable version upstream. Until then, the issue numbers are supplied.
 		-->
-		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" /><!-- WordPoints/wordpoints#90 -->
-		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" /><!-- WordPoints/wordpoints#90 -->
 		<exclude name="WordPress.VIP.SlowDBQuery" /><!-- WordPoints/wordpoints#90 -->
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
@@ -65,7 +60,15 @@
 		</properties>
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
+	<rule ref="WordPress.VIP.RestrictedFunctions">
+		<properties>
+			<property name="exclude" value="switch_to_blog,custom_role,wp_is_mobile,user_meta" />
+		</properties>
+	</rule>
 	<rule ref="WordPress.VIP.RestrictedVariables">
+		<properties>
+			<property name="exclude" value="user_meta" />
+		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.VIP.DirectDatabaseQuery">
@@ -121,7 +124,7 @@
 	<rule ref="Squiz.Scope.MethodScope"/>
 	<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
 
-	<rule ref="Generic.Files.LowercasedFilename.NotFound">
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
 
