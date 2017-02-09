@@ -140,6 +140,13 @@
 	</rule>
 	<rule ref="Generic.Files.OneInterfacePerFile"/>
 
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<!-- We don't require class- to be prepended to class file names. -->
+			<property name="strict_class_file_names" value="false" />
+		</properties>
+	</rule>
+
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/dev-lib/*</exclude-pattern>
 	<exclude-pattern>/.idea/*</exclude-pattern>
