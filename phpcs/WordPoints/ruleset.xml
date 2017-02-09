@@ -8,6 +8,10 @@
 			single line, but this sniff doesn't allow for that.
 		-->
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeKeyFound" />
+
+		<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/751#issuecomment-278739935 -->
+		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
+
 		<!-- https://github.com/WordPoints/dev-lib/issues/181 -->
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Invalid" />
 	</rule>
@@ -51,15 +55,17 @@
 		-->
 		<exclude name="WordPress.VIP.SlowDBQuery" /><!-- WordPoints/wordpoints#90 -->
 	</rule>
+
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
 		<exclude-pattern>/tests/*</exclude-pattern><!-- because of PHPUnit method names -->
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<properties>
-			<property name="customVariablesWhitelist" value="longOptions,textContent,preserveWhiteSpace" type="array" />
+			<property name="customPropertiesWhitelist" value="longOptions,textContent,preserveWhiteSpace" type="array" />
 		</properties>
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
+
 	<rule ref="WordPress.VIP.RestrictedFunctions">
 		<properties>
 			<property name="exclude" value="switch_to_blog,custom_role,wp_is_mobile,user_meta" />
@@ -136,6 +142,22 @@
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
+	<!--
+		The functions that the following 3 rules apply to are only used by deprecated
+		functions, so we might remove these rules in future.
+	-->
+	<rule ref="WordPress.WP.AlternativeFunctions.file_system_read_fsockopen">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress.WP.AlternativeFunctions.file_system_read_fclose">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress.PHP.DiscouragedPHPFunctions.system_calls_shell_exec">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
 	<rule ref="Generic.Files.OneClassPerFile">
 		<!-- These classes are deprecated and are autoloaded, so it is OK. -->
 		<exclude-pattern>/src/components/points/includes/shortcodes.php</exclude-pattern>
@@ -153,6 +175,18 @@
 			<!-- We don't require class- to be prepended to class file names. -->
 			<property name="strict_class_file_names" value="false" />
 		</properties>
+	</rule>
+
+	<rule ref="Squiz.PHP.CommentedOutCode.Found">
+		<exclude-pattern>*/index.php</exclude-pattern>
+	</rule>
+
+	<rule ref="Generic.PHP.DisallowAlternativePHPTags.MaybeASPOpenTagFound">
+		<!--
+			We used this style of tags for our Backbone templates, but eventually
+			we'll replace this with the new hooks API which does it right.
+		-->
+		<exclude-pattern>/src/components/ranks/*</exclude-pattern>
 	</rule>
 
 	<exclude-pattern>/vendor/*</exclude-pattern>
