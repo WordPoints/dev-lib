@@ -5,7 +5,7 @@ language: php
 php:
   - 7.1
 
-# Use the new infrustructure.
+# Use the new infrastructure.
 sudo: false
 
 before_script:
@@ -14,6 +14,8 @@ before_script:
   - export DEV_LIB_PATH=none
   - source bin/env.sh
   - source bin/functions.sh
+  - source travis/commands.sh
+  - setup-codesniff
 
 script:
   - wpdl-codesniff-xmllint
@@ -29,5 +31,6 @@ script:
   #- phpenv global 7.0 && wpdl-codesniff-php-syntax
   - phpenv global 7.1 && wpdl-codesniff-php-syntax
   - phpenv global hhvm && wpdl-codesniff-php-syntax
+  - phpunit --filter WordPoints /tmp/phpcs/tests/AllTests.php
 
 # EOF
