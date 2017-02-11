@@ -15,7 +15,9 @@ before_script:
   - source bin/env.sh
   - source bin/functions.sh
   - source travis/commands.sh
-  - DO_PHPCS=1 setup-codesniff
+  - install-from-github WPCS
+  - mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b master $PHPCS_DIR
+  - "$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR",phpcs
 
 script:
   - wpdl-codesniff-xmllint
