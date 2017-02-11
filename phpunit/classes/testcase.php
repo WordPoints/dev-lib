@@ -1395,6 +1395,49 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Asserts that an array contains a value.
+	 *
+	 * This differs from the behavior of assertContains() in that strict comparison
+	 * is used.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param mixed $value The value that an array is expected to contain.
+	 * @param array $array The array that should contain an identical value.
+	 */
+	public function assertContainsSame( $value, $array ) {
+
+		$this->assertInternalType( 'array', $array );
+
+		$this->assertTrue( in_array( $value, $array, true ) );
+	}
+
+	/**
+	 * Asserts that a string contains another string.
+	 *
+	 * This is basically just a wrapper for a subset of the behavior of
+	 * assertContains().
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param string $needle      The string that the string is expected to contain.
+	 * @param string $haystack    The string expected to contain the string.
+	 * @param bool   $ignore_case Whether to ignore the case of the strings.
+	 */
+	public function assertStringContains( $needle, $haystack, $ignore_case = false ) {
+
+		$this->assertInternalType( 'string', $needle );
+		$this->assertInternalType( 'string', $haystack );
+
+		$constraint = new PHPUnit_Framework_Constraint_StringContains(
+			$needle,
+			$ignore_case
+		);
+
+		self::assertThat( $haystack, $constraint );
+	}
+
+	/**
 	 * Create a points reaction.
 	 *
 	 * @since 2.6.0
