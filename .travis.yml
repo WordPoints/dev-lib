@@ -15,7 +15,7 @@ before_script:
   - source bin/env.sh
   - source bin/functions.sh
   - source travis/commands.sh
-  - setup-codesniff
+  - DO_PHPCS=1 setup-codesniff
 
 script:
   - wpdl-codesniff-xmllint
