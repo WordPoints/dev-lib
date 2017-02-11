@@ -46,7 +46,7 @@ abstract class WordPoints_PHPUnit_TestCase_Class_Registry extends PHPUnit_Framew
 			, $registry->get( 'test' )
 		);
 
-		$this->assertEquals( array( 'test' ), $registry->get_all_slugs() );
+		$this->assertSame( array( 'test' ), $registry->get_all_slugs() );
 	}
 
 	/**
@@ -120,7 +120,7 @@ abstract class WordPoints_PHPUnit_TestCase_Class_Registry extends PHPUnit_Framew
 			, $objects['test']
 		);
 
-		$this->assertEquals( 'test', $objects['test']->calls[0]['arguments'][0] );
+		$this->assertSame( 'test', $objects['test']->calls[0]['arguments'][0] );
 
 		$this->assertArrayHasKey( 'test_2', $objects );
 		$this->assertInstanceOf(
@@ -128,9 +128,9 @@ abstract class WordPoints_PHPUnit_TestCase_Class_Registry extends PHPUnit_Framew
 			, $objects['test_2']
 		);
 
-		$this->assertEquals( 'test_2', $objects['test_2']->calls[0]['arguments'][0] );
+		$this->assertSame( 'test_2', $objects['test_2']->calls[0]['arguments'][0] );
 
-		$this->assertEquals( array( 'test', 'test_2' ), $registry->get_all_slugs() );
+		$this->assertSame( array( 'test', 'test_2' ), $registry->get_all_slugs() );
 	}
 
 	/**
@@ -157,7 +157,7 @@ abstract class WordPoints_PHPUnit_TestCase_Class_Registry extends PHPUnit_Framew
 			, $object
 		);
 
-		$this->assertEquals( 'test', $object->calls[0]['arguments'][0] );
+		$this->assertSame( 'test', $object->calls[0]['arguments'][0] );
 	}
 
 	/**
@@ -226,7 +226,7 @@ abstract class WordPoints_PHPUnit_TestCase_Class_Registry extends PHPUnit_Framew
 
 		array_unshift( $args, 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $object->calls[0]
 		);
@@ -257,14 +257,14 @@ abstract class WordPoints_PHPUnit_TestCase_Class_Registry extends PHPUnit_Framew
 
 		array_unshift( $args, 'test' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test']->calls[0]
 		);
 
 		$args[0] = 'test_2';
 
-		$this->assertEquals(
+		$this->assertSame(
 			array( 'name' => '__construct', 'arguments' => $args )
 			, $objects['test_2']->calls[0]
 		);
@@ -290,7 +290,7 @@ abstract class WordPoints_PHPUnit_TestCase_Class_Registry extends PHPUnit_Framew
 			, $registry->get( 'test' )
 		);
 
-		$this->assertEquals( array( 'test' ), $registry->get_all_slugs() );
+		$this->assertSame( array( 'test' ), $registry->get_all_slugs() );
 
 		$this->assertNull( $registry->deregister( 'test' ) );
 

@@ -25,7 +25,7 @@ class My_Module_Uninstall_Test
 		$this->assertTableExists( $wpdb->prefix . 'mymodule_table' );
 
 		// Check that an option was added to the database.
-		$this->assertEquals( 'default', get_option( 'mymodule_option' ) );
+		$this->assertSame( 'default', get_option( 'mymodule_option' ) );
 
 		/*
 		 * Now, test that it uninstalls itself properly.

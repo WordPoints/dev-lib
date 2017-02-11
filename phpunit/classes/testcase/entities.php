@@ -59,15 +59,15 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		$this->assertNotEmpty( $entity->get_title() );
 
 		if ( isset( $data['context'] ) ) {
-			$this->assertEquals(
+			$this->assertSame(
 				$data['context'],
 				$entity->get_context()
 			);
 		} else {
-			$this->assertEquals( 'site', $entity->get_context() );
+			$this->assertSame( 'site', $entity->get_context() );
 		}
 
-		$this->assertEquals(
+		$this->assertSame(
 			$the_human_id
 			, $entity->get_human_id( $the_id )
 		);
@@ -75,12 +75,12 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		$this->assertTrue( $entity->exists( $the_id ), 'The entity should be found by exists().' );
 
 		$this->assertTrue( $entity->set_the_value( $the_entity ) );
-		$this->assertEquals( $the_id, $entity->get_the_value() );
-		$this->assertEquals( $the_id, $entity->get_the_id() );
-		$this->assertEquals( $the_human_id, $entity->get_the_human_id() );
+		$this->assertSame( $the_id, $entity->get_the_value() );
+		$this->assertSame( $the_id, $entity->get_the_id() );
+		$this->assertSame( $the_human_id, $entity->get_the_human_id() );
 
 		if ( isset( $data['human_id_field'] ) ) {
-			$this->assertEquals(
+			$this->assertSame(
 				$the_human_id
 				, $entity->get_the_attr_value( $data['human_id_field'] )
 			);
@@ -166,14 +166,14 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 				$this->assertInstanceOf( 'WordPoints_Entityish_StoredI', $child );
 
 				/** @var $child WordPoints_Entityish_StoredI */
-				$this->assertEquals(
+				$this->assertSame(
 					$child_data['storage_info']
 					, $child->get_storage_info()
 				);
 
 				if ( $child instanceof WordPoints_Entity_Attr ) {
 
-					$this->assertEquals(
+					$this->assertSame(
 						$child_data['data_type']
 						, $child->get_data_type()
 					);
@@ -187,12 +187,12 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 
 				} elseif ( $child instanceof WordPoints_Entity_Relationship ) {
 
-					$this->assertEquals(
+					$this->assertSame(
 						$child_data['primary']
 						, $child->get_primary_entity_slug()
 					);
 
-					$this->assertEquals(
+					$this->assertSame(
 						$child_data['related']
 						, $child->get_related_entity_slug()
 					);
@@ -227,7 +227,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 			'WordPoints_Entityish_StoredI',
 			$entity
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			$data['storage_info'],
 			$entity->get_storage_info()
 		);

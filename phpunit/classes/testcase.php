@@ -1165,7 +1165,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		$document = new DOMDocument;
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//p[@class = "wordpoints-shortcode-error"]' )->length
 		);
@@ -1183,7 +1183,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		$document = new DOMDocument;
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
-		$this->assertEquals(
+		$this->assertSame(
 			1
 			, $xpath->query( '//div[@class = "wordpoints-widget-error"]' )->length
 		);
@@ -1211,7 +1211,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$messages = $xpath->query( '//div[contains(@class, "notice")]' );
 
-		$this->assertEquals( 1, $messages->length );
+		$this->assertSame( 1, $messages->length );
 
 		$message = $messages->item( 0 );
 
@@ -1232,7 +1232,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 			if ( isset( $args['option'] ) ) {
 
-				$this->assertEquals(
+				$this->assertSame(
 					$args['option']
 					, $message->attributes->getNamedItem( 'data-option' )->nodeValue
 				);
@@ -1255,7 +1255,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$messages = $xpath->query( '//div[contains(@class, "notice")]' );
 
-		$this->assertEquals( 0, $messages->length );
+		$this->assertSame( 0, $messages->length );
 	}
 
 	/**
@@ -1332,17 +1332,66 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		global $wpdb;
 
-		$this->assertEquals(
+		$this->assertSame(
 			$table_name
-			,
-			$wpdb->get_var(
+			, $wpdb->get_var(
 				$wpdb->prepare(
 					'SHOW TABLES LIKE %s'
-					,
-					$wpdb->esc_like( $table_name )
+					, $wpdb->esc_like( $table_name )
 				)
 			)
 		);
+	}
+
+	/**
+	 * Asserts that two objects have identical properties.
+	 *
+	 * This differs from the behavior of assertEquals() in that strict comparison is
+	 * used.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param object $object   The object with the expected properties.
+	 * @param object $object_2 The object that should have identical properties.
+	 */
+	public function assertSameProperties( $object, $object_2 ) {
+
+		$this->assertInternalType( 'object', $object );
+		$this->assertInternalType( 'object', $object_2 );
+
+		// If it is the exact same instance, no need for further checks.
+		if ( $object === $object_2 ) {
+			return;
+		}
+
+		$this->assertSame( get_class( $object ), get_class( $object_2 ) );
+
+		$this->assertSame(
+			get_object_vars( $object )
+			, get_object_vars( $object_2 )
+		);
+	}
+
+	/**
+	 * Asserts that two indexed arrays have identical values and indexes.
+	 *
+	 * This differs from the behavior of assertEqualSets() in that strict comparison
+	 * is used. It differs from assertSame() in that ordering does not matter.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param array $array   The array with the expected elements.
+	 * @param array $array_2 The array that should have identical elements.
+	 */
+	public function assertSameSetsWithIndex( $array, $array_2 ) {
+
+		$this->assertInternalType( 'array', $array );
+		$this->assertInternalType( 'array', $array_2 );
+
+		ksort( $array );
+		ksort( $array_2 );
+
+		$this->assertSame( $array, $array_2 );
 	}
 
 	/**

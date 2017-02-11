@@ -395,7 +395,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 * @param int $user_id The ID of the user.
 	 */
 	protected function assert_user_has_points( $user_id ) {
-		$this->assertEquals( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	/**
@@ -406,7 +406,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 * @param int $user_id The ID of the user.
 	 */
 	protected function assert_user_has_no_points( $user_id ) {
-		$this->assertEquals( 0, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame( 0, wordpoints_get_points( $user_id, 'points' ) );
 	}
 
 	// @codingStandardsIgnoreStart
