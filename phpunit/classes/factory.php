@@ -67,7 +67,7 @@ class WordPoints_PHPUnit_Factory {
 	public function __get( $var ) {
 
 		if ( $this->is_registered( $var ) && isset( $this->classes[ $var ] ) ) {
-			$this->$var = new $this->classes[ $var ]( $this )
+			$this->$var = new $this->classes[ $var ]( $this );
 			return $this->$var;
 		}
 
