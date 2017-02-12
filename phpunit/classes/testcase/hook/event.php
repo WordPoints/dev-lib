@@ -157,7 +157,9 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 */
 	public function test_fires( $target, $reactor_slug ) {
 
-		self::$tested_targets[] = $this->target = $target;
+		$this->target = $target;
+
+		self::$tested_targets[] = $this->target;
 		self::$_expected_targets = $this->expected_targets;
 
 		switch ( $reactor_slug ) {
@@ -251,7 +253,8 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 				call_user_func( array( $this, $reverse_assertion ), $target_id );
 			}
-		}
+
+		} // End foreach ( base entity ID ).
 	}
 
 	/**
@@ -335,7 +338,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 			// Prevent infinite loops when an entity can be a parent of another
 			// entity of the same type.
-			if ( in_array( $slug, $target_stack ) ) {
+			if ( in_array( $slug, $target_stack, true ) ) {
 				continue;
 			}
 

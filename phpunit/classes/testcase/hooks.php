@@ -91,8 +91,9 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 		);
 
 		$entity = array( 'test_entity' => $conditions );
-		$child = $both = array( 'test_entity' => array( 'child' => $conditions ) );
+		$child = array( 'test_entity' => array( 'child' => $conditions ) );
 
+		$both = $child;
 		$both['test_entity']['_conditions'] = $conditions['_conditions'];
 
 		return array(

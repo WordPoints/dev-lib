@@ -55,7 +55,10 @@ class WordPoints_PHPUnit_Factory {
 	 * @return WordPoints_PHPUnit_Factory The factory registry.
 	 */
 	public static function init() {
-		return self::$factory = new WordPoints_PHPUnit_Factory();
+
+		self::$factory = new WordPoints_PHPUnit_Factory();
+
+		return self::$factory;
 	}
 
 	/**
@@ -64,7 +67,8 @@ class WordPoints_PHPUnit_Factory {
 	public function __get( $var ) {
 
 		if ( $this->is_registered( $var ) && isset( $this->classes[ $var ] ) ) {
-			return $this->$var = new $this->classes[ $var ]( $this );
+			$this->$var = new $this->classes[ $var ]( $this )
+			return $this->$var;
 		}
 
 		return null;

@@ -104,12 +104,12 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 		// We only want one line PHP sections, so return if the closing tag is not
 		// on the next line.
 		$closeTag = $phpcsFile->findNext( T_CLOSE_TAG, $stackPtr, null, false );
-		if ( ! $closeTag || $tokens[ $stackPtr ]['line'] !== $tokens[ $closeTag ]['line'] )  {
+		if ( ! $closeTag || $tokens[ $stackPtr ]['line'] !== $tokens[ $closeTag ]['line'] ) {
 			return;
 		}
 
 		$stackPtr++;
-		if ( $tokens[ $stackPtr ]['code'] === T_WHITESPACE ) {
+		if ( T_WHITESPACE === $tokens[ $stackPtr ]['code'] ) {
 			$stackPtr++;
 		}
 
@@ -127,7 +127,7 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 				$data[0] .= $tokens[ $stackPtr + 1 ]['content'] . $tokens[ $stackPtr + 2 ]['content'];
 			}
 
-			if ( in_array( $tokens[ $stackPtr + 2 ]['code'], PHP_CodeSniffer_Tokens::$assignmentTokens ) ) {
+			if ( in_array( $tokens[ $stackPtr + 2 ]['code'], PHP_CodeSniffer_Tokens::$assignmentTokens, true ) ) {
 				return;
 			}
 
@@ -135,7 +135,7 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 			return;
 		}
 
-		if ( in_array( $data[0], self::$outputFunctions ) ) {
+		if ( in_array( $data[0], self::$outputFunctions, true ) ) {
 			return;
 		}
 
@@ -156,8 +156,8 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 			$phpcsFile->addError( $error, $stackPtr, 'MissingEcho', $data );
 		}
 
-	} // public function process()
+	} // End public function process().
 
-} // class WordPoints_Sniffs_PHP_MissingEchoSniff
+} // End class WordPoints_Sniffs_PHP_MissingEchoSniff.
 
 // EOF

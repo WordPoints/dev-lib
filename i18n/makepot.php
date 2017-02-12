@@ -68,7 +68,7 @@ class WordPoints_MakePOT extends MakePOT {
 	 */
 	public function wordpoints( $dir, $output = null ) {
 
-		if ( is_null( $output ) ){
+		if ( is_null( $output ) ) {
 			$output = "{$dir}/languages/wordpoints.pot";
 		}
 
@@ -92,7 +92,7 @@ class WordPoints_MakePOT extends MakePOT {
 			$slug = $this->guess_plugin_slug( $dir );
 		}
 
-		if ( is_null( $output ) ){
+		if ( is_null( $output ) ) {
 			$output = "{$dir}/languages/{$slug}.pot";
 		}
 
@@ -208,7 +208,7 @@ if ( __FILE__ === $included_files[0] ) {
 
 	$makepot = new WordPoints_MakePOT;
 
-	if ( count( $argv ) >= 3 && in_array( $argv[1], $makepot->projects ) ) {
+	if ( count( $argv ) >= 3 && in_array( $argv[1], $makepot->projects, true ) ) {
 
 		$result = call_user_func(
 			array( $makepot, str_replace( '-', '_', $argv[1] ) )

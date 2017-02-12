@@ -66,7 +66,7 @@ WordPoints_PHPUnit_Class_Autoloader::register_dir(
 require_once( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/functions.php' );
 
 // This is mainly left here for back-compat with pre 2.5.0 behavior.
-$has_uninstall_tester = is_dir( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/wordpoints/module-uninstall-tester/' );
+$has_uninstall_tester = is_dir( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/' );
 
 if ( $has_uninstall_tester ) {
 
@@ -93,25 +93,25 @@ if ( $has_uninstall_tester ) {
  *
  * @since 1.0.0
  */
-require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php');
+require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php' );
 
-if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload_52.php' ) ) {
+if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/autoload_52.php' ) ) {
 
 	/**
 	 * The PHP 5.2 compatible Composer autoloader for the module's dependencies.
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload_52.php' );
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/autoload_52.php' );
 
-} elseif ( file_exists( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload.php' ) ) {
+} elseif ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/autoload.php' ) ) {
 
 	/**
 	 * The Composer generated autoloader for the module's dependencies.
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload.php' );
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/autoload.php' );
 }
 
 if ( class_exists( 'WPPPB_Loader' ) ) {

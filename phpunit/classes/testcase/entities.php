@@ -118,11 +118,11 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 			isset( $data['cant_view'] )
 			&& (
 				$entity instanceof WordPoints_Entity_Restricted_VisibilityI
-				|| ( $has_method = method_exists( $entity, 'user_can_view' ) )
+				|| method_exists( $entity, 'user_can_view' )
 			)
 		) {
 
-			if ( ! empty( $has_method ) ) {
+			if ( ! $entity instanceof WordPoints_Entity_Restricted_VisibilityI ) {
 				$this->setExpectedDeprecated(
 					get_class( $entity ) . '::user_can_view'
 				);
@@ -205,9 +205,9 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 					);
 				}
 
-			} // End foreach ( $data['children'] ).
+			} // End foreach ( children ).
 
-		} // End if ( $data['children'] ).
+		} // End if ( children ).
 
 		if ( $entity instanceof WordPoints_Entity_EnumerableI ) {
 			$this->assertInternalType(

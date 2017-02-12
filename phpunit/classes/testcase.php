@@ -401,7 +401,8 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 					$this->markTestSkipped( "WordPoints version must be >= ${version}." );
 				}
 			}
-		}
+
+		} // End foreach ( depth ).
 	}
 
 	/**
@@ -1079,9 +1080,11 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		self::$backup_app = WordPoints_App::$main;
 
-		return WordPoints_App::$main = new WordPoints_PHPUnit_Mock_App_Silent(
+		WordPoints_App::$main = new WordPoints_PHPUnit_Mock_App_Silent(
 			'apps'
 		);
+
+		return WordPoints_App::$main;
 	}
 
 	/**

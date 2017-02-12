@@ -2,16 +2,23 @@
 
 /**
  * Uninstall test case.
+ *
+ * @package WordPoints_My_Module
+ * @since 1.0.0
  */
 
 /**
  * Tests uninstalling the module.
+ *
+ * @since 1.0.0
  */
 class My_Module_Uninstall_Test
 	extends WordPoints_Dev_Lib_PHPUnit_TestCase_Module_Uninstall {
 
 	/**
 	 * Test installation and uninstallation.
+	 *
+	 * @since 1.0.0
 	 */
 	public function test_uninstall() {
 

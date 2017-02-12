@@ -190,7 +190,7 @@
 	</rule>
 
 	<exclude-pattern>/vendor/*</exclude-pattern>
-	<exclude-pattern>/dev-lib/*</exclude-pattern>
+	<exclude-pattern type="relative">^/dev-lib/*</exclude-pattern>
 	<exclude-pattern>/.idea/*</exclude-pattern>
 
 </ruleset>
