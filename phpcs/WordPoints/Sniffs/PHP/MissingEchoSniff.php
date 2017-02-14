@@ -60,6 +60,7 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 		'$this->display_content',
 		'$this->pagination',
 		'$this->search_box',
+		'$this->single_row_columns',
 		'$this->the_field_id',
 		'$this->the_field_name',
 		'wordpoints_admin_show_tabs',
