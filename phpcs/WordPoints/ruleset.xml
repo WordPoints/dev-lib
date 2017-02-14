@@ -9,9 +9,6 @@
 		-->
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeKeyFound" />
 
-		<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/751#issuecomment-278739935 -->
-		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
-
 		<!-- https://github.com/WordPoints/dev-lib/issues/181 -->
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Invalid" />
 	</rule>
@@ -64,6 +61,12 @@
 			<property name="customPropertiesWhitelist" value="longOptions,textContent,preserveWhiteSpace" type="array" />
 		</properties>
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/751#issuecomment-278739935 -->
+			<property name="additionalWordDelimiters" value="-"/>
+		</properties>
 	</rule>
 
 	<rule ref="WordPress.VIP.RestrictedFunctions">
