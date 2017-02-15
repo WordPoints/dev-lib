@@ -229,6 +229,57 @@ abstract class WordPoints_PHPUnit_TestCase_Ajax extends WP_Ajax_UnitTestCase {
 	}
 
 	/**
+	 * Asserts that two objects have identical properties.
+	 *
+	 * This differs from the behavior of assertEquals() in that strict comparison is
+	 * used.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param object $object   The object with the expected properties.
+	 * @param object $object_2 The object that should have identical properties.
+	 */
+	public function assertSameProperties( $object, $object_2 ) {
+
+		$this->assertInternalType( 'object', $object );
+		$this->assertInternalType( 'object', $object_2 );
+
+		// If it is the exact same instance, no need for further checks.
+		if ( $object === $object_2 ) {
+			return;
+		}
+
+		$this->assertSame( get_class( $object ), get_class( $object_2 ) );
+
+		$this->assertSameSetsWithIndex(
+			get_object_vars( $object )
+			, get_object_vars( $object_2 )
+		);
+	}
+
+	/**
+	 * Asserts that two indexed arrays have identical values and indexes.
+	 *
+	 * This differs from the behavior of assertEqualSets() in that strict comparison
+	 * is used. It differs from assertSame() in that ordering does not matter.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param array $array   The array with the expected elements.
+	 * @param array $array_2 The array that should have identical elements.
+	 */
+	public function assertSameSetsWithIndex( $array, $array_2 ) {
+
+		$this->assertInternalType( 'array', $array );
+		$this->assertInternalType( 'array', $array_2 );
+
+		ksort( $array );
+		ksort( $array_2 );
+
+		$this->assertSame( $array, $array_2 );
+	}
+
+	/**
 	 * Set up the global apps object as a mock.
 	 *
 	 * @since 2.6.0
