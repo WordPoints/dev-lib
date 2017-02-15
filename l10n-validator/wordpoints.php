@@ -84,6 +84,8 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Points_Logs_Query::get' => true,
 			'WordPoints_Points_Logs_Query::prime_cache' => true,
 			'WordPoints_Points_Un_Installer::import_legacy_points_hook' => true,
+			'WordPoints_Points_Widget_Logs::get_field_id' => true,
+			'WordPoints_Points_Widget_Logs::get_field_name' => true,
 			'WordPoints_Rank_Groups::register_type_for_group' => true,
 			'WordPoints_Rank_Types::register_type' => array( 1, 2 ),
 			'WordPoints_Ranks_Admin_Screen_Ajax::_send_json_result' => true,
@@ -194,6 +196,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Hook_Reactor::$action_types' => true,
 			'WordPoints_Hook_Reactor::$arg_types' => true,
 			'WordPoints_Hook_Reactor::$slug' => true,
+			'WordPoints_Points_Widget_Logs::$query_slug' => true,
 			'WordPoints_Un_Installer_Base::$type' => true,
 		)
 	);
