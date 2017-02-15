@@ -1369,7 +1369,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$this->assertSame( get_class( $object ), get_class( $object_2 ) );
 
-		$this->assertSame(
+		$this->assertSameSetsWithIndex(
 			get_object_vars( $object )
 			, get_object_vars( $object_2 )
 		);
