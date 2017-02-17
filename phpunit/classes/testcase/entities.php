@@ -295,6 +295,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 			array(
 				'user_id'         => $this->factory->user->create(),
 				'comment_post_ID' => $this->factory->post->create(),
+				'comment_parent'  => $this->factory->comment->create(),
 			)
 		);
 	}
