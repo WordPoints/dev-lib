@@ -275,7 +275,10 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 	public function create_post() {
 
 		return $this->factory->post->create_and_get(
-			array( 'post_author' => $this->factory->user->create() )
+			array(
+				'post_author' => $this->factory->user->create(),
+				'post_parent' => $this->factory->post->create(),
+			)
 		);
 	}
 
