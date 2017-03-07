@@ -13,7 +13,7 @@
  * @since 1.0.0
  */
 class My_Module_Uninstall_Test
-	extends WordPoints_Dev_Lib_PHPUnit_TestCase_Module_Uninstall {
+	extends WordPoints_PHPUnit_TestCase_Module_Uninstall {
 
 	/**
 	 * Test installation and uninstallation.
