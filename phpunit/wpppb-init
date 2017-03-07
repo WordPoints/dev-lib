@@ -33,14 +33,15 @@ fi
 namespace=$(grep -oh "Namespace: .*" src/*.php)
 namespace=${namespace#"Namespace: "}
 namespace=${namespace##* }
-namespace=$(echo "$namespace" | tr '[:upper:]' '[:lower:]')
+lowercase_namespace=$(echo "$namespace" | tr '[:upper:]' '[:lower:]')
 
 if [[ ! -e tests/phpunit/test-uninstall.php ]]; then
 
 	echo Copying tests/phpunit/test-uninstall.php...
 	cp "${scaffold_path}"/test-uninstall.php tests/phpunit/test-uninstall.php
 
-	sed -i '' "s/mymodule/$namespace/" tests/phpunit/test-uninstall.php
+	sed -i '' "s/My_Module/$namespace/" tests/phpunit/test-uninstall.php
+	sed -i '' "s/mymodule/$lowercase_namespace/" tests/phpunit/test-uninstall.php
 
 else
 	echo Not copying tests/phpunit/test-uninstall.php, already exists...
@@ -74,7 +75,7 @@ else
 fi
 
 wordpoints_modules_dir="${WP_TESTS_DIR%/tests/phpunit/}"/src/wp-content/wordpoints-modules
-module_dir=${namespace//_/-}
+module_dir=${lowercase_namespace//_/-}
 
 if [[ ! -e "$wordpoints_modules_dir/$module_dir" ]]; then
 	echo Symlinking module to the WordPress tests modules directory...
