@@ -221,10 +221,10 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 		system(
 			WP_PHP_BINARY
 			. ' ' . escapeshellarg( dirname( __FILE__ ) . '/../../includes/install-modules-only.php' )
-			. ' ' . escapeshellarg( json_encode( $this->modules ) )
+			. ' ' . escapeshellarg( wp_json_encode( $this->modules ) )
 			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
 			. ' ' . (int) is_multisite()
-			. ' ' . escapeshellarg( json_encode( $this->files ) )
+			. ' ' . escapeshellarg( wp_json_encode( $this->files ) )
 			, $exit_code
 		);
 
