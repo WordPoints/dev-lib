@@ -140,6 +140,18 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	}
 
 	/**
+	 * Get a list of the modules to be loaded.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return array[] The modules to be loaded. Keys are module basename slugs,
+	 *                 values arrays of data for the modules.
+	 */
+	public function get_modules() {
+		return $this->modules;
+	}
+
+	/**
 	 * Add a component to load.
 	 *
 	 * @since 2.6.0
@@ -148,6 +160,18 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 */
 	public function add_component( $slug ) {
 		$this->components[ $slug ] = array();
+	}
+
+	/**
+	 * Get a list of the components to be loaded.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array[] The components to be loaded. Keys are component slugs,
+	 *                 values arrays of data for the components.
+	 */
+	public function get_components() {
+		return $this->components;
 	}
 
 	/**
@@ -163,12 +187,14 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 			);
 		}
 
-		if ( ! empty( $this->modules ) ) {
-			$this->add_php_file(
-				dirname( __FILE__ ) . '/../../includes/install-modules.php'
-				, 'after'
-				, $this->modules
-			);
+		if ( $this->should_install_modules() ) {
+			if ( ! empty( $this->modules ) ) {
+				$this->add_php_file(
+					dirname( __FILE__ ) . '/../../includes/install-modules.php'
+					, 'after'
+					, $this->modules
+				);
+			}
 		}
 
 		parent::install_plugins();
@@ -186,7 +212,29 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 			return false;
 		}
 
+		if ( $this->running_module_uninstall_tests() ) {
+			return (bool) getenv( 'WORDPOINTS_ONLY_UNINSTALL_MODULE' );
+		}
+
 		return parent::should_install_plugins();
+	}
+
+	/**
+	 * Checks if the modules should be installed.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return bool Whether the modules should be installed.
+	 */
+	public function should_install_modules() {
+
+		// Initially, we don't want to install the modules during the uninstall tests
+		// so that they won't be loaded. However, they do need to be installed
+		// remotely later, after the tests have begun.
+		return (
+			! $this->running_module_uninstall_tests()
+			|| class_exists( 'WordPoints_PHPUnit_TestCase_Module_Uninstall', false )
+		);
 	}
 
 	/**
@@ -196,6 +244,22 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 
 		if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
 			return parent::running_uninstall_tests();
+		}
+
+		return $this->running_module_uninstall_tests();
+	}
+
+	/**
+	 * Checks whether the module uninstall tests are running.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return bool Whether the module uninstall tests are running.
+	 */
+	public function running_module_uninstall_tests() {
+
+		if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
+			return false;
 		}
 
 		static $uninstall_tests;
