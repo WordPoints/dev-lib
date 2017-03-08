@@ -179,6 +179,17 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 */
 	public function install_plugins() {
 
+		// Initially, we don't want to install the modules during the uninstall tests
+		// so that they won't be loaded. However, they do need to be installed
+		// remotely later, after the tests have begun.
+		if (
+			getenv( 'WORDPOINTS_ONLY_UNINSTALL_MODULE' )
+			&& class_exists( 'WordPoints_PHPUnit_TestCase_Module_Uninstall', false )
+		) {
+			$this->install_modules();
+			return;
+		}
+
 		if ( ! empty( $this->components ) ) {
 			$this->add_php_file(
 				dirname( __FILE__ ) . '/../../includes/install-components.php'
@@ -198,6 +209,34 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 		}
 
 		parent::install_plugins();
+	}
+
+	/**
+	 * Installs the modules via a separate PHP process.
+	 *
+	 * @since 2.6.0
+	 */
+	protected function install_modules() {
+
+		system(
+			WP_PHP_BINARY
+			. ' ' . escapeshellarg( dirname( __FILE__ ) . '/../../includes/install-modules-only.php' )
+			. ' ' . escapeshellarg( json_encode( $this->modules ) )
+			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
+			. ' ' . (int) is_multisite()
+			. ' ' . escapeshellarg( json_encode( $this->files ) )
+			, $exit_code
+		);
+
+		if ( 0 !== $exit_code ) {
+			echo( 'Remote module installation failed with exit code ' . $exit_code );
+			exit( 1 );
+		}
+
+		// The caching functions may not be loaded yet.
+		if ( function_exists( 'wp_cache_flush' ) ) {
+			wp_cache_flush();
+		}
 	}
 
 	/**
