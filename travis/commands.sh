@@ -36,7 +36,7 @@ setup-phpunit() {
 
 	setup-composer
 
-	if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
+	if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." || $TRAVIS_PHP_VERSION == nightly ]]; then
 		export PATH="$HOME/.composer/vendor/bin:$PATH"
 		composer global require "phpunit/phpunit=^5.7.15"
 	fi
