@@ -161,6 +161,10 @@
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
+	<rule ref="WordPress.PHP.DiscouragedPHPFunctions.system_calls_system">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
 	<rule ref="Generic.Files.OneClassPerFile">
 		<!-- These classes are deprecated and are autoloaded, so it is OK. -->
 		<exclude-pattern>/src/components/points/includes/shortcodes.php</exclude-pattern>
