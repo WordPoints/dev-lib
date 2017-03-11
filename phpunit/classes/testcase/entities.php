@@ -68,7 +68,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		}
 
 		$this->assertSame(
-			$the_human_id
+			(string) $the_human_id
 			, $entity->get_human_id( $the_id )
 		);
 
