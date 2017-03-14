@@ -84,7 +84,7 @@ else
 fi
 
 if [[ -z $WORDPOINTS_VERSION ]]; then
-	export WORDPOINTS_VERSION=master
+	export WORDPOINTS_VERSION=develop
 fi
 
 # WordPoints Module
