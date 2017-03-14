@@ -47,11 +47,8 @@ setup-phpunit() {
 		mkdir -p build/logs
 	fi
 
-	# Back-compat.
-	if [[ $WP_VERSION == 'nightly' ]]; then
+	if [[ $WP_VERSION == 'develop' ]]; then
 		WP_VERSION=master
-	elif [[ $WP_VERSION == 'latest' ]]; then
-		WP_VERSION=4.2
 	fi
 
 	# Clone the WordPress develop repo.
@@ -133,7 +130,7 @@ setup-codesniff() {
 
 # Check php files for syntax errors.
 codesniff-php-syntax() {
-	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master && $TRAVIS_PHP_VERSION != '5.3' ]]; then
+	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == develop && $TRAVIS_PHP_VERSION != '5.3' ]]; then
 		wpdl-codesniff-php-syntax
 	else
 		echo 'Not running PHP syntax check.'
@@ -144,7 +141,7 @@ codesniff-php-syntax() {
 codesniff-php-autoloaders() {
 	# This can't run on the codesniff pass, because WordPress isn't installed then,
 	# but is needed for autoloader classmap dependencies.
-	if [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master ]]; then
+	if [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == develop ]]; then
 		wpdl-codesniff-php-autoloaders
 	else
 		echo 'Not running PHP autoloader fallback file check.'
