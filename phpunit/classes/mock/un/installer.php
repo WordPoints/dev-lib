@@ -45,6 +45,7 @@
  * @method uninstall_meta_boxes( $screen_id, $args )
  * @method uninstall_list_table( $screen_id, $args )
  * @method uninstall_option( $option )
+ * @method uninstall_transient( $transient )
  * @method uninstall_widget( $id_base )
  * @method uninstall_points_hook( $id_base )
  * @method uninstall_table( $table )
