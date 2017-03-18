@@ -32,6 +32,7 @@ function wordpoints_dev_lib_get_modules( $module_folder = '' ) {
 		'network'     => 'Network',
 		'update_api'  => 'Update API',
 		'channel'     => 'Channel',
+		'server'      => 'Server',
 		'ID'          => 'ID',
 		'namespace'   => 'Namespace',
 	);
