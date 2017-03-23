@@ -108,13 +108,13 @@ module.exports = function ( grunt ) {
 			}
 		}
 
+		// We load interfaces first.
+		class_files = interfaces.concat( class_files );
+
 		// Allow the class files to be sorted by a custom function.
 		if ( filter ) {
 			class_files = filter( class_files, classes_dir );
 		}
-
-		// We load interfaces first.
-		class_files = interfaces.concat( class_files );
 
 		// Prepare the class map.
 		if ( typeof prefix === 'function' ) {
