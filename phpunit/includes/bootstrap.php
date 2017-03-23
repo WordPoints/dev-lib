@@ -21,6 +21,15 @@ if ( ! getenv( 'WORDPOINTS_TESTS_DIR' ) ) {
  */
 define( 'WORDPOINTS_TESTS_DIR', rtrim( getenv( 'WORDPOINTS_TESTS_DIR' ), '/' ) );
 
+/**
+ * The cache directory for the WP HTTP testcase.
+ *
+ * @since 2.6.0
+ *
+ * @type string
+ */
+define( 'WP_HTTP_TC_CACHE_DIR', WORDPOINTS_TESTS_DIR . '/cache/wp-http-testcase' );
+
 if ( ! defined( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR' ) ) {
 
 	/**
