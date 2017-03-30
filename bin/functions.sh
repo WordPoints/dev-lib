@@ -97,18 +97,31 @@ wpdl-codesniff-php-autoloaders() {
 	fi
 
 	local path=$(wpdl-get-codesniff-path PHP AUTOLOADERS)
-	local dependencies=()
-
-	if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
-		dependencies=("$WORDPOINTS_DEVELOP_DIR/src/classes/")
-	fi
 
 	if find "${!path}" \
-		| while read dir; do "${DEV_LIB_PATH}"/bin/verify-php-autoloader "${dir}"/ "${dependencies[@]}"; done \
+		| while read dir; do wpdl-codesniff-php-autoloader "${dir}"/; done \
 		| grep "^Fatal error"
 	then
 		return 1;
 	fi
+}
+
+# Check a php autoloader fallback file for validity.
+wpdl-codesniff-php-autoloader() {
+
+	local dir=$1
+	local dependencies=("${CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES[@]}")
+
+	if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+		if [[ $dir =~ /points/ ]]; then
+			dependencies+=( \
+				"${WORDPOINTS_DEVELOP_DIR}/src/components/points/classes/" \
+				"${WORDPOINTS_DEVELOP_DIR}/src/components/points/includes/" \
+			)
+		fi
+	fi
+
+	"${DEV_LIB_PATH}"/bin/verify-php-autoloader "${dir}" "${dependencies[@]}"
 }
 
 # Check php files with PHPCodeSniffer tools.

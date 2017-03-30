@@ -44,6 +44,15 @@ export CODESNIFF_PATH_BASH
 export CODESNIFF_PATH_STRINGS
 export CODESNIFF_IGNORED_STRINGS
 
+# Autoloaders
+CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES=()
+
+if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+	CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES+=("${WORDPOINTS_DEVELOP_DIR}/src/classes/")
+fi
+
+export CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES
+
 # PHPCS
 export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
 export PHPCS_DIR=/tmp/phpcs
