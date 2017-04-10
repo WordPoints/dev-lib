@@ -102,7 +102,7 @@ function wordpoints_dev_lib_get_file_data( $file, $headers ) {
 		);
 
 		if ( $matched && $match[1] ) {
-			$headers[ $field ] = $match[1];
+			$headers[ $field ] = trim( $match[1] );
 		} else {
 			$headers[ $field ] = '';
 		}
@@ -180,6 +180,7 @@ function wordpoints_dev_lib_load_the_module() {
  * Get the basename of the module being tested.
  *
  * @since 2.5.0
+ * @deprecated 2.6.0 Use WordPoints_PHPUnit_Module::get_basename() instead.
  *
  * @return string The basename path of the module's main file.
  */
