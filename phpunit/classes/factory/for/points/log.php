@@ -97,6 +97,10 @@ class WordPoints_PHPUnit_Factory_For_Points_Log
 			, $args['text']
 		);
 
+		if ( isset( $args['date'] ) ) {
+			$this->update_object( $log_id, array( 'date' => $args['date'] ) );
+		}
+
 		if ( isset( $args['blog_id'] ) ) {
 			restore_current_blog();
 		}
