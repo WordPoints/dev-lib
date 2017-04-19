@@ -17,7 +17,10 @@ export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
 
 # Codesniff path
-CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*" '!' -path "./.idea/*" '!' -path "./node_modules/*" '!' -path "*/.git/*")
+if [[ -z $CODESNIFF_PATH ]]; then
+	CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*" '!' -path "./.idea/*" '!' -path "./node_modules/*" '!' -path "*/.git/*")
+fi
+
 CODESNIFF_PATH_PHP=("${CODESNIFF_PATH[@]}" '(' -name '*.php' -o -name '*.inc' ')')
 CODESNIFF_PATH_PHP_AUTOLOADERS=(src -path '*/classes')
 CODESNIFF_PATH_PHP_L10N_VALIDATOR=(. -path "./src/*" '(' -name '*.php' -o -name '*.inc' ')')

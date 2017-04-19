@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
+source ~/.bash_profile
+
 export DOING_GIT_PRE_COMMIT=1
 
-dev-lib/run codesniff
+if [[ ! -e dev-lib && -f run ]]; then
+	./run codesniff
+else
+	dev-lib/run codesniff
+fi
 
 # EOF
