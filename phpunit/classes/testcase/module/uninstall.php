@@ -34,7 +34,7 @@ abstract class WordPoints_PHPUnit_TestCase_Module_Uninstall
 		$this->uninstall_module_only = getenv( 'WORDPOINTS_ONLY_UNINSTALL_MODULE' );
 
 		$usage_simulator = dirname( __FILE__ )
-		    . '/../../../../../tests/phpunit/includes/usage-simulator.php';
+			. '/../../../../../tests/phpunit/includes/usage-simulator.php';
 
 		if ( file_exists( $usage_simulator ) ) {
 			$this->simulation_file = dirname( __FILE__ )
