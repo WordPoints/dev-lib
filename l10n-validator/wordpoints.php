@@ -62,6 +62,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Installables::install' => true,
 			'WordPoints_Installables::register' => true,
 			'WordPoints_Installables::uninstall' => true,
+			'WordPoints_Modules::get_data' => true,
 			'WordPoints_Modules::register' => true,
 			'WordPoints_Points_Hook::_set' => true,
 			'WordPoints_Points_Hook::get_description' => true,
