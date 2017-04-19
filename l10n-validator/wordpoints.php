@@ -219,6 +219,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'db', // Entity storage info.
 			'table', // Entity storage info.
 			'WordPoints_Hook_Arg',
+			'.min',
 		)
 	);
 });
