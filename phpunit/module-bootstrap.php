@@ -16,6 +16,15 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
 }
 
 /**
+ * The WordPoints Dev Lib PHPUnit bootstrap directory.
+ *
+ * @since 2.6.0
+ *
+ * @type string
+ */
+define( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR', dirname( __FILE__ ) );
+
+/**
  * We're running tests for a module.
  *
  * We need to tell WordPoints' tests bootstrap this so that it won't load it's plugin
@@ -39,8 +48,13 @@ define( 'WORDPOINTS_MODULE_TESTS_DIR', dirname( dirname( dirname( __FILE__ ) ) )
  */
 require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
 
-WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
-	dirname( __FILE__ ) . '/classes/'
+WordPoints_PHPUnit_Class_Autoloader::register_dir(
+	WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes/'
+	, 'WordPoints_PHPUnit_'
+);
+
+WordPoints_PHPUnit_Class_Autoloader::register_dir(
+	WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes-deprecated/'
 	, 'WordPoints_Dev_Lib_PHPUnit_'
 );
 
@@ -49,10 +63,26 @@ WordPoints_Dev_Lib_PHPUnit_Class_Autoloader::register_dir(
  *
  * @since 1.1.0
  */
-require_once( dirname( __FILE__ ) . '/functions.php' );
+require_once( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/functions.php' );
+
+$module = new WordPoints_PHPUnit_Module(
+	WORDPOINTS_MODULE_TESTS_DIR . '/../../src'
+);
+
+if ( is_dir( WORDPOINTS_MODULE_TESTS_DIR . '/classes/' ) ) {
+
+	$namespace = $module->get_header( 'namespace' );
+
+	if ( $namespace ) {
+		WordPoints_PHPUnit_Class_Autoloader::register_dir(
+			WORDPOINTS_MODULE_TESTS_DIR . '/classes/'
+			, "WordPoints_{$namespace}_PHPUnit_"
+		);
+	}
+}
 
 // This is mainly left here for back-compat with pre 2.5.0 behavior.
-$has_uninstall_tester = is_dir( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/wordpoints/module-uninstall-tester/' );
+$has_uninstall_tester = is_dir( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/' );
 
 if ( $has_uninstall_tester ) {
 
@@ -79,38 +109,35 @@ if ( $has_uninstall_tester ) {
  *
  * @since 1.0.0
  */
-require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php');
+require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php' );
 
-if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload_52.php' ) ) {
+if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/autoload_52.php' ) ) {
 
 	/**
 	 * The PHP 5.2 compatible Composer autoloader for the module's dependencies.
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload_52.php' );
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/autoload_52.php' );
 
-} elseif ( file_exists( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload.php' ) ) {
+} elseif ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/autoload.php' ) ) {
 
 	/**
 	 * The Composer generated autoloader for the module's dependencies.
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( WORDPOINTS_MODULE_TESTS_DIR .  '/../../vendor/autoload.php' );
+	require_once( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/autoload.php' );
 }
 
-if (
-	class_exists( 'WPPPB_Loader' )
-	&& file_exists( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/classes/bootstrap/loader.php' )
-) {
+if ( class_exists( 'WPPPB_Loader' ) ) {
 
 	/**
 	 * WordPoints's PHPUnit loader class.
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/classes/bootstrap/loader.php' );
+	require_once( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes/bootstrap/loader.php' );
 }
 
 if ( file_exists( WORDPOINTS_MODULE_TESTS_DIR . '/includes/functions.php' ) ) {
@@ -130,7 +157,7 @@ if (
 
 	$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
 	$loader->add_module(
-		wordpoints_dev_lib_the_module_basename()
+		$module->get_basename()
 		, getenv( 'WORDPOINTS_MODULE_NETWORK_ACTIVE' )
 	);
 
@@ -154,7 +181,7 @@ if (
  *
  * @since 1.0.0
  */
-require( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/includes/bootstrap.php' );
+require( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/includes/bootstrap.php' );
 
 if ( file_exists( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php' ) ) {
 

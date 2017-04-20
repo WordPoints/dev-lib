@@ -12,26 +12,55 @@ module.exports = function ( grunt ) {
 	grunt.registerMultiTask( 'autoloader', 'Generate the class map files for WordPoints\'s PHP autoloader', function() {
 
 		var src_dir = this.data.src_dir || 'src/',
-			failures = false,
 			class_dirs = grunt.file.expand(
 				{ cwd: src_dir }
 				, [ '**/classes' ]
 			);
 
-		for ( var i = 0; i < class_dirs.length; i++ ) {
-			if (
-				! generate_autoloader_file(
-					src_dir + class_dirs[ i ] + '/'
-					, this.data.filter
-					, this.data.prefix
-					, this.data.dependencies
-				)
-			) {
-				failures = true;
-			}
+		if ( this.data.dependencies ) {
+			grunt.log.error( 'Specifying dependencies in the Grunt config is no longer supported.' );
 		}
 
-		return ! failures;
+		for ( var i = 0; i < class_dirs.length; i++ ) {
+			generate_autoloader_file(
+				src_dir + class_dirs[ i ] + '/'
+				, this.data.filter
+				, this.data.prefix
+			);
+		}
+
+		// Test that the files execute properly.
+		if ( ! spawnSync ) {
+			spawnSync = require( 'child_process' ).spawnSync;
+		}
+
+		var result, error;
+
+		result = spawnSync(
+			__dirname + '/../../../dev-lib/run'
+			, [ 'codesniff-php-autoloaders' ]
+		);
+
+		if ( result.error ) {
+			error = result.error.message;
+		} else if ( result.stderr && result.stderr.length ) {
+			error = result.stderr.toString();
+		} else if ( result.stdout && result.stdout.length ) {
+			error = result.stdout.toString();
+		}
+
+		if ( error ) {
+
+			grunt.log.error( 'Error testing autoload files:\n' + error );
+
+			return false;
+
+		} else {
+
+			grunt.log.ok( 'Verified autoload files.' );
+
+			return true;
+		}
 	});
 
 	/**
@@ -52,18 +81,14 @@ module.exports = function ( grunt ) {
 	 * @param prefix      {string|func} A prefix for the classes in this directory,
 	 *                                  or a callback function to get the prefix. The
 	 *                                  callback will be passed the class directory.
-	 * @param dependencies {string[]}   Autoload files for any dependencies of the
-	 * 									classes.
 	 *
 	 * @returns {boolean} Whether the autoloader file was generated successfully.
 	 */
-	function generate_autoloader_file( classes_dir, filter, prefix, dependencies ) {
+	function generate_autoloader_file( classes_dir, filter, prefix ) {
 
 		var includes = '',
 			contents,
 			class_name,
-			error,
-			result,
 			interfaces = [],
 			file = classes_dir + 'index.php',
 			class_files = grunt.file.expand(
@@ -118,36 +143,9 @@ module.exports = function ( grunt ) {
 
 		grunt.file.write( file, contents );
 
-		// Test that the file executes properly.
-		if ( ! spawnSync ) {
-			spawnSync = require( 'child_process' ).spawnSync;
-		}
+		grunt.log.ok( 'Updated autoload file ' + file );
 
-		result = spawnSync(
-			__dirname + '/../../bin/verify-php-autoloader'
-			, [ classes_dir ].concat( dependencies || [] )
-		);
-
-		if ( result.error ) {
-			error = result.error.message;
-		} else if ( result.stderr && result.stderr.length ) {
-			error = result.stderr.toString();
-		}
-
-		if ( error ) {
-
-			grunt.log.error(
-				'Error testing autoload file ' + file + ':\n' + error
-			);
-
-			return false;
-
-		} else {
-
-			grunt.log.ok( 'Updated autoload file ' + file );
-
-			return true;
-		}
+		return true;
 	}
 };
 

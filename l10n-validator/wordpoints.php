@@ -62,6 +62,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Installables::install' => true,
 			'WordPoints_Installables::register' => true,
 			'WordPoints_Installables::uninstall' => true,
+			'WordPoints_Modules::get_data' => true,
 			'WordPoints_Modules::register' => true,
 			'WordPoints_Points_Hook::_set' => true,
 			'WordPoints_Points_Hook::get_description' => true,
@@ -84,6 +85,8 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Points_Logs_Query::get' => true,
 			'WordPoints_Points_Logs_Query::prime_cache' => true,
 			'WordPoints_Points_Un_Installer::import_legacy_points_hook' => true,
+			'WordPoints_Points_Widget_Logs::get_field_id' => true,
+			'WordPoints_Points_Widget_Logs::get_field_name' => true,
 			'WordPoints_Rank_Groups::register_type_for_group' => true,
 			'WordPoints_Rank_Types::register_type' => array( 1, 2 ),
 			'WordPoints_Ranks_Admin_Screen_Ajax::_send_json_result' => true,
@@ -170,6 +173,9 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Entity_Relationship_Dynamic::$primary_entity_slug' => true,
 			'WordPoints_Entity_Relationship_Dynamic::$related_entity_slug' => true,
 			'WordPoints_Entity_Relationship_Dynamic::$related_ids_field' => true,
+			'WordPoints_Entity_Relationship_Dynamic_Stored_Field::$primary_entity_slug' => true,
+			'WordPoints_Entity_Relationship_Dynamic_Stored_Field::$related_entity_slug' => true,
+			'WordPoints_Entity_Relationship_Dynamic_Stored_Field::$related_ids_field' => true,
 			'WordPoints_Entity_Relationship_Stored_Field::$primary_entity_slug' => true,
 			'WordPoints_Entity_Relationship_Stored_Field::$related_entity_slug' => true,
 			'WordPoints_Entity_Relationship_Stored_Field::$related_ids_field' => true,
@@ -184,6 +190,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Entity_Stored_DB_Table::$id_field' => true,
 			'WordPoints_Entity_Stored_DB_Table::$wpdb_table_name' => true,
 			'WordPoints_Hook_Action_Post_Type::$post_hierarchy' => true,
+			'WordPoints_Hook_Action_Post_Type_Comment::$comment_type' => true,
 			'WordPoints_Hook_Action_Post_Type_Comment::$post_hierarchy' => true,
 			'WordPoints_Hook_Event_Dynamic::$generic_entity_slug' => true,
 			'WordPoints_Hook_Extension::$slug' => true,
@@ -194,6 +201,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Hook_Reactor::$action_types' => true,
 			'WordPoints_Hook_Reactor::$arg_types' => true,
 			'WordPoints_Hook_Reactor::$slug' => true,
+			'WordPoints_Points_Widget_Logs::$query_slug' => true,
 			'WordPoints_Un_Installer_Base::$type' => true,
 		)
 	);
@@ -211,6 +219,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'db', // Entity storage info.
 			'table', // Entity storage info.
 			'WordPoints_Hook_Arg',
+			'.min',
 		)
 	);
 });

@@ -3,7 +3,7 @@
 /**
  * WordPoints Dev-lib PHPUnit class autoloader.
  *
- * @package WordPoints_Dev_Lib
+ * @package WordPoints_Dev_Lib\PHPUnit
  * @since 2.4.0
  */
 
@@ -15,14 +15,16 @@
  * - Currently, no provision is made for namespaces.
  * - The file names are expected to be all lowercase.
  *
- * @since 2.4.0
+ * @since 2.4.0 As WordPoints_Dev_Lib_PHPUnit_Class_Autoloader.
+ * @since 2.6.0
  */
-class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
+class WordPoints_PHPUnit_Class_Autoloader {
 
 	/**
 	 * The prefixes of classes to autoload.
 	 *
-	 * @since 2.4.0
+	 * @since 2.4.0 As part of WordPoints_Dev_Lib_PHPUnit_Class_Autoloader.
+	 * @since 2.6.0
 	 *
 	 * @var array[]
 	 */
@@ -33,7 +35,8 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 	 *
 	 * We use this flag to prevent us from resorting the directories unnecessarily.
 	 *
-	 * @since 2.4.0
+	 * @since 2.4.0 As part of WordPoints_Dev_Lib_PHPUnit_Class_Autoloader.
+	 * @since 2.6.0
 	 *
 	 * @var bool
 	 */
@@ -42,7 +45,8 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 	/**
 	 * Whether we've registered ourselves as an autoloader yet.
 	 *
-	 * @since 2.5.0
+	 * @since 2.45.0 As part of WordPoints_Dev_Lib_PHPUnit_Class_Autoloader.
+	 * @since 2.6.0
 	 *
 	 * @var bool
 	 */
@@ -51,7 +55,8 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 	/**
 	 * Register a directory to autoload classes from.
 	 *
-	 * @since 2.4.0
+	 * @since 2.4.0 As part of WordPoints_Dev_Lib_PHPUnit_Class_Autoloader.
+	 * @since 2.6.0
 	 *
 	 * @param string $dir    The full path of the directory.
 	 * @param string $prefix The prefix used for class names in this directory.
@@ -76,7 +81,8 @@ class WordPoints_Dev_Lib_PHPUnit_Class_Autoloader {
 	 * checks whether a file for that class exists in the registered directories for
 	 * that prefix. If the file does exist, it is included.
 	 *
-	 * @since 2.4.0
+	 * @since 2.4.0 As part of WordPoints_Dev_Lib_PHPUnit_Class_Autoloader.
+	 * @since 2.6.0
 	 *
 	 * @param string $class_name The name fo the class to load.
 	 */

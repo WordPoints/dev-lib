@@ -3,6 +3,12 @@
 	<description>Sniffs for the coding standards of the WordPoints plugin</description>
 
 	<rule ref="WordPress-Core">
+		<!--
+			When associative arrays have a single key we allow them to be on a
+			single line, but this sniff doesn't allow for that.
+		-->
+		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeKeyFound" />
+
 		<!-- https://github.com/WordPoints/dev-lib/issues/181 -->
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Invalid" />
 	</rule>
@@ -10,6 +16,11 @@
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Variables.GlobalVariables" />
 		<exclude name="Generic.Strings.UnnecessaryStringConcat" />
+		<!--
+			We check syntax separately, so no need to have PHPCS do it. (And it is a
+			huge performance hog since it does this with `shell_exec()`.)
+		-->
+		<exclude name="Generic.PHP.Syntax" />
 	</rule>
 
 	<rule ref="WordPress-Docs">
@@ -31,9 +42,6 @@
 	</rule>
 
 	<rule ref="WordPress-VIP">
-		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog" />
-		<exclude name="WordPress.VIP.RestrictedFunctions.custom_role" />
-		<exclude name="WordPress.VIP.RestrictedFunctions.wp_is_mobile" />
 		<exclude name="WordPress.VIP.SuperGlobalInputUsage" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.SchemaChange" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
@@ -42,20 +50,34 @@
 			positives. They will be added back in when the changes are committed to
 			the stable version upstream. Until then, the issue numbers are supplied.
 		-->
-		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" /><!-- WordPoints/wordpoints#90 -->
-		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" /><!-- WordPoints/wordpoints#90 -->
 		<exclude name="WordPress.VIP.SlowDBQuery" /><!-- WordPoints/wordpoints#90 -->
 	</rule>
+
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
 		<exclude-pattern>/tests/*</exclude-pattern><!-- because of PHPUnit method names -->
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<properties>
-			<property name="customVariablesWhitelist" value="longOptions,textContent,preserveWhiteSpace" type="array" />
+			<property name="customPropertiesWhitelist" value="longOptions,textContent,preserveWhiteSpace" type="array" />
 		</properties>
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/751#issuecomment-278739935 -->
+			<property name="additionalWordDelimiters" value="-"/>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.VIP.RestrictedFunctions">
+		<properties>
+			<property name="exclude" value="switch_to_blog,custom_role,wp_is_mobile,user_meta" />
+		</properties>
+	</rule>
 	<rule ref="WordPress.VIP.RestrictedVariables">
+		<properties>
+			<property name="exclude" value="user_meta" />
+		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.VIP.DirectDatabaseQuery">
@@ -111,7 +133,7 @@
 	<rule ref="Squiz.Scope.MethodScope"/>
 	<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
 
-	<rule ref="Generic.Files.LowercasedFilename.NotFound">
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
 	</rule>
 
@@ -119,8 +141,63 @@
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
+	<rule ref="WordPress.WP.I18n.MissingTranslatorsComment">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<!--
+		The functions that the following 3 rules apply to are only used by deprecated
+		functions, so we might remove these rules in future.
+	-->
+	<rule ref="WordPress.WP.AlternativeFunctions.file_system_read_fsockopen">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress.WP.AlternativeFunctions.file_system_read_fclose">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress.PHP.DiscouragedPHPFunctions.system_calls_shell_exec">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress.PHP.DiscouragedPHPFunctions.system_calls_system">
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="Generic.Files.OneClassPerFile">
+		<!-- These classes are deprecated and are autoloaded, so it is OK. -->
+		<exclude-pattern>/src/components/points/includes/shortcodes.php</exclude-pattern>
+		<!-- The points hooks classes are always loaded anyway, so this is OK. -->
+		<exclude-pattern>/src/components/points/includes/deprecated.php</exclude-pattern>
+		<!-- These classes are deprecated and autoloaded, so this is OK. -->
+		<exclude-pattern>/src/components/points/includes/widgets.php</exclude-pattern>
+		<!-- Deprecated legacy code. -->
+		<exclude-pattern>/tests/phpunit/includes/mocks/points-hooks.php</exclude-pattern>
+	</rule>
+	<rule ref="Generic.Files.OneInterfacePerFile"/>
+
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<!-- We don't require class- to be prepended to class file names. -->
+			<property name="strict_class_file_names" value="false" />
+		</properties>
+	</rule>
+
+	<rule ref="Squiz.PHP.CommentedOutCode.Found">
+		<exclude-pattern>*/index.php</exclude-pattern>
+	</rule>
+
+	<rule ref="Generic.PHP.DisallowAlternativePHPTags.MaybeASPOpenTagFound">
+		<!--
+			We used this style of tags for our Backbone templates, but eventually
+			we'll replace this with the new hooks API which does it right.
+		-->
+		<exclude-pattern>/src/components/ranks/*</exclude-pattern>
+	</rule>
+
 	<exclude-pattern>/vendor/*</exclude-pattern>
-	<exclude-pattern>/dev-lib/*</exclude-pattern>
+	<exclude-pattern type="relative">^/dev-lib/*</exclude-pattern>
 	<exclude-pattern>/.idea/*</exclude-pattern>
 
 </ruleset>

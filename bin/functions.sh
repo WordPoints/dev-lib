@@ -18,6 +18,11 @@ get-textdomain () {
 
 # Run all codesniffers.
 wpdl-codesniff() {
+
+	CODESNIFF_ERROR=0
+
+	trap 'CODESNIFF_ERROR=1' ERR
+
 	wpdl-codesniff-php-syntax
 	wpdl-codesniff-php-autoloaders
 	wpdl-codesniff-phpcs
@@ -27,6 +32,10 @@ wpdl-codesniff() {
 	wpdl-codesniff-jshint
 	wpdl-codesniff-xmllint
 	wpdl-codesniff-symlinks
+
+	trap - ERR
+
+	return "$CODESNIFF_ERROR"
 }
 
 # Get the path to sniff.
@@ -56,25 +65,63 @@ wpdl-get-codesniff-path() {
 	echo "${path_var}";
 }
 
+# Get the (\0 delimited) list of files to sniff.
+wpdl-get-codesniff-files() {
+
+	local path=$(wpdl-get-codesniff-path "${@}")
+
+	if [[ $DOING_GIT_PRE_COMMIT == 1 ]]; then
+		{ find "${!path}" -type f; echo "${STAGED_FILES}"; } | sort | uniq -d | tr '\n' '\0'
+	else
+		find "${!path}" -type f -print0
+	fi
+}
+
 # Check php files for syntax errors.
 wpdl-codesniff-php-syntax() {
-	local path=$(wpdl-get-codesniff-path PHP SYNTAX)
 
-	if find "${!path}" -exec php -l {} \; | grep "^Parse error"; then
+	if wpdl-get-codesniff-files PHP SYNTAX \
+		| xargs -0 -n1 php -l \
+		| grep "^Parse error"
+	then
 		return 1;
 	fi;
 }
 
 # Check php autoloader fallback files for validity.
 wpdl-codesniff-php-autoloaders() {
+
+	# Only run if there are staged class files.
+	if [[ $DOING_GIT_PRE_COMMIT == 1 && "$(git diff --diff-filter=ACDMR --staged --name-only)" != src*/classes/* ]]; then
+		return;
+	fi
+
 	local path=$(wpdl-get-codesniff-path PHP AUTOLOADERS)
 
 	if find "${!path}" \
-		| while read dir; do "${DEV_LIB_PATH}"/bin/verify-php-autoloader "${dir}"/; done \
+		| while read dir; do wpdl-codesniff-php-autoloader "${dir}"/; done \
 		| grep "^Fatal error"
 	then
 		return 1;
 	fi
+}
+
+# Check a php autoloader fallback file for validity.
+wpdl-codesniff-php-autoloader() {
+
+	local dir=$1
+	local dependencies=("${CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES[@]}")
+
+	if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+		if [[ $dir =~ /points/ ]]; then
+			dependencies+=( \
+				"${WORDPOINTS_DEVELOP_DIR}/src/components/points/classes/" \
+				"${WORDPOINTS_DEVELOP_DIR}/src/components/points/includes/" \
+			)
+		fi
+	fi
+
+	"${DEV_LIB_PATH}"/bin/verify-php-autoloader "${dir}" "${dependencies[@]}"
 }
 
 # Check php files with PHPCodeSniffer tools.
@@ -82,20 +129,18 @@ wpdl-codesniff-phpcs-base() {
 
 	local command=${1-phpcs}
 
-	if [ -z $2 ]; then
-		local path=$(wpdl-get-codesniff-path PHP PHPCS)
-		local files=$(find "${!path}")
-	else
-		local files=("$2")
-	fi
-
 	if [ ! -e $PHPCS_DIR ]; then
 		local phpcs="$command"
 	else
 		local phpcs="$PHPCS_DIR"/scripts/"$command"
 	fi
 
-	"$phpcs" -ns --standard="$WPCS_STANDARD" ${files[@]}
+	if [ -z $2 ]; then
+		wpdl-get-codesniff-files PHP PHPCS
+	else
+		echo -n "${2}"
+	fi \
+		| xargs -0 "$phpcs" -s --standard="$WPCS_STANDARD"
 }
 
 # Check php files with PHPCS.
@@ -111,10 +156,9 @@ wpdl-codesniff-phpcbf() {
 # Check files for disallowed strings.
 wpdl-codesniff-strings() {
 
-	local path=$(wpdl-get-codesniff-path STRINGS)
-	local files=$(find "${!path}" -type f)
-
-	grep -n -v "${CODESNIFF_IGNORED_STRINGS[@]}" ${files[@]} | grep -e 'target="_blank"' -e http[^s_.-]
+	wpdl-get-codesniff-files STRINGS \
+		| xargs -0 grep -H -n -v "${CODESNIFF_IGNORED_STRINGS[@]}" \
+		| grep -e 'target="_blank"' -e http[^s_.-]
 
 	# grep exits with 1 if nothing was found.
 	[[ $? == '1' ]]
@@ -122,42 +166,39 @@ wpdl-codesniff-strings() {
 
 # Check JS files with jshint.
 wpdl-codesniff-jshint() {
-	jshint .
+	wpdl-get-codesniff-files JS JSHINT | xargs -0 jshint
 }
 
 # Check PHP files for proper localization.
 wpdl-codesniff-l10n() {
-	if [ ! -e $WPL10NV_DIR ]; then
-		wp-l10n-validator
-	else
-		"$WPL10NV_DIR"/bin/wp-l10n-validator
+
+	local validator=wp-l10n-validator
+
+	if [ -e $WPL10NV_DIR ]; then
+		validator="$WPL10NV_DIR"/bin/wp-l10n-validator
 	fi
+
+	wpdl-get-codesniff-files PHP L10N_VALIDATOR | xargs -0 "${validator}" --
 }
 
 # Check XML files for syntax errors.
 wpdl-codesniff-xmllint() {
-	local path=$(wpdl-get-codesniff-path XML XMLLINT)
-	local files=$(find "${!path}" -type f)
-
-	if [ ${#files[@]} != 0 ]; then
-		xmllint --noout ${files[@]}
-	fi
+	wpdl-get-codesniff-files XML XMLLINT | xargs -0 xmllint --noout
 }
 
 # Check bash files for syntax errors.
 wpdl-codesniff-bash() {
-	local path=$(wpdl-get-codesniff-path BASH SYNTAX)
-
-	local errors=$(find "${!path}" -exec bash -n {} \; 2>&1)
-
-	if [[ $errors != '' ]]; then
-		echo "${errors}"
-		return 1
-	fi
+	wpdl-get-codesniff-files BASH SYNTAX | xargs -0 -n1 bash -n 2>&1
 }
 
 # Check for broken symlinks.
 wpdl-codesniff-symlinks() {
+
+	# Only run if there are staged files being added/copied/deleted/renamed.
+	if [[ $DOING_GIT_PRE_COMMIT == 1 && "$(git diff --diff-filter=ACDR --staged --name-only)" == '' ]]; then
+		return;
+	fi
+
 	local path=$(wpdl-get-codesniff-path SYMLINKS)
 	local files=$(find "${!path}" -type l ! -exec [ -e {} ] \; -print)
 

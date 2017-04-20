@@ -3,14 +3,6 @@
 # Install composer dependencies.
 setup-composer() {
 
-	# We always need to do this when collecting code coverage, even if there are no
-	# composer dependencies.
-	if [[ $DO_CODE_COVERAGE == 1 && $TRAVISCI_RUN == phpunit ]]; then
-		composer require --prefer-source satooshi/php-coveralls:0.7.0
-		mkdir -p build/logs
-		return;
-	fi
-
 	# No dependencies, no need to continue.
 	if [ ! -e composer.json ]; then
 		return
@@ -19,6 +11,7 @@ setup-composer() {
 	# Composer requires PHP 5.3.
 	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
 		phpenv global 5.3
+		composer self-update
 		composer install --prefer-source
 		phpenv global "$TRAVIS_PHP_VERSION"
 	else
@@ -43,13 +36,19 @@ setup-phpunit() {
 
 	setup-composer
 
+	if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." || $TRAVIS_PHP_VERSION == nightly ]]; then
+		export PATH="$HOME/.composer/vendor/bin:$PATH"
+		composer global require "phpunit/phpunit=^5.7.15"
+	fi
+
 	mkdir -p "$WP_DEVELOP_DIR"
 
-	# Back-compat.
-	if [[ $WP_VERSION == 'nightly' ]]; then
+	if [[ $DO_CODE_COVERAGE == 1 ]]; then
+		mkdir -p build/logs
+	fi
+
+	if [[ $WP_VERSION == 'develop' ]]; then
 		WP_VERSION=master
-	elif [[ $WP_VERSION == 'latest' ]]; then
-		WP_VERSION=4.2
 	fi
 
 	# Clone the WordPress develop repo.
@@ -131,7 +130,7 @@ setup-codesniff() {
 
 # Check php files for syntax errors.
 codesniff-php-syntax() {
-	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master && $TRAVIS_PHP_VERSION != '5.3' ]]; then
+	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == develop && $TRAVIS_PHP_VERSION != '5.3' ]]; then
 		wpdl-codesniff-php-syntax
 	else
 		echo 'Not running PHP syntax check.'
@@ -140,7 +139,9 @@ codesniff-php-syntax() {
 
 # Check php autoloader fallback files for errors.
 codesniff-php-autoloaders() {
-	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == master && $TRAVIS_PHP_VERSION != '5.3' ]]; then
+	# This can't run on the codesniff pass, because WordPress isn't installed then,
+	# but is needed for autoloader classmap dependencies.
+	if [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == develop ]]; then
 		wpdl-codesniff-php-autoloaders
 	else
 		echo 'Not running PHP autoloader fallback file check.'

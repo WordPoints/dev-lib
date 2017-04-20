@@ -28,7 +28,8 @@ class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements PHP_CodeSniffer_Sn
 
 		$tokens = $phpcsFile->getTokens();
 
-		$is_class = ! $is_function = T_FUNCTION === $tokens[ $stackPtr ]['code'];
+		$is_function = T_FUNCTION === $tokens[ $stackPtr ]['code'];
+		$is_class = ! $is_function;
 
 		$scope_closer = $tokens[ $stackPtr ]['scope_closer'];
 
@@ -112,8 +113,8 @@ class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements PHP_CodeSniffer_Sn
 		// either, since they won't be test methods.
 		return $scope_closer;
 
-	} // public function process()
+	} // End public function process().
 
-} // class WordPoints_Sniffs_PHPUnit_MissingCoversSniff
+} // End class WordPoints_Sniffs_PHPUnit_MissingCoversSniff.
 
 // EOF

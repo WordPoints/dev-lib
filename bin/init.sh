@@ -28,12 +28,6 @@ if [ ! -e .jshintignore ]; then
 	ln -s "$DEV_LIB_PATH"/jshint/.jshintignore .
 fi
 
-# Symlink the Coveralls configuration file if you want to use code coverage.
-if [ ! -e .coveralls.yml ]; then
-	echo Symlinking Coveralls config
-	ln -s "$DEV_LIB_PATH"/travis/.coveralls.yml .
-fi
-
 # Copy the l10n validator configuration file.
 if [ ! -e wp-l10n-validator.json ]; then
 	echo Copying L10n Validator config
@@ -83,7 +77,12 @@ if [ ! -e Gruntfile.js ]; then
 	echo Copying Grunt configuration file
 	cp "$DEV_LIB_PATH"/grunt/Gruntfile.js ./
 
-	sed -i '' "s/%class_prefix%/wordpoints_${PWD##*/}_/" Gruntfile.js
+	namespace=$(grep -oh "Namespace: .*" src/*.php)
+	namespace=${namespace#"Namespace: "}
+	namespace=${namespace##* }
+	namespace=$(echo "$namespace" | tr '[:upper:]' '[:lower:]')
+
+	sed -i '' "s/%class_prefix%/wordpoints_${namespace}_/" Gruntfile.js
 
 	if [ ! -e package.json ]; then
 		cp "$DEV_LIB_PATH"/grunt/package.json ./
@@ -105,8 +104,9 @@ if [ -e composer.json ]; then
 else
 	echo Copying composer.json
 	cp "$DEV_LIB_PATH"/phpunit/composer.json .
-	composer install
 fi
+
+"$DEV_LIB_PATH"/bin/set-up.sh
 
 if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
 	"$DEV_LIB_PATH"/phpunit/wpppb-init

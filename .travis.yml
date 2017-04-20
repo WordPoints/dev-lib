@@ -5,7 +5,7 @@ language: php
 php:
   - 7.1
 
-# Use the new infrustructure.
+# Use the new infrastructure.
 sudo: false
 
 before_script:
@@ -14,13 +14,18 @@ before_script:
   - export DEV_LIB_PATH=none
   - source bin/env.sh
   - source bin/functions.sh
+  - source travis/commands.sh
+  - install-from-github WPCS
+  - mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b master $PHPCS_DIR
+  - $PHPCS_DIR/scripts/phpcs --config-set installed_paths "$WPCS_DIR",phpcs
 
 script:
   - wpdl-codesniff-xmllint
   - wpdl-codesniff-bash
   - wpdl-codesniff-jshint
   - wpdl-codesniff-strings
-  - find ./travis -name '*.yml' ! -name '.coveralls.yml' -exec travis-lint {} \;
+  - wpdl-codesniff-phpcs
+  - find ./travis -name '*.yml' -exec travis-lint {} \;
   - CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*' '!' -path './phpcs/*' '!' -path './l10n-validator/*'); phpenv global 5.2 && wpdl-codesniff-php-syntax
   - CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*'); phpenv global 5.3 && wpdl-codesniff-php-syntax; CODESNIFF_PATH_PHP_SYNTAX= A=$?; [[ $A == 0 ]]
   - phpenv global 5.4 && wpdl-codesniff-php-syntax
@@ -29,5 +34,6 @@ script:
   #- phpenv global 7.0 && wpdl-codesniff-php-syntax
   - phpenv global 7.1 && wpdl-codesniff-php-syntax
   - phpenv global hhvm && wpdl-codesniff-php-syntax
+  - phpunit --filter WordPoints /tmp/phpcs/tests/AllTests.php
 
 # EOF

@@ -51,7 +51,17 @@ class WordPoints_Sniffs_PHP_DisallowedFunctionsSniff
 			'wp_remote' => array(
 				'type'      => 'error',
 				'message'   => 'Using wp_remote_*() can lead to unsafe internal requests, use wp_safe_remote_*() instead.',
-				'functions' => array( 'wp_remote_(post|get|head|request)' ),
+				'functions' => array( 'wp_remote_*' ),
+				'whitelist' => array(
+					'wp_remote_retrieve_body' => true,
+					'wp_remote_retrieve_cookie' => true,
+					'wp_remote_retrieve_cookie_value' => true,
+					'wp_remote_retrieve_cookies' => true,
+					'wp_remote_retrieve_header' => true,
+					'wp_remote_retrieve_headers' => true,
+					'wp_remote_retrieve_response_code' => true,
+					'wp_remote_retrieve_response_message' => true,
+				),
 			),
 		);
 	}

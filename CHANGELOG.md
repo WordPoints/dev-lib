@@ -4,6 +4,77 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 And as you can see, we [keep a CHANGELOG](http://keepachangelog.com/).
 
+## [2.6.0] - 2017-04-19
+### Added
+- WordPress 4.7 to build matrix. #198
+- PHPUnit test suite bootstrap from WordPoints. #193
+- Points type factory for use in the PHPUnit tests. #200
+- Git `pre-commit` hook which automatically checks all staged files for codesniff issues. #20
+- Support for the `@requires WordPoints version` and `@WordPoints-version <version>` annotations for the PHPUnit tests, to require a particular WordPoints version for a test.
+- Support for the `@WordPoints-requires <callback>` annotation for the PHPUnit tests, to specify a boolean callback that must return a true result for the test to run.
+- Minification of CSS, JS, and images to the default Grunt config. #208
+- `Generic.Files.OneClassPerFile` and `Generic.Files.OneInterfacePerFile` to PHPCS ruleset.
+- Restricted PHPUnit assertions PHPCS sniff, which flags the use of non-strict assertions.
+- PHPCS ruleset for the dev-lib itself, which is also now checked via our Travis build.
+- Support for running the uninstall tests for a module to only uninstall the module, but not WordPoints, by setting `WORDPOINTS_ONLY_UNINSTALL_MODULE=1`. #192
+  - Add these tests to the default Travis build.
+- `set-up` command to install dependencies and hook up the pre-commit hook when a user checks out a project using the dev-lib.
+  - Also hooks up the pre-commit hook for the dev-lib as well.
+
+### Changed
+- String sniffer to ignore all `.lock` files. #199
+- XMLLint check to only run if any `.xml` files exist. #201
+- The autoloader checker to automatically detect dependencies of an autoloader.
+  - If for a module, the classes may be dependent on WordPoints core's main autoloader. #207
+  - This in turn means that for modules we can no longer run the check on the codesniff pass on Travis CI, because WordPoints is not installed yet at that point.
+  - The `CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES` can be used to specify the default dependencies for a project.
+  - WordPoints core's points component's classmaps are automatically assigned as dependencies for module classmaps within a `/points/` directory.
+- PHPCS ruleset to exclude the PHP syntax sniff. This is unnecessary since we already do syntax checks.
+- PHPCS ruleset to not run the i18n sniff on the tests.
+- Code coverage results to be submitted to codecov.io instead of Coveralls. #109
+- Env bootstrap to allow `$WP_DEVELOP_DIR` to be preset.
+- Env bootstrap to automatically set the WordPoints tests directory based on the develop directory.
+- Autoloader validator to automatically load the `WP_Widget` class in case any classes extend it.
+- Grunt config to automatically detect the module namespace as the prefix for the classes in the autoloader classmaps.
+- Updated default browserify version to 5.0.0.
+- Grunt to detect the first open port for livereload when running watch.
+- Travis bootstrap to update composer when running on PHP 5.2.
+- `makepot` command to automatically create the `languages` directory if needed.
+- PHPCS ruleset to disable class filename checks via `WordPress.Files.FileName`.
+- PHPCS ruleset to disable errors about associative arrays not being multiline from `WordPress.Arrays.ArrayDeclarationSpacing.AssociativeKeyFound`.
+- PHPCS ruleset to use the new method of restricting functions and variables.
+- PHPCS ruleset to use the new WordPress filename sniff instead of the Generic one.
+- `codesniff-phpcs` command to stop silencing warnings from PHPCS, so that they are shown in addition to errors.
+- Travis build to test our PHPCS sniffs.
+- Missing Echo PHPCS sniff, adding `$this->single_row_columns()` to the ignored list.
+- L10n validator config, adding ignore rules for the points logs widget.
+- PHPCS version used, updating it to 2.8.1
+- Module tests scaffold to replace the example with the module namespace.
+- Travis bootstrap to automatically use PHPUnit 5.7 when running on PHP 7 and PHP nightly.
+- PHPCS ruleset to allow `system()` calls in tests.
+- WPCS version to 607db751e90e6d32f96fcb15c4aec8609d059d57.
+- Travis bootstrap to not run against WordPoints stable and WordPress 4.6 on PHP 7.1.
+- Travis bootstrap to recognize that `master` is now the stable WordPoints branch, and `develop` is the development branch.
+- Travis bootstrap to use `develop` to denote WordPress trunk, for consistency.
+- PHPUnit bootstrap to automatically set up autoloading for a module's PHPUnit helper classes.
+- PHPCS Missing Echo sniff to ignore functions with names containing `display`.
+- L10n validator config to add `WordPoints_Modules::get_data()` to the ignores.
+- L10n validator confit to add `'.min'` to the default ignored strings.
+- `init` command to automatically detect the module namespace and set it as the class prefix for the autoloader generator, instead of just basing this of the directory name of the module.
+
+### Deprecated
+- `WordPoints_Dev_Lib_PHPUnit_Class_Autoloader` in favor of `WordPoints_PHPUnit_Class_Autoloader`. #193
+- `WordPoints_Dev_Lib_PHPUnit_TestCase_Module_Uninstall` in favor of `WordPoints_PHPUnit_TestCase_Module_Uninstall`. #193
+
+### Removed
+- Support for specifying autoloader dependencies in the Grunt config file. #207
+
+### Fixed
+- The autoloader checker not checking a classmap file in the `src/classes` directory. #206
+- Grunt not detecting autoloader errors if they were written to `stdout` instead of `stderr`.
+- Fatal error from the makepot class due to the `$max_header_lines` property being private in the parent class.
+- PHPCS sniff not correctly flagging `wp_remote_*()` functions and recommending `wp_safe_remote_*()` instead.
+
 ## [2.5.0] - 2016-12-09
 ### Added
 - Default config file for Grunt, with a watch task to build the autoload classmaps. (#162)
@@ -257,6 +328,7 @@ automatically installed if there is a config file for it. #23
 - Initial code.
 
 [Unreleased]: https://github.com/WordPoints/dev-lib/compare/master...develop
+[2.6.0]: https://github.com/WordPoints/dev-lib/compare/2.5.0...2.6.0
 [2.5.0]: https://github.com/WordPoints/dev-lib/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/WordPoints/dev-lib/compare/2.3.1...2.4.0
 [2.3.1]: https://github.com/WordPoints/dev-lib/compare/2.3.0...2.3.1
