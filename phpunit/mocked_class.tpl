@@ -25,7 +25,7 @@
     public function __phpunit_getInvocationMocker()
     {
         if ($this->invocationMocker === NULL) {
-            $this->invocationMocker = new PHPUnit_Framework_MockObject_InvocationMocker;
+            $this->invocationMocker = new WordPoints_PHPUnit_Mock_Object_Invocation_Mocker;
         }
 
         return $this->invocationMocker;
@@ -34,7 +34,7 @@
     public static function __phpunit_getStaticInvocationMocker()
     {
         if (self::$staticInvocationMocker === NULL) {
-            self::$staticInvocationMocker = new PHPUnit_Framework_MockObject_InvocationMocker;
+            self::$staticInvocationMocker = new WordPoints_PHPUnit_Mock_Object_Invocation_Mocker;
         }
 
         return self::$staticInvocationMocker;
