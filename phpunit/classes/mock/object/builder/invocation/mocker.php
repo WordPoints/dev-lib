@@ -25,7 +25,7 @@ class WordPoints_PHPUnit_Mock_Object_Builder_Invocation_Mocker
 	 * @return PHPUnit_Framework_MockObject_Stub_Return Return value stub.
 	 */
 	public function willReturn( $value ) {
-		return new PHPUnit_Framework_MockObject_Stub_Return( $value );
+		return $this->will( new PHPUnit_Framework_MockObject_Stub_Return( $value ) );
 	}
 }
 
