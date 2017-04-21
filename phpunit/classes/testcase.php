@@ -1193,6 +1193,24 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Assert that a string is not an error output by one of the widgets.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $string The string that is expected to not be a widget error.
+	 */
+	protected function assertNotWordPointsWidgetError( $string ) {
+
+		$document = new DOMDocument;
+		$document->loadHTML( $string );
+		$xpath = new DOMXPath( $document );
+		$this->assertSame(
+			0
+			, $xpath->query( '//div[@class = "wordpoints-widget-error"]' )->length
+		);
+	}
+
+	/**
 	 * Assert that a string is an admin notice.
 	 *
 	 * @since 2.6.0
