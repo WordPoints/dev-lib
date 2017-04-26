@@ -271,27 +271,29 @@ module.exports = function( grunt, dir ) {
 		}
 	});
 
-	grunt.registerTask(
-		'build'
-		, [
-			// PHP
-			'autoloader',
+	var buildTasks = [];
 
-			// JS
-			'browserify',
-			'uglify:all',
-			'jsvalidate:all',
+	// PHP
+	buildTasks.push( 'autoloader' );
 
-			// CSS
-			'sass:all',
-			'rtlcss:all',
-			'postcss:all',
-			'cssmin:all',
+	// JS
+	if ( 0 !== jsManifests.length ) {
+		buildTasks.push( 'browserify' );
+	}
 
-			// Images
-			'imagemin:all'
-		]
-	);
+	buildTasks.push( 'uglify:all' );
+	buildTasks.push( 'jsvalidate:all' );
+
+	// CSS
+	buildTasks.push( 'sass:all' );
+	buildTasks.push( 'rtlcss:all' );
+	buildTasks.push( 'postcss:all' );
+	buildTasks.push( 'cssmin:all' );
+
+	// Images
+	buildTasks.push( 'imagemin:all' );
+
+	grunt.registerTask( 'build', buildTasks );
 
 	grunt.registerTask( 'default', 'build' );
 
