@@ -112,6 +112,15 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	protected $widget_class;
 
 	/**
+	 * The name of the shortcode that this test is for.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @type string $shortcode
+	 */
+	protected $shortcode;
+
+	/**
 	 * The WordPoints component that this testcase is for.
 	 *
 	 * @since 2.6.0
@@ -1150,6 +1159,26 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		}
 
 		return call_user_func( $shortcode_tags[ $tag ], $atts, $content, $tag );
+	}
+
+	/**
+	 * Get an xpath query object for a shortcode's output.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param array $atts The shortcode attributes.
+	 *
+	 * @return DOMXPath The xpath query for the shortcode.
+	 */
+	public function get_shortcode_xpath( $atts ) {
+
+		$shortcode = $this->do_shortcode( $this->shortcode, $atts );
+
+		$document = new DOMDocument;
+		$document->loadHTML( $shortcode );
+		$xpath    = new DOMXPath( $document );
+
+		return $xpath;
 	}
 
 	//
