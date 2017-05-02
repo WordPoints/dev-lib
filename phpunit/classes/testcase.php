@@ -1175,6 +1175,24 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Assert that a string is not an error returned by one of the shortcodes.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $string The string that is expected to not be a shortcode error.
+	 */
+	protected function assertNotWordPointsShortcodeError( $string ) {
+
+		$document = new DOMDocument;
+		$document->loadHTML( $string );
+		$xpath = new DOMXPath( $document );
+		$this->assertSame(
+			0
+			, $xpath->query( '//p[@class = "wordpoints-shortcode-error"]' )->length
+		);
+	}
+
+	/**
 	 * Assert that a string is an error output by one of the widgets.
 	 *
 	 * @since 2.6.0
