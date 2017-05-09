@@ -34,7 +34,6 @@ script:
   - phpenv global 5.6 && wpdl-codesniff-php-syntax
   #- phpenv global 7.0 && wpdl-codesniff-php-syntax
   - phpenv global 7.1 && wpdl-codesniff-php-syntax
-  - phpenv global hhvm && wpdl-codesniff-php-syntax
   - phpunit --filter WordPoints /tmp/phpcs/tests/AllTests.php
 
 # EOF
