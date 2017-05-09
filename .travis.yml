@@ -19,6 +19,8 @@ before_script:
   - install-from-github WPCS
   - mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b 2.9 $PHPCS_DIR
   - $PHPCS_DIR/scripts/phpcs --config-set installed_paths "$WPCS_DIR",phpcs
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer global require "phpunit/phpunit=^5.7.15"
 
 script:
   - wpdl-codesniff-xmllint
