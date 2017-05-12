@@ -41,6 +41,11 @@ setup-phpunit() {
 		composer global require "phpunit/phpunit=^5.7.15"
 	fi
 
+	# Fix method() not being available for mocked classes on PHPUnit 3.6.
+	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
+		cp "$DEV_LIB_PATH"/phpunit/mocked_class.tpl /home/travis/.phpenv/versions/5.2.17/pear/PHPUnit/Framework/MockObject/Generator
+	fi
+
 	mkdir -p "$WP_DEVELOP_DIR"
 
 	if [[ $DO_CODE_COVERAGE == 1 ]]; then

@@ -65,6 +65,22 @@ WordPoints_PHPUnit_Class_Autoloader::register_dir(
  */
 require_once( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/functions.php' );
 
+$module = new WordPoints_PHPUnit_Module(
+	WORDPOINTS_MODULE_TESTS_DIR . '/../../src'
+);
+
+if ( is_dir( WORDPOINTS_MODULE_TESTS_DIR . '/classes/' ) ) {
+
+	$namespace = $module->get_header( 'namespace' );
+
+	if ( $namespace ) {
+		WordPoints_PHPUnit_Class_Autoloader::register_dir(
+			WORDPOINTS_MODULE_TESTS_DIR . '/classes/'
+			, "WordPoints_{$namespace}_PHPUnit_"
+		);
+	}
+}
+
 // This is mainly left here for back-compat with pre 2.5.0 behavior.
 $has_uninstall_tester = is_dir( WORDPOINTS_MODULE_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/' );
 
@@ -141,7 +157,7 @@ if (
 
 	$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
 	$loader->add_module(
-		wordpoints_dev_lib_the_module_basename()
+		$module->get_basename()
 		, getenv( 'WORDPOINTS_MODULE_NETWORK_ACTIVE' )
 	);
 

@@ -39,13 +39,6 @@ if [ ! -e wp-l10n-validator.json ]; then
 	sed -i '' s/your-textdomain/"$text_domain"/ wp-l10n-validator.json
 fi
 
-# Set up the git pre-commit hook.
-if [ ! -e .git/hooks/pre-commit ]; then
-	echo Symlinking git pre-commit hook
-	mkdir .git/hooks
-	ln -s ../../"$DEV_LIB_PATH"/git/pre-commit .git/hooks
-fi
-
 # Update the .gitignore file
 if [ ! -e .gitignore ]; then
 
@@ -111,8 +104,9 @@ if [ -e composer.json ]; then
 else
 	echo Copying composer.json
 	cp "$DEV_LIB_PATH"/phpunit/composer.json .
-	composer install
 fi
+
+"$DEV_LIB_PATH"/bin/set-up.sh
 
 if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
 	"$DEV_LIB_PATH"/phpunit/wpppb-init

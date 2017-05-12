@@ -53,18 +53,15 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 		'wp_nonce_field',
 
 		// WordPoints functions.
-		'$dropdown->display',
 		'$hook->form_callback',
 		'$hook->the_field_id',
 		'$hook->the_field_name',
-		'$this->display_content',
 		'$this->pagination',
 		'$this->search_box',
 		'$this->single_row_columns',
 		'$this->the_field_id',
 		'$this->the_field_name',
 		'wordpoints_admin_show_tabs',
-		'wordpoints_display_points',
 		'WordPoints_Points_Hooks::list_by_points_type',
 		'WordPoints_Points_Hooks::list_hooks',
 		'WordPoints_Points_Hooks::points_type_form',
@@ -137,6 +134,10 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 		}
 
 		if ( in_array( $data[0], self::$outputFunctions, true ) ) {
+			return;
+		}
+
+		if ( strpos( $data[0], 'display' ) ) {
 			return;
 		}
 

@@ -17,10 +17,13 @@ export PROJECT_DIR=$(pwd)/src
 export PROJECT_SLUG=$(basename "$(pwd)" | sed 's/^wp-//')
 
 # Codesniff path
-CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*" '!' -path "./.idea/*" '!' -path "./node_modules/*" '!' -path "*/.git/*")
+if [[ -z $CODESNIFF_PATH ]]; then
+	CODESNIFF_PATH=(. '!' -path "./$DEV_LIB_PATH/*" '!' -path "./vendor/*" '!' -path "./.idea/*" '!' -path "./node_modules/*" '!' -path "*/.git/*")
+fi
+
 CODESNIFF_PATH_PHP=("${CODESNIFF_PATH[@]}" '(' -name '*.php' -o -name '*.inc' ')')
 CODESNIFF_PATH_PHP_AUTOLOADERS=(src -path '*/classes')
-CODESNIFF_PATH_PHP_L10N_VALIDATOR=(src '(' -name '*.php' -o -name '*.inc' ')')
+CODESNIFF_PATH_PHP_L10N_VALIDATOR=(. -path "./src/*" '(' -name '*.php' -o -name '*.inc' ')')
 
 # Codeception requires PHP 5.4+.
 if [[ $TRAVIS_PHP_VERSION == '5.2' || $TRAVIS_PHP_VERSION == '5.3' ]]; then
@@ -44,6 +47,15 @@ export CODESNIFF_PATH_BASH
 export CODESNIFF_PATH_STRINGS
 export CODESNIFF_IGNORED_STRINGS
 
+# Autoloaders
+CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES=()
+
+if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+	CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES+=("${WORDPOINTS_DEVELOP_DIR}/src/classes/")
+fi
+
+export CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES
+
 # PHPCS
 export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
 export PHPCS_DIR=/tmp/phpcs
@@ -66,7 +78,7 @@ export WPL10NV_GIT_TREE=develop
 export DO_PHPUNIT=$(if [ -e phpunit.xml.dist ]; then echo 1; else echo 0; fi)
 export RUN_UNINSTALL_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && ([[ -e phpunit.uninstall.xml.dist ]] || grep -q '<group>ajax</group>' phpunit.xml.dist); then echo 1; else echo 0; fi)
 export RUN_AJAX_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>ajax</group>' phpunit.xml.dist; then echo 1; else echo 0; fi)
-export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == hhvm ]] && grep -q codecov README.md; then echo 1; else echo 0; fi)
+export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == '7.0' ]] && grep -q codecov README.md; then echo 1; else echo 0; fi)
 
 # WP Browser (Codeception)
 export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '5.6' ]] && (shopt -s nullglob; f=(tests/codeception/acceptance/*.cept.php); ((${#f[@]}))); then echo 1; else echo 0; fi)

@@ -35,7 +35,7 @@ class WordPoints_MakePOT extends MakePOT {
 	/**
 	 * @since 2.6.0
 	 */
-	protected $max_header_lines = 40;
+	protected $max_header_lines = 50;
 
 	/**
 	 * @since 1.3.0
@@ -193,11 +193,30 @@ class WordPoints_PotExtMeta extends PotExtMeta {
 	 */
 	public function load_from_file( $ext_filename ) {
 
-		return str_replace(
-			' of the plugin/theme'
-			, ' of the module'
-			, parent::load_from_file( $ext_filename )
-		);
+		$makepot = new WordPoints_MakePOT();
+		$source  = $makepot->get_first_lines( $ext_filename, 50 );
+		$pot     = '';
+		$po      = new PO;
+
+		foreach ( $this->headers as $header ) {
+
+			$string = $makepot->get_addon_header( $header, $source );
+
+			if ( ! $string ) {
+				continue;
+			}
+
+			$args = array(
+				'singular'           => $string,
+				'extracted_comments' => $header . ' of the module',
+			);
+
+			$entry = new Translation_Entry( $args );
+
+			$pot .= "\n" . $po->export_entry( $entry ) . "\n";
+		}
+
+		return $pot;
 	}
 }
 
