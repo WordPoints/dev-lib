@@ -57,10 +57,19 @@ class WordPoints_PHPUnit_Remote_Simulator_Module_Server_API_EDD_SL
 			array( 'post_type' => 'edd_license', 'post_status' => 'publish' )
 		);
 
-		add_post_meta( $license_id, '_edd_sl_key', 'test_key_2' );
+		add_post_meta( $license_id, '_edd_sl_key', 'test_key_active' );
 		add_post_meta( $license_id, '_edd_sl_download_id', 123 );
 		add_post_meta( $license_id, '_edd_sl_expiration', time() + DAY_IN_SECONDS );
 		add_post_meta( $license_id, '_edd_sl_status', 'active' );
+
+		// Add an expired license.
+		$license_id = wp_insert_post(
+			array( 'post_type' => 'edd_license', 'post_status' => 'publish' )
+		);
+
+		add_post_meta( $license_id, '_edd_sl_key', 'test_key_expired' );
+		add_post_meta( $license_id, '_edd_sl_download_id', 123 );
+		add_post_meta( $license_id, '_edd_sl_expiration', time() - DAY_IN_SECONDS );
 
 		edd_software_licensing()->insert_site( $license_id, $_POST['url'] );
 	}
