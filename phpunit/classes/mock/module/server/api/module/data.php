@@ -71,6 +71,16 @@ class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
 
 		return true;
 	}
+
+	/**
+	 * @since 2.6.0
+	 */
+	public function delete( $key ) {
+
+		unset( $this->data[ $key ] );
+
+		return true;
+	}
 }
 
 // EOF
