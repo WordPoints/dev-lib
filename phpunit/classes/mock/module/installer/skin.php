@@ -34,6 +34,24 @@ class WordPoints_PHPUnit_Mock_Module_Installer_Skin
 	public $footer_shown = 0;
 
 	/**
+	 * A count of the number of times the bulk header was shown.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @type int $bulk_header_shown
+	 */
+	public $bulk_header_shown = 0;
+
+	/**
+	 * A count of the number of times the bulk footer was shown.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @type int $bulk_footer_shown
+	 */
+	public $bulk_footer_shown = 0;
+
+	/**
 	 * A list of errors reported by the skin.
 	 *
 	 * @since 2.6.0
@@ -59,10 +77,24 @@ class WordPoints_PHPUnit_Mock_Module_Installer_Skin
 	}
 
 	/**
+	 * @since 2.7.0
+	 */
+	public function bulk_header() {
+		$this->bulk_header_shown++;
+	}
+
+	/**
 	 * @since 2.6.0
 	 */
 	public function footer() {
 		$this->footer_shown++;
+	}
+
+	/**
+	 * @since 2.7.0
+	 */
+	public function bulk_footer() {
+		$this->bulk_footer_shown++;
 	}
 
 	/**
