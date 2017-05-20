@@ -183,6 +183,7 @@ class WordPointsLoader extends Module {
 		$this->disable_update_checks();
 		$this->disable_dashboard_feed_widgets();
 		$this->disable_compression_testing();
+		$this->disable_cron();
 	}
 
 	/**
@@ -235,6 +236,23 @@ class WordPointsLoader extends Module {
 	 */
 	protected function disable_compression_testing() {
 		update_option( 'can_compress_scripts', 1 );
+	}
+
+	/**
+	 * Disable WordPress cron.
+	 *
+	 * Prevents cron requests from being spawned, as usually these aren't important
+	 * to the tests and so just take up unnecessary time.
+	 *
+	 * @since 2.7.0
+	 */
+	protected function disable_cron() {
+
+		// See spawn_cron().
+		set_transient(
+			'doing_cron'
+			, sprintf( '%.22F', microtime( true ) + 9 * MINUTE_IN_SECONDS )
+		);
 	}
 
 	/**
