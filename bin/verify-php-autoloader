@@ -14,12 +14,15 @@
  * @since 2.4.0
  */
 
+// In case any classes need to load core dependencies.
+define( 'ABSPATH', getenv( 'WP_CORE_DIR' ) . '/' );
+
 /**
  * Load the WP_Widget class.
  *
  * @since 2.6.0
  */
-require_once( getenv( 'WP_CORE_DIR' ) . '/wp-includes/class-wp-widget.php' );
+require_once( ABSPATH . '/wp-includes/class-wp-widget.php' );
 
 /**
  * Simulate loading of all files in a map as when falling back when SPL is disabled.
