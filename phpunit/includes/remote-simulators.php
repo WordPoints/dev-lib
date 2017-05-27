@@ -55,7 +55,7 @@ require_once( dirname( __FILE__ ) . '/../../../vendor/autoload_52.php' );
 
 $loader = new WordPoints_PHPUnit_Remote_Simulator_Bootstrap_Loader();
 
-$simulator = $_SERVER['HTTP_X_WORDPOINTS_TESTS_SIMULATOR'];
+$simulator = sanitize_key( $_SERVER['HTTP_X_WORDPOINTS_TESTS_SIMULATOR'] );
 $simulator_class = "WordPoints_PHPUnit_Remote_Simulator_{$simulator}";
 
 /** @var WordPoints_PHPUnit_Remote_Simulator $simulator */

@@ -71,7 +71,13 @@ class WordPoints_PHPUnit_Remote_Simulator_Module_Server_API_EDD_SL
 		add_post_meta( $license_id, '_edd_sl_download_id', 123 );
 		add_post_meta( $license_id, '_edd_sl_expiration', time() - DAY_IN_SECONDS );
 
-		edd_software_licensing()->insert_site( $license_id, $_POST['url'] );
+		$site_url = 'https://example.com/';
+
+		if ( isset( $_POST['url'] ) ) {
+			$site_url = esc_url_raw( wp_unslash( $_POST['url'] ) );
+		}
+
+		edd_software_licensing()->insert_site( $license_id, $site_url );
 	}
 }
 
