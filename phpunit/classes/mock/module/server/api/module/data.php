@@ -4,13 +4,13 @@
  * Mock module server API module data class for the PHPUnit tests.
  *
  * @package WordPoints_Dev_Lib\PHPUnit
- * @since 2.6.0
+ * @since 2.7.0
  */
 
 /**
  * Mock module server API module data class for the PHPUnit tests.
  *
- * @since 2.6.0
+ * @since 2.7.0
  */
 class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
 	implements WordPoints_Module_Server_API_Module_DataI {
@@ -18,7 +18,7 @@ class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
 	/**
 	 * The ID of the module the data is for.
 	 *
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 *
 	 * @var string
 	 */
@@ -27,14 +27,14 @@ class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
 	/**
 	 * The module's data.
 	 *
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 *
 	 * @var array
 	 */
 	protected $data = array();
 
 	/**
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 *
 	 * @param string $module_id The ID of the module.
 	 */
@@ -44,14 +44,14 @@ class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
 	}
 
 	/**
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 */
 	public function get_id() {
 		return $this->module_id;
 	}
 
 	/**
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 */
 	public function get( $key ) {
 
@@ -63,7 +63,7 @@ class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
 	}
 
 	/**
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 */
 	public function set( $key, $value ) {
 
@@ -73,7 +73,7 @@ class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
 	}
 
 	/**
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 */
 	public function delete( $key ) {
 

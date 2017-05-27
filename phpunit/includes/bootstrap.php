@@ -24,7 +24,7 @@ define( 'WORDPOINTS_TESTS_DIR', rtrim( getenv( 'WORDPOINTS_TESTS_DIR' ), '/' ) )
 /**
  * The cache directory for the WP HTTP testcase.
  *
- * @since 2.6.0
+ * @since 2.7.0
  *
  * @type string
  */

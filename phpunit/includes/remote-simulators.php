@@ -20,7 +20,7 @@
  * make "remote" requests to in our tests.
  *
  * @package WordPoints_Dev_Lib\PHPUnit
- * @since   2.6.0
+ * @since   2.7.0
  */
 
 if ( ! isset( $_SERVER['HTTP_X_WORDPOINTS_TESTS_SIMULATOR'] ) ) {
@@ -30,14 +30,14 @@ if ( ! isset( $_SERVER['HTTP_X_WORDPOINTS_TESTS_SIMULATOR'] ) ) {
 /**
  * Defined when we are running the remote simulator.
  *
- * @since 2.6.0
+ * @since 2.7.0
  */
 define( 'WORDPOINTS_RUNNING_REMOTE_SIMULATOR', true );
 
 /**
  * Class autoloader for PHPUnit tests and helpers from the dev lib.
  *
- * @since 2.6.0
+ * @since 2.7.0
  */
 require_once( dirname( __FILE__ ) . '/../classes/class/autoloader.php' );
 
@@ -49,7 +49,7 @@ WordPoints_PHPUnit_Class_Autoloader::register_dir(
 /**
  * The Composer generated autoloader.
  *
- * @since 2.6.0
+ * @since 2.7.0
  */
 require_once( dirname( __FILE__ ) . '/../../../vendor/autoload_52.php' );
 

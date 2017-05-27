@@ -4,19 +4,19 @@
  * Easy Digital Downloads Software Licenses module server API remote simulator.
  *
  * @package WordPoints_Dev_Lib\PHPUnit
- * @since   2.6.0
+ * @since   2.7.0
  */
 
 /**
  * Set up the remote server to handle an EDD Software Licenses request.
  *
- * @since 2.6.0
+ * @since 2.7.0
  */
 class WordPoints_PHPUnit_Remote_Simulator_Module_Server_API_EDD_SL
 	extends WordPoints_PHPUnit_Remote_Simulator {
 
 	/**
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 */
 	public function add_dependencies( WPPPB_Loader $loader ) {
 
@@ -25,7 +25,7 @@ class WordPoints_PHPUnit_Remote_Simulator_Module_Server_API_EDD_SL
 	}
 
 	/**
-	 * @since 2.6.0
+	 * @since 2.7.0
 	 */
 	public function setup() {
 
