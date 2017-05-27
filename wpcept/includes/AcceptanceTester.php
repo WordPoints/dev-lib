@@ -306,7 +306,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * @param string $module       The module to activate.
 	 * @param bool   $network_wide Whether to activate the module network-wide.
 	 *
-	 * @return void|\WP_Error An error object on failure.
+	 * @return null|\WP_Error An error object on failure.
 	 */
 	public function hadActivatedModule( $module, $network_wide = false ) {
 		return wordpoints_activate_module( $module, '', $network_wide );
@@ -333,6 +333,33 @@ class AcceptanceTester extends \Codeception\Actor {
 			$wp_filesystem->mkdir( $modules_dir . $module );
 
 			copy_dir( $test_modules_dir . $module, $modules_dir . $module );
+		}
+	}
+
+	/**
+	 * Install a test module on the site that has an available update.
+	 *
+	 * @since 2.7.0
+	 */
+	public function haveTestModuleInstalledNeedingUpdate() {
+
+		$this->haveTestModuleInstalled( 'module-7' );
+
+		$updates = new \WordPoints_Module_Updates( array( 'module-7/module-7.php' => '1.1.0' ) );
+		$updates->save();
+
+		$server = new \WordPoints_Module_Server( 'wordpoints.org' );
+		$module_data = new \WordPoints_Module_Server_API_Module_Data( '7', $server );
+		$module_data->set( 'package', WP_CONTENT_URL . '/module-7-update.zip' );
+		$module_data->set( 'changelog', 'Test changelog for Module 7.' );
+
+		$destination = WP_CONTENT_DIR . '/module-7-update.zip';
+
+		if ( ! file_exists( $destination ) ) {
+			copy(
+				WORDPOINTS_DIR . '/../tests/phpunit/data/module-packages/module-7-update.bk.zip'
+				, $destination
+			);
 		}
 	}
 }
