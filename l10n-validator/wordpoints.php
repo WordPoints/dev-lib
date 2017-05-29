@@ -19,6 +19,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_alter_points' => array( 1, 2, 3, 4 ),
 			'wordpoints_component' => true,
 			'wordpoints_debug_message' => true,
+			'wordpoints_delete_maybe_network_option' => true,
 			'wordpoints_dir_include' => true,
 			'wordpoints_display_points' => true,
 			'wordpoints_escape_mysql_identifier' => true,
@@ -27,6 +28,8 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_get_excluded_users' => true,
 			'wordpoints_get_formatted_points' => true,
 			'wordpoints_get_formatted_user_rank' => array( 1, 2, 3 ),
+			'wordpoints_get_maybe_network_array_option' => true,
+			'wordpoints_get_maybe_network_option' => array( 1, 2 ),
 			'wordpoints_get_points_logs_query' => true,
 			'wordpoints_get_points_logs_query_args' => true,
 			'wordpoints_get_points_type_setting' => true,
@@ -41,6 +44,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_show_admin_message' => array( 2 ),
 			'wordpoints_show_points_logs_query' => true,
 			'wordpoints_subtract_points' => array( 1, 2, 3, 4 ),
+			'wordpoints_update_maybe_network_option' => array( 1, 3 ),
 			'wordpoints_verify_nonce' => true,
 
 			// Class methods.
