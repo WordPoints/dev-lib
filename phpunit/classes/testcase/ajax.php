@@ -147,6 +147,31 @@ abstract class WordPoints_PHPUnit_TestCase_Ajax extends WP_Ajax_UnitTestCase {
 	}
 
 	/**
+	 * PHPUnit 6+ compatibility shim.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/39822#comment:26
+	 *
+	 * @param mixed      $exception Exception.
+	 * @param string     $message   Message.
+	 * @param int|string $code      Code.
+	 */
+	public function setExpectedException( $exception, $message = '', $code = null ) {
+		if ( method_exists( 'PHPUnit_Framework_TestCase', 'setExpectedException' ) ) {
+			PHPUnit_Framework_TestCase::setExpectedException( $exception, $message, $code );
+		} else {
+			$this->expectException( $exception );
+			if ( '' !== $message ) {
+				$this->expectExceptionMessage( $message );
+			}
+			if ( null !== $code ) {
+				$this->expectExceptionCode( $code );
+			}
+		}
+	}
+
+	/**
 	 * Assert that there was a JSON response object with the success property false.
 	 *
 	 * @since 2.6.0
