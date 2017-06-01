@@ -163,6 +163,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 
 	$parser->add_ignored_properties(
 		array(
+			'WordPoints_DB_Query::$deprecated_args' => true,
 			'WordPoints_Entity_Attr::$data_type' => true,
 			'WordPoints_Entity_Attr::$field' => true,
 			'WordPoints_Entity_Attr_Field::$data_type' => true,
