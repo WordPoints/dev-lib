@@ -1362,6 +1362,40 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Asserts that a table has a column.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $column The field name.
+	 * @param string $table  The database table name.
+	 */
+	protected function assertTableHasColumn( $column, $table ) {
+
+		global $wpdb;
+
+		$table_fields = $wpdb->get_results( "DESCRIBE {$table}" );
+
+		$this->assertCount( 1, wp_list_filter( $table_fields, array( 'Field' => $column ) ) );
+	}
+
+	/**
+	 * Asserts that a table doesn't have a column.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $column The field name.
+	 * @param string $table  The database table name.
+	 */
+	protected function assertTableHasNotColumn( $column, $table ) {
+
+		global $wpdb;
+
+		$table_fields = $wpdb->get_results( "DESCRIBE {$table}" );
+
+		$this->assertCount( 0, wp_list_filter( $table_fields, array( 'Field' => $column ) ) );
+	}
+
+	/**
 	 * Assert that a value is a hook reaction.
 	 *
 	 * @since 2.6.0
