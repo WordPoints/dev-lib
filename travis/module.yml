@@ -18,7 +18,6 @@ env:
     - TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
     - TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=develop
     - TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.6 WORDPOINTS_VERSION=develop
     - TRAVISCI_RUN=phpunit WP_VERSION=4.6 WORDPOINTS_VERSION=master
 
 sudo: false
@@ -42,8 +41,6 @@ matrix:
       env: TRAVISCI_RUN=codesniff
     - php: 7.1
       env: TRAVISCI_RUN=codesniff
-    - php: 7.1
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.6 WORDPOINTS_VERSION=develop
     - php: 7.1
       env: TRAVISCI_RUN=phpunit WP_VERSION=4.6 WORDPOINTS_VERSION=master
   allow_failures:
