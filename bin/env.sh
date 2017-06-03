@@ -81,7 +81,7 @@ export RUN_AJAX_TESTS=$(if [[ $DO_PHPUNIT == 1 ]] && grep -q '<group>ajax</group
 export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == '7.0' ]] && grep -q codecov README.md; then echo 1; else echo 0; fi)
 
 # WP Browser (Codeception)
-export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '7.0' ]] && (shopt -s nullglob; f=(tests/codeception/acceptance/*.cept.php); ((${#f[@]}))); then echo 1; else echo 0; fi)
+export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '7.0' ]] && find tests/codeception/acceptance/ -mindepth 1 -name "*.cept.php" | read; then echo 1; else echo 0; fi)
 export WP_CEPT_SERVER='127.0.0.1:8080'
 
 # WordPoints
