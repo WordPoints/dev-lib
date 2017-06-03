@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Easy Digital Downloads Software Licenses module server API remote simulator.
+ * Easy Digital Downloads Software Licenses extension server API remote simulator.
  *
  * @package WordPoints_Dev_Lib\PHPUnit
  * @since   2.7.0
@@ -12,7 +12,7 @@
  *
  * @since 2.7.0
  */
-class WordPoints_PHPUnit_Remote_Simulator_Module_Server_API_EDD_SL
+class WordPoints_PHPUnit_Remote_Simulator_Extension_Server_API_EDD_SL
 	extends WordPoints_PHPUnit_Remote_Simulator {
 
 	/**

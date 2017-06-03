@@ -1,7 +1,7 @@
 <?php
 
 /**
- * EDD SL Free module server remote simulator class.
+ * EDD SL Free extension server remote simulator class.
  *
  * @package WordPoints_Dev_Lib\PHPUnit
  * @since   2.7.0
@@ -12,8 +12,8 @@
  *
  * @since 2.7.0
  */
-class WordPoints_PHPUnit_Remote_Simulator_Module_Server_API_EDD_SL_Free
-	extends WordPoints_PHPUnit_Remote_Simulator_Module_Server_API_EDD_SL {
+class WordPoints_PHPUnit_Remote_Simulator_Extension_Server_API_EDD_SL_Free
+	extends WordPoints_PHPUnit_Remote_Simulator_Extension_Server_API_EDD_SL {
 
 	/**
 	 * @since 2.7.0

@@ -1,31 +1,31 @@
 <?php
 
 /**
- * Mock module server API module data class for the PHPUnit tests.
+ * Mock extension server API extension data class for the PHPUnit tests.
  *
  * @package WordPoints_Dev_Lib\PHPUnit
  * @since 2.7.0
  */
 
 /**
- * Mock module server API module data class for the PHPUnit tests.
+ * Mock extension server API extension data class for the PHPUnit tests.
  *
  * @since 2.7.0
  */
-class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
-	implements WordPoints_Module_Server_API_Module_DataI {
+class WordPoints_PHPUnit_Mock_Extension_Server_API_Extension_Data
+	implements WordPoints_Extension_Server_API_Extension_DataI {
 
 	/**
-	 * The ID of the module the data is for.
+	 * The ID of the extension the data is for.
 	 *
 	 * @since 2.7.0
 	 *
 	 * @var string
 	 */
-	protected $module_id;
+	protected $extension_id;
 
 	/**
-	 * The module's data.
+	 * The extension's data.
 	 *
 	 * @since 2.7.0
 	 *
@@ -36,18 +36,18 @@ class WordPoints_PHPUnit_Mock_Module_Server_API_Module_Data
 	/**
 	 * @since 2.7.0
 	 *
-	 * @param string $module_id The ID of the module.
+	 * @param string $extension_id The ID of the extension.
 	 */
-	public function __construct( $module_id = null ) {
+	public function __construct( $extension_id = null ) {
 
-		$this->module_id = $module_id;
+		$this->extension_id = $extension_id;
 	}
 
 	/**
 	 * @since 2.7.0
 	 */
 	public function get_id() {
-		return $this->module_id;
+		return $this->extension_id;
 	}
 
 	/**

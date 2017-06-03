@@ -337,23 +337,23 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 	/**
-	 * Install a test module on the site that has an available update.
+	 * Install a test extension on the site that has an available update.
 	 *
 	 * @since 2.7.0
 	 */
-	public function haveTestModuleInstalledNeedingUpdate() {
+	public function haveTestExtensionInstalledNeedingUpdate() {
 
 		$this->haveTestModuleInstalled( 'module-7' );
 
-		$updates = new \WordPoints_Module_Updates(
+		$updates = new \WordPoints_Extension_Updates(
 			array( 'module-7/module-7.php' => '1.1.0' )
 			, wp_list_pluck( wordpoints_get_modules(), 'version' )
 		);
 
 		$updates->save();
 
-		$server = new \WordPoints_Module_Server( 'wordpoints.org' );
-		$module_data = new \WordPoints_Module_Server_API_Module_Data( '7', $server );
+		$server = new \WordPoints_Extension_Server( 'wordpoints.org' );
+		$module_data = new \WordPoints_Extension_Server_API_Extension_Data( '7', $server );
 		$module_data->set( 'package', WP_CONTENT_URL . '/module-7-update.zip' );
 		$module_data->set( 'changelog', 'Test changelog for Module 7.' );
 		$module_data->set( 'is_free', true );
