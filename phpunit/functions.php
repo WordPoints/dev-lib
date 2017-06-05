@@ -8,18 +8,34 @@
  */
 
 /**
- * Locate the main file for a module.
+ * Locate the main file for an extension.
  *
  * @since 1.1.0
+ * @deprecated 2.7.0
  *
- * @param string $module_folder The full path to the module's folder.
+ * @param string $module_folder The full path to the extension's folder.
  *
- * @return array A list of the module files found (files with module headers),
+ * @return array A list of the extension files found (files with extension headers),
  *               indexed by the file names.
  */
 function wordpoints_dev_lib_get_modules( $module_folder = '' ) {
+	wordpoints_dev_lib_get_extensions( $module_folder );
+}
 
-	$modules = array();
+/**
+ * Locate the main file for an extension.
+ *
+ * @since 1.1.0 As wordpoints_dev_lib_get_modules().
+ * @since 2.7.0
+ *
+ * @param string $extension_folder The full path to the extension's folder.
+ *
+ * @return array A list of the extension files found (files with extension headers),
+ *               indexed by the file names.
+ */
+function wordpoints_dev_lib_get_extensions( $extension_folder = '' ) {
+
+	$extensions = array();
 	$headers = array(
 		'name'        => 'Extension Name',
 		'uri'         => 'Extension URI',
@@ -40,36 +56,36 @@ function wordpoints_dev_lib_get_modules( $module_folder = '' ) {
 	);
 
 	// Escape pattern-matching characters in the path.
-	$module_escape_path = str_replace(
+	$extension_escape_path = str_replace(
 		array( '*', '?', '[' )
 		, array( '[*]', '[?]', '[[]' )
-		, $module_folder
+		, $extension_folder
 	);
 
-	$module_files = glob( "{$module_escape_path}/*.php" );
+	$extension_files = glob( "{$extension_escape_path}/*.php" );
 
-	if ( false === $module_files ) {
-		return $modules;
+	if ( false === $extension_files ) {
+		return $extensions;
 	}
 
-	foreach ( $module_files as $module_file ) {
+	foreach ( $extension_files as $extension_file ) {
 
-		if ( ! is_readable( $module_file ) ) {
+		if ( ! is_readable( $extension_file ) ) {
 			continue;
 		}
 
-		$module_data = wordpoints_dev_lib_get_file_data( $module_file, $headers );
+		$extension_data = wordpoints_dev_lib_get_file_data( $extension_file, $headers );
 
-		if ( empty( $module_data['name'] ) ) {
+		if ( empty( $extension_data['name'] ) ) {
 			continue;
 		}
 
-		$modules[ basename( $module_file ) ] = $module_data;
+		$extensions[ basename( $extension_file ) ] = $extension_data;
 	}
 
-	uasort( $modules, '_wordpoints_dev_lib_sort_uname_callback' );
+	uasort( $extensions, '_wordpoints_dev_lib_sort_uname_callback' );
 
-	return $modules;
+	return $extensions;
 }
 
 /**

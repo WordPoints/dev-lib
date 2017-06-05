@@ -112,7 +112,7 @@ wpdl-codesniff-php-autoloader() {
 	local dir=$1
 	local dependencies=("${CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES[@]}")
 
-	if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+	if [[ $WORDPOINTS_PROJECT_TYPE == extension ]]; then
 		if [[ $dir =~ /points/ ]]; then
 			dependencies+=( \
 				"${WORDPOINTS_DEVELOP_DIR}/src/components/points/classes/" \

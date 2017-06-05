@@ -1,4 +1,4 @@
-# Travis CI configuration file for a WordPoints module.
+# Travis CI configuration file for a WordPoints extension.
 
 language: php
 
@@ -48,7 +48,7 @@ matrix:
   fast_finish: true
 
 before_script:
-    - export WORDPOINTS_PROJECT_TYPE=module
+    - export WORDPOINTS_PROJECT_TYPE=extension
     - export DEV_LIB_PATH=dev-lib
     - if [ -e .wordpoints-dev-lib-config.sh ]; then source .wordpoints-dev-lib-config.sh; fi
     - source $DEV_LIB_PATH/travis/before_script.sh
@@ -69,9 +69,9 @@ script:
     - phpunit-uninstall
     - phpunit-ms-uninstall
     - phpunit-ms-network-uninstall
-    - WORDPOINTS_ONLY_UNINSTALL_MODULE=1 phpunit-uninstall
-    - WORDPOINTS_ONLY_UNINSTALL_MODULE=1 phpunit-ms-uninstall
-    - WORDPOINTS_ONLY_UNINSTALL_MODULE=1 phpunit-ms-network-uninstall
+    - WORDPOINTS_ONLY_UNINSTALL_EXTENSION=1 phpunit-uninstall
+    - WORDPOINTS_ONLY_UNINSTALL_EXTENSION=1 phpunit-ms-uninstall
+    - WORDPOINTS_ONLY_UNINSTALL_EXTENSION=1 phpunit-ms-network-uninstall
     - phpunit-ajax
     - phpunit-ms-ajax
     - phpunit-ms-network-ajax

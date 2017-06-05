@@ -79,8 +79,8 @@ WordPoints_PHPUnit_Class_Autoloader::register_dir(
 );
 
 // We don't include the autoloader for our Composer dependencies when running the
-// module tests, because it might not have been generated, and shouldn't be needed.
-if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
+// extension tests, because it might not have been generated, and shouldn't be needed.
+if ( ! defined( 'RUNNING_WORDPOINTS_EXTENSION_TESTS' ) ) {
 	/**
 	 * The Composer generated autoloader.
 	 *

@@ -8,7 +8,7 @@
  */
 
 /**
- * Loads plugins, modules, and WordPoints components, for the PHPUnit tests.
+ * Loads plugins, extensions, and WordPoints components, for the PHPUnit tests.
  *
  * @since 2.6.0
  */
@@ -24,9 +24,20 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	protected $actions;
 
 	/**
-	 * List of modules to be installed.
+	 * List of extensions to be installed.
+	 *
+	 * @since 2.6.0 As $modules.
+	 * @since 2.7.0
+	 *
+	 * @var array[]
+	 */
+	protected $extensions = array();
+
+	/**
+	 * List of extensions to be installed.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 Use $extensions instead.
 	 *
 	 * @var array[]
 	 */
@@ -127,28 +138,57 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	}
 
 	/**
+	 * Add an extension to load.
+	 *
+	 * @since 2.6.0 As add_module().
+	 * @since 2.7.0
+	 *
+	 * @param string $extension    The basename slug of the extension. Example:
+	 *                             'extension/extension.php'.
+	 * @param bool   $network_wide Whether to activate the extension network-wide.
+	 */
+	public function add_extension( $extension, $network_wide = false ) {
+		$this->extensions[ $extension ] = array( 'network_wide' => $network_wide );
+	}
+
+	/**
 	 * Add a module to load.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 Use add_extension() instead.
 	 *
 	 * @param string $module       The basename slug of the module. Example:
 	 *                             'module/module.php'.
 	 * @param bool   $network_wide Whether to activate the module network-wide.
 	 */
 	public function add_module( $module, $network_wide = false ) {
-		$this->modules[ $module ] = array( 'network_wide' => $network_wide );
+		$this->add_extension( $module, $network_wide );
+	}
+
+	/**
+	 * Get a list of the extensions to be loaded.
+	 *
+	 * @since 2.6.0 As get_modules().
+	 * @since 2.7.0
+	 *
+	 * @return array[] The extensions to be loaded. Keys are extension basename slugs,
+	 *                 values arrays of data for the extensions.
+	 */
+	public function get_extensions() {
+		return $this->extensions;
 	}
 
 	/**
 	 * Get a list of the modules to be loaded.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0
 	 *
 	 * @return array[] The modules to be loaded. Keys are module basename slugs,
 	 *                 values arrays of data for the modules.
 	 */
 	public function get_modules() {
-		return $this->modules;
+		return $this->get_extensions();
 	}
 
 	/**
@@ -179,14 +219,20 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 */
 	public function install_plugins() {
 
-		// Initially, we don't want to install the modules during the uninstall tests
+		// Initially, we don't want to install the extensions during the uninstall tests
 		// so that they won't be loaded. However, they do need to be installed
 		// remotely later, after the tests have begun.
 		if (
-			getenv( 'WORDPOINTS_ONLY_UNINSTALL_MODULE' )
-			&& class_exists( 'WordPoints_PHPUnit_TestCase_Module_Uninstall', false )
+			(
+				getenv( 'WORDPOINTS_ONLY_UNINSTALL_EXTENSION' )
+				|| getenv( 'WORDPOINTS_ONLY_UNINSTALL_MODULE' ) // Back-pat.
+			)
+			&& (
+				class_exists( 'WordPoints_PHPUnit_TestCase_Extension_Uninstall', false )
+				|| class_exists( 'WordPoints_PHPUnit_TestCase_Module_Uninstall', false ) // Back-pat.
+			)
 		) {
-			$this->install_modules();
+			$this->install_extensions();
 			return;
 		}
 
@@ -198,12 +244,12 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 			);
 		}
 
-		if ( $this->should_install_modules() ) {
-			if ( ! empty( $this->modules ) ) {
+		if ( $this->should_install_extensions() ) {
+			if ( ! empty( $this->extensions ) ) {
 				$this->add_php_file(
-					dirname( __FILE__ ) . '/../../includes/install-modules.php'
+					dirname( __FILE__ ) . '/../../includes/install-extensions.php'
 					, 'after'
-					, $this->modules
+					, $this->extensions
 				);
 			}
 		}
@@ -215,13 +261,24 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 * Installs the modules via a separate PHP process.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 use install_extensions() instead.
 	 */
 	protected function install_modules() {
+		$this->install_extensions();
+	}
+
+	/**
+	 * Installs the extensions via a separate PHP process.
+	 *
+	 * @since 2.6.0 As install_modules().
+	 * @since 2.7.0
+	 */
+	protected function install_extensions() {
 
 		system(
 			WP_PHP_BINARY
-			. ' ' . escapeshellarg( dirname( __FILE__ ) . '/../../includes/install-modules-only.php' )
-			. ' ' . escapeshellarg( wp_json_encode( $this->modules ) )
+			. ' ' . escapeshellarg( dirname( __FILE__ ) . '/../../includes/install-extensions-only.php' )
+			. ' ' . escapeshellarg( wp_json_encode( $this->extensions ) )
 			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
 			. ' ' . (int) is_multisite()
 			. ' ' . escapeshellarg( wp_json_encode( $this->files ) )
@@ -229,7 +286,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 		);
 
 		if ( 0 !== $exit_code ) {
-			echo( 'Remote module installation failed with exit code ' . $exit_code );
+			echo( 'Remote extension installation failed with exit code ' . $exit_code );
 			exit( 1 );
 		}
 
@@ -251,8 +308,11 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 			return false;
 		}
 
-		if ( $this->running_module_uninstall_tests() ) {
-			return (bool) getenv( 'WORDPOINTS_ONLY_UNINSTALL_MODULE' );
+		if ( $this->running_extension_uninstall_tests() ) {
+			return (bool) (
+				getenv( 'WORDPOINTS_ONLY_UNINSTALL_EXTENSION' )
+				|| getenv( 'WORDPOINTS_ONLY_UNINSTALL_MODULE' ) // Back-pat.
+			);
 		}
 
 		return parent::should_install_plugins();
@@ -262,17 +322,31 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 * Checks if the modules should be installed.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 Use should_install_extensions() instead.
 	 *
 	 * @return bool Whether the modules should be installed.
 	 */
 	public function should_install_modules() {
+		return $this->should_install_extensions();
+	}
 
-		// Initially, we don't want to install the modules during the uninstall tests
+	/**
+	 * Checks if the extensions should be installed.
+	 *
+	 * @since 2.6.0 As should_install_modules().
+	 * @since 2.7.0
+	 *
+	 * @return bool Whether the extensions should be installed.
+	 */
+	public function should_install_extensions() {
+
+		// Initially, we don't want to install the extensions during the uninstall tests
 		// so that they won't be loaded. However, they do need to be installed
 		// remotely later, after the tests have begun.
 		return (
-			! $this->running_module_uninstall_tests()
-			|| class_exists( 'WordPoints_PHPUnit_TestCase_Module_Uninstall', false )
+			! $this->running_extension_uninstall_tests()
+			|| class_exists( 'WordPoints_PHPUnit_TestCase_Extension_Uninstall', false )
+			|| class_exists( 'WordPoints_PHPUnit_TestCase_Module_Uninstall', false ) // Back-pat.
 		);
 	}
 
@@ -281,23 +355,36 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 */
 	public function running_uninstall_tests() {
 
-		if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
+		if ( ! defined( 'RUNNING_WORDPOINTS_EXTENSION_TESTS' ) ) {
 			return parent::running_uninstall_tests();
 		}
 
-		return $this->running_module_uninstall_tests();
+		return $this->running_extension_uninstall_tests();
 	}
 
 	/**
 	 * Checks whether the module uninstall tests are running.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 Use running_extension_uninstall_tests() instead.
 	 *
 	 * @return bool Whether the module uninstall tests are running.
 	 */
 	public function running_module_uninstall_tests() {
+		return $this->running_extension_uninstall_tests();
+	}
 
-		if ( ! defined( 'RUNNING_WORDPOINTS_MODULE_TESTS' ) ) {
+	/**
+	 * Checks whether the extension uninstall tests are running.
+	 *
+	 * @since 2.6.0 As running_module_uninstall_tests().
+	 * @since 2.7.0
+	 *
+	 * @return bool Whether the extension uninstall tests are running.
+	 */
+	public function running_extension_uninstall_tests() {
+
+		if ( ! defined( 'RUNNING_WORDPOINTS_EXTENSION_TESTS' ) ) {
 			return false;
 		}
 
@@ -310,9 +397,9 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 			ob_end_clean();
 
 			if ( ! $uninstall_tests ) {
-				echo 'Not running module install/uninstall tests... To execute these, use -c phpunit.uninstall.xml.dist.' . PHP_EOL;
+				echo 'Not running extension install/uninstall tests... To execute these, use -c phpunit.uninstall.xml.dist.' . PHP_EOL;
 			} else {
-				echo 'Running module install/uninstall tests...' . PHP_EOL;
+				echo 'Running extension install/uninstall tests...' . PHP_EOL;
 			}
 		}
 

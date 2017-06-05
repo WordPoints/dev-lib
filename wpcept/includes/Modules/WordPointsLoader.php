@@ -25,7 +25,7 @@ class WordPointsLoader extends Module {
 	/**
 	 * @since 2.4.0
 	 */
-	protected $config = array( 'module' => null );
+	protected $config = array( 'extension' => null, 'module' => null );
 
 	/**
 	 * @since 2.4.0
@@ -46,15 +46,25 @@ class WordPointsLoader extends Module {
 		$this->load_wordpress();
 		$this->load_wordpoints();
 
+		// Back-compat.
 		if ( $this->config['module'] ) {
+			$this->config['extension'] = $this->config['module'];
+		}
+
+		if ( $this->config['extension'] ) {
 
 			// Fix a bug in Codeception 2.2.1.
 			// (https://github.com/Codeception/Codeception/issues/3218)
-			if ( '%WORDPOINTS_MODULE%' === $this->config['module'] ) {
-				$this->config['module'] = getenv( 'WORDPOINTS_MODULE' );
+			if ( '%WORDPOINTS_EXTENSION%' === $this->config['extension'] ) {
+				$this->config['extension'] = getenv( 'WORDPOINTS_EXTENSION' );
 			}
 
-			$this->load_wordpoints_module( $this->config['module'] );
+			// Back-compat.
+			if ( '%WORDPOINTS_MODULE%' === $this->config['extension'] ) {
+				$this->config['extension'] = getenv( 'WORDPOINTS_MODULE' );
+			}
+
+			$this->load_wordpoints_extension( $this->config['extension'] );
 		}
 
 		// Disable time-consuming unnecessary features, like update checks.
@@ -150,27 +160,45 @@ class WordPointsLoader extends Module {
 	 * Load and activate the module.
 	 *
 	 * @since 2.4.0
+	 * @deprecated 2.7.0 Use load_wordpoints_extension() instead.
 	 *
 	 * @param string $module The module, e.g., 'module/module.php'.
 	 *
 	 * @throws ModuleException If there is an error activating the module.
 	 */
 	protected function load_wordpoints_module( $module ) {
+		$this->load_wordpoints_extension( $module );
+	}
+
+	/**
+	 * Load and activate the extension.
+	 *
+	 * @since 2.4.0 As load_wordpoints_module().
+	 * @since 2.7.0
+	 *
+	 * @param string $extension The extension, e.g., 'extension/extension.php'.
+	 *
+	 * @throws ModuleException If there is an error activating the extension.
+	 */
+	protected function load_wordpoints_extension( $extension ) {
 
 		$result = wordpoints_activate_module(
-			$module
+			$extension
 			, ''
-			, (bool) getenv( 'WORDPOINTS_MODULE_NETWORK_ACTIVE' )
+			, (bool) (
+				getenv( 'WORDPOINTS_EXTENSION_NETWORK_ACTIVE' )
+				|| getenv( 'WORDPOINTS_MODULE_NETWORK_ACTIVE' ) // Back-pat.
+			)
 		);
 
 		if ( is_wp_error( $result ) ) {
 			throw new ModuleException(
 				__CLASS__
-				, "\nError activating WordPoints module: " . $result->get_error_message()
+				, "\nError activating WordPoints extension: " . $result->get_error_message()
 			);
 		}
 
-		echo "Running WordPoints module {$module}\n";
+		echo "Running WordPoints extension {$extension}\n";
 	}
 
 	/**

@@ -130,11 +130,24 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	protected $wordpoints_component;
 
 	/**
+	 * The slug of the WordPoints extension that this testcase is for.
+	 *
+	 * The slug of the extension is the name of its base directory.
+	 *
+	 * @since 2.6.0 As $wordpoints_module.
+	 * @since 2.7.0
+	 *
+	 * @var string
+	 */
+	protected $wordpoints_extension;
+
+	/**
 	 * The slug of the WordPoints module that this testcase is for.
 	 *
 	 * The slug of the module is the name of its base directory.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 Use $wordpoints_extension instead.
 	 *
 	 * @var string
 	 */
@@ -641,12 +654,27 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * Set the version of a module.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 Use set_extension_db_version() instead.
 	 *
 	 * @param string $module       The slug of the module.
 	 * @param string $version      The version to set. Defaults to 1.0.0.
 	 * @param bool   $network_wide Whether to set the network-wide version.
 	 */
 	protected function set_module_db_version( $module, $version = '1.0.0', $network_wide = false ) {
+		$this->set_extension_db_version( $module, $version, $network_wide );
+	}
+
+	/**
+	 * Set the version of a extension.
+	 *
+	 * @since 2.6.0 As set_module_db_version().
+	 * @since 2.7.0
+	 *
+	 * @param string $extension    The slug of the extension.
+	 * @param string $version      The version to set. Defaults to 1.0.0.
+	 * @param bool   $network_wide Whether to set the network-wide version.
+	 */
+	protected function set_extension_db_version( $extension, $version = '1.0.0', $network_wide = false ) {
 
 		if ( $network_wide ) {
 			$wordpoints_data = get_site_option( 'wordpoints_data' );
@@ -654,7 +682,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			$wordpoints_data = get_option( 'wordpoints_data' );
 		}
 
-		$wordpoints_data['modules'][ $module ]['version'] = $version;
+		$wordpoints_data['modules'][ $extension ]['version'] = $version;
 
 		if ( $network_wide ) {
 			update_site_option( 'wordpoints_data', $wordpoints_data );
@@ -667,6 +695,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * Get the version of a module.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 Use get_extension_db_version() instead.
 	 *
 	 * @param string $module       The slug of the component.
 	 * @param bool   $network_wide Whether to get the network-wide version.
@@ -674,6 +703,21 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * @return string The version of the points component.
 	 */
 	protected function get_module_db_version( $module, $network_wide = false ) {
+		return $this->get_extension_db_version( $module, $network_wide );
+	}
+
+	/**
+	 * Get the version of a extension.
+	 *
+	 * @since 2.6.0 As get_module_db_version().
+	 * @since 2.7.0
+	 *
+	 * @param string $extension    The slug of the extension.
+	 * @param bool   $network_wide Whether to get the network-wide version.
+	 *
+	 * @return string The version of the points component.
+	 */
+	protected function get_extension_db_version( $extension, $network_wide = false ) {
 
 		if ( $network_wide ) {
 			$wordpoints_data = get_site_option( 'wordpoints_data' );
@@ -681,8 +725,8 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			$wordpoints_data = get_option( 'wordpoints_data' );
 		}
 
-		return ( isset( $wordpoints_data['modules'][ $module ]['version'] ) )
-			? $wordpoints_data['modules'][ $module ]['version']
+		return ( isset( $wordpoints_data['modules'][ $extension ]['version'] ) )
+			? $wordpoints_data['modules'][ $extension ]['version']
 			: '';
 	}
 
@@ -740,6 +784,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * Run an update for a module.
 	 *
 	 * @since 2.6.0
+	 * @deprecated 2.7.0 Use update_extension() instead.
 	 *
 	 * @param string $module The slug of the module to update.
 	 * @param string $from   The version to update from.
@@ -750,16 +795,34 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			$module = $this->wordpoints_module;
 		}
 
+		$this->update_extension( $module, $from );
+	}
+
+	/**
+	 * Run an update for a extension.
+	 *
+	 * @since 2.6.0 As update_module().
+	 * @since 2.7.0
+	 *
+	 * @param string $extension The slug of the extension to update.
+	 * @param string $from      The version to update from.
+	 */
+	protected function update_extension( $extension = null, $from = null ) {
+
+		if ( ! isset( $extension ) ) {
+			$extension = $this->wordpoints_extension;
+		}
+
 		if ( ! isset( $from ) ) {
 			$from = $this->previous_version;
 		}
 
-		$this->set_module_db_version( $module, $from );
+		$this->set_extension_db_version( $extension, $from );
 
-		// Make sure that the module is marked as active in the database.
+		// Make sure that the extension is marked as active in the database.
 		wordpoints_update_maybe_network_option(
 			'wordpoints_active_modules'
-			, array( $module => 1 )
+			, array( $extension => 1 )
 		);
 
 		// Run the update.

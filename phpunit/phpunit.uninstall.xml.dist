@@ -1,5 +1,5 @@
 <phpunit
-		bootstrap="dev-lib/phpunit/module-bootstrap.php"
+		bootstrap="dev-lib/phpunit/extension-bootstrap.php"
 		backupGlobals="false"
 		colors="true"
 	>

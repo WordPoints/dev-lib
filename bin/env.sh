@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+	WORDPOINTS_PROJECT_TYPE=extension
+fi
+
 # Paths
 if [[ -z $WP_DEVELOP_DIR ]]; then
 	export WP_DEVELOP_DIR=/tmp/wordpress
@@ -50,7 +54,7 @@ export CODESNIFF_IGNORED_STRINGS
 # Autoloaders
 CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES=()
 
-if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+if [[ $WORDPOINTS_PROJECT_TYPE == extension ]]; then
 	CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES+=("${WORDPOINTS_DEVELOP_DIR}/src/classes/")
 fi
 
@@ -99,9 +103,10 @@ if [[ -z $WORDPOINTS_VERSION ]]; then
 	export WORDPOINTS_VERSION=develop
 fi
 
-# WordPoints Module
-if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
-	export WORDPOINTS_MODULE="${PROJECT_SLUG}\\${PROJECT_SLUG}.php"
+# WordPoints Extension
+if [[ $WORDPOINTS_PROJECT_TYPE == extension ]]; then
+	export WORDPOINTS_EXTENSION="${PROJECT_SLUG}\\${PROJECT_SLUG}.php"
+	export WORDPOINTS_MODULE="${PROJECT_SLUG}\\${PROJECT_SLUG}.php" # Back-pat.
 fi
 
 # Git Pre-commit Hook

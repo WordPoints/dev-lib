@@ -21,7 +21,8 @@ require_once( getenv( 'WP_TESTS_DIR' ) . '/../../tools/i18n/makepot.php' );
 /**
  * Generate a POT file for a WordPoints extension.
  *
- * Currently it can generate a POT file for WordPoints itself, and also for modules.
+ * Currently it can generate a POT file for WordPoints itself, and also for
+ * extensions.
  *
  * @since 1.3.0
  */
@@ -30,7 +31,7 @@ class WordPoints_MakePOT extends MakePOT {
 	/**
 	 * @since 1.3.0
 	 */
-	public $projects = array( 'wordpoints', 'wordpoints-module' );
+	public $projects = array( 'wordpoints', 'wordpoints-extension', 'wordpoints-module' );
 
 	/**
 	 * @since 2.6.0
@@ -46,14 +47,16 @@ class WordPoints_MakePOT extends MakePOT {
 
 		$this->meta['wordpoints'] = $this->meta['wp-plugin'];
 
-		$this->meta['wordpoints-module'] = array(
-			'description' => 'Translation of the WordPoints module {name} {version} by {author}',
+		$this->meta['wordpoints-extension'] = array(
+			'description' => 'Translation of the WordPoints extension {name} {version} by {author}',
 			'msgid-bugs-address' => '',
 			'copyright-holder' => '{author}',
 			'package-name' => 'WordPoints {name}',
 			'package-version' => '{version}',
 			'comments' => "Copyright (C) {year} {copyright-holder}\nThis file is distributed under the same license as the {package-name} package.",
 		);
+
+		$this->meta['wordpoints-module'] = $this->meta['wordpoints-extension'];
 	}
 
 	/**
@@ -76,17 +79,34 @@ class WordPoints_MakePOT extends MakePOT {
 	}
 
 	/**
-	 * Generate the POT file for a WordPoints module.
+	 * Generate the POT file for a WordPoints extension.
 	 *
 	 * @since 1.3.0
+	 * @deprecated 2.7.0
 	 *
 	 * @param string $dir    The directory containing WordPoints's source.
 	 * @param string $output The path of the output file.
-	 * @param string $slug   The slug of the module.
+	 * @param string $slug   The slug of the extension.
 	 *
 	 * @return bool Whether the POT file was generated successfully.
 	 */
 	public function wordpoints_module( $dir, $output = null, $slug = null ) {
+		return $this->wordpoints_extension( $dir, $output, $slug );
+	}
+
+	/**
+	 * Generate the POT file for a WordPoints extension.
+	 *
+	 * @since 1.3.0 As wordpoints_module().
+	 * @since 2.7.0
+	 *
+	 * @param string $dir    The directory containing WordPoints's source.
+	 * @param string $output The path of the output file.
+	 * @param string $slug   The slug of the extension.
+	 *
+	 * @return bool Whether the POT file was generated successfully.
+	 */
+	public function wordpoints_extension( $dir, $output = null, $slug = null ) {
 
 		if ( is_null( $slug ) ) {
 			$slug = $this->guess_plugin_slug( $dir );
@@ -97,44 +117,44 @@ class WordPoints_MakePOT extends MakePOT {
 		}
 
 		// Escape pattern-matching characters in the path.
-		$module_escape_root = str_replace(
+		$extension_escape_root = str_replace(
 			array( '*', '?', '[' )
 			, array( '[*]', '[?]', '[[]' )
 			, $dir
 		);
 
 		// Get the top level files.
-		$module_files = glob( "{$module_escape_root}/*.php" );
+		$extension_files = glob( "{$extension_escape_root}/*.php" );
 
-		if ( empty( $module_files ) ) {
-			$this->error( 'No module source files found.' );
+		if ( empty( $extension_files ) ) {
+			$this->error( 'No extension source files found.' );
 			return false;
 		}
 
 		$main_file = '';
 
-		foreach ( $module_files as $module_file ) {
+		foreach ( $extension_files as $extension_file ) {
 
-			if ( ! is_readable( $module_file ) ) {
+			if ( ! is_readable( $extension_file ) ) {
 				continue;
 			}
 
-			$source = $this->get_first_lines( $module_file, $this->max_header_lines );
+			$source = $this->get_first_lines( $extension_file, $this->max_header_lines );
 
 			// Stop when we find a file with a Extension Name header in it.
 			if ( false !== $this->get_addon_header( 'Extension Name', $source ) ) {
-				$main_file = $module_file;
+				$main_file = $extension_file;
 				break;
 			}
 
 			if ( false !== $this->get_addon_header( 'Module Name', $source ) ) {
-				$main_file = $module_file;
+				$main_file = $extension_file;
 				break;
 			}
 		}
 
 		if ( empty( $main_file ) ) {
-			$this->error( 'Couldn\'t locate the main module file.' );
+			$this->error( 'Couldn\'t locate the main extension file.' );
 			return false;
 		}
 
@@ -149,13 +169,13 @@ class WordPoints_MakePOT extends MakePOT {
 		}
 
 		// Attempt to extract the strings and write them to the POT file.
-		$result = $this->xgettext( 'wordpoints-module', $dir, $output, $placeholders );
+		$result = $this->xgettext( 'wordpoints-extension', $dir, $output, $placeholders );
 
 		if ( ! $result ) {
 			return false;
 		}
 
-		// Now attempt to append the headers from the module file, so they can be
+		// Now attempt to append the headers from the extension file, so they can be
 		// translated too.
 		$potextmeta = new WordPoints_PotExtMeta;
 		if ( ! $potextmeta->append( $main_file, $output ) ) {
@@ -182,7 +202,7 @@ class WordPoints_MakePOT extends MakePOT {
 }
 
 /**
- * Add metadata strings from a WordPoints module header to a POT file.
+ * Add metadata strings from a WordPoints extension header to a POT file.
  *
  * @since 1.3.0
  */
@@ -219,7 +239,7 @@ class WordPoints_PotExtMeta extends PotExtMeta {
 
 			$args = array(
 				'singular'           => $string,
-				'extracted_comments' => $header . ' of the module',
+				'extracted_comments' => $header . ' of the extension',
 			);
 
 			$entry = new Translation_Entry( $args );

@@ -302,6 +302,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * Activate a module.
 	 *
 	 * @since 2.5.0
+	 * @deprecated 2.7.0 Use hadActivatedExtension() instead.
 	 *
 	 * @param string $module       The module to activate.
 	 * @param bool   $network_wide Whether to activate the module network-wide.
@@ -309,30 +310,57 @@ class AcceptanceTester extends \Codeception\Actor {
 	 * @return null|\WP_Error An error object on failure.
 	 */
 	public function hadActivatedModule( $module, $network_wide = false ) {
-		return wordpoints_activate_module( $module, '', $network_wide );
+		return $this->hadActivatedExtension( $module, $network_wide );
+	}
+
+	/**
+	 * Activate an extension.
+	 *
+	 * @since 2.5.0 As hadActivatedModule().
+	 * @since 2.7.0
+	 *
+	 * @param string $extension    The extension to activate.
+	 * @param bool   $network_wide Whether to activate the extension network-wide.
+	 *
+	 * @return null|\WP_Error An error object on failure.
+	 */
+	public function hadActivatedExtension( $extension, $network_wide = false ) {
+		return wordpoints_activate_module( $extension, '', $network_wide );
 	}
 
 	/**
 	 * Install a test module on the site.
 	 *
 	 * @since 2.5.0
+	 * @deprecated 2.7.0 Use haveTestExtensionInstalled() instead.
 	 *
 	 * @param string $module The module file or directory to symlink.
 	 */
 	public function haveTestModuleInstalled( $module ) {
+		$this->haveTestExtensionInstalled( $module );
+	}
 
-		$modules_dir = wordpoints_modules_dir();
-		$test_modules_dir = WORDPOINTS_DIR . '/../tests/phpunit/data/modules/';
+	/**
+	 * Install a test extension on the site.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param string $extension The extension file or directory to symlink.
+	 */
+	public function haveTestExtensionInstalled( $extension ) {
 
-		if ( ! file_exists( $modules_dir . $module ) ) {
+		$extensions_dir = wordpoints_modules_dir();
+		$test_extensions_dir = WORDPOINTS_DIR . '/../tests/phpunit/data/modules/';
+
+		if ( ! file_exists( $extensions_dir . $extension ) ) {
 
 			global $wp_filesystem;
 
 			WP_Filesystem();
 
-			$wp_filesystem->mkdir( $modules_dir . $module );
+			$wp_filesystem->mkdir( $extensions_dir . $extension );
 
-			copy_dir( $test_modules_dir . $module, $modules_dir . $module );
+			copy_dir( $test_extensions_dir . $extension, $extensions_dir . $extension );
 		}
 	}
 
@@ -343,7 +371,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 */
 	public function haveTestExtensionInstalledNeedingUpdate() {
 
-		$this->haveTestModuleInstalled( 'module-7' );
+		$this->haveTestExtensionInstalled( 'module-7' );
 
 		$updates = new \WordPoints_Extension_Updates(
 			array( 'module-7/module-7.php' => '1.1.0' )
@@ -353,10 +381,10 @@ class AcceptanceTester extends \Codeception\Actor {
 		$updates->save();
 
 		$server = new \WordPoints_Extension_Server( 'wordpoints.org' );
-		$module_data = new \WordPoints_Extension_Server_API_Extension_Data( '7', $server );
-		$module_data->set( 'package', WP_CONTENT_URL . '/module-7-update.zip' );
-		$module_data->set( 'changelog', 'Test changelog for Module 7.' );
-		$module_data->set( 'is_free', true );
+		$extension_data = new \WordPoints_Extension_Server_API_Extension_Data( '7', $server );
+		$extension_data->set( 'package', WP_CONTENT_URL . '/module-7-update.zip' );
+		$extension_data->set( 'changelog', 'Test changelog for Module 7.' );
+		$extension_data->set( 'is_free', true );
 
 		$destination = WP_CONTENT_DIR . '/module-7-update.zip';
 

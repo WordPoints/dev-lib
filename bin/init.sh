@@ -2,7 +2,7 @@
 
 if [ ! -e .wordpoints-dev-lib-config.sh ]; then
     echo 'No configuration file (.wordpoints-dev-lib-config.sh) found.'
-    echo Assuming default configuration: DEV_LIB_PATH=dev-lib WORDPOINTS_PROJECT_TYPE=module
+    echo Assuming default configuration: DEV_LIB_PATH=dev-lib WORDPOINTS_PROJECT_TYPE=extension
 fi
 
 # Copy the Travis CI configuration file. This is copied rather than symlinked because
@@ -108,7 +108,7 @@ fi
 
 "$DEV_LIB_PATH"/bin/set-up.sh
 
-if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+if [[ $WORDPOINTS_PROJECT_TYPE == extension ]]; then
 	"$DEV_LIB_PATH"/phpunit/wpppb-init
 else
 	vendor/bin/wpppb-init

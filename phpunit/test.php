@@ -3,7 +3,7 @@
 /**
  * Test case.
  *
- * @package WordPoints_My_Module
+ * @package WordPoints_My_Extension
  * @since 1.0.0
  */
 
@@ -12,7 +12,7 @@
  *
  * @since 1.0.0
  */
-class My_Module_Test extends WordPoints_PHPUnit_TestCase {
+class My_Extension_Test extends WordPoints_PHPUnit_TestCase {
 
 	/**
 	 * Test something.

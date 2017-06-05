@@ -21,7 +21,7 @@ shown below.
 
 ## Set Up
 
-### Modules
+### Extensions
 
 ```bash
 dev-lib/run init
@@ -29,7 +29,7 @@ dev-lib/run init
 
 ### Other
 
-If your project is not a module, or it is using a different path to the dev-lib, you
+If your project is not an extension, or it is using a different path to the dev-lib, you
 will need to first configure the dev-lib by creating a `.wordpoints-dev-lib-config.sh`
 file in the root of your project. In it, you can define the project type and/or 
 dev-lib path using the `$WORDPOINTS_PROJECT_TYPE` and  `$DEV_LIB_PATH` variables,

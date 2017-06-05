@@ -4,7 +4,7 @@ scaffold_path="$DEV_LIB_PATH"/phpunit
 
 if [[ ! -e phpunit.xml.dist ]]; then
 	echo Symlinking phpunit.xml.dist...
-	ln -s "${scaffold_path}"/module.xml.dist phpunit.xml.dist
+	ln -s "${scaffold_path}"/extension.xml.dist phpunit.xml.dist
 else
 	echo Not symlinking phpunit.xml.dist, already exists...
 fi
@@ -40,8 +40,8 @@ if [[ ! -e tests/phpunit/test-uninstall.php ]]; then
 	echo Copying tests/phpunit/test-uninstall.php...
 	cp "${scaffold_path}"/test-uninstall.php tests/phpunit/test-uninstall.php
 
-	sed -i '' "s/My_Module/$namespace/" tests/phpunit/test-uninstall.php
-	sed -i '' "s/mymodule/$lowercase_namespace/" tests/phpunit/test-uninstall.php
+	sed -i '' "s/My_Extension/$namespace/" tests/phpunit/test-uninstall.php
+	sed -i '' "s/myextension/$lowercase_namespace/" tests/phpunit/test-uninstall.php
 
 else
 	echo Not copying tests/phpunit/test-uninstall.php, already exists...
@@ -74,14 +74,20 @@ else
 	echo Detected WordPress tests directory path "$WP_TESTS_DIR"
 fi
 
-wordpoints_modules_dir="${WP_TESTS_DIR%/tests/phpunit/}"/src/wp-content/wordpoints-modules
-module_dir=${lowercase_namespace//_/-}
+wordpoints_extensions_dir="${WP_TESTS_DIR%/tests/phpunit/}"/src/wp-content/wordpoints-extensions
 
-if [[ ! -e "$wordpoints_modules_dir/$module_dir" ]]; then
-	echo Symlinking module to the WordPress tests modules directory...
-	ln -s "$PWD"/src "$wordpoints_modules_dir/$module_dir"
+# Back-compat.
+if [[ -d "${wordpoints_extensions_dir%extensions}"modules ]]; then
+	wordpoints_extensions_dir="${wordpoints_extensions_dir%extensions}"modules
+fi
+
+extension_dir=${lowercase_namespace//_/-}
+
+if [[ ! -e "$wordpoints_extensions_dir/$extension_dir" ]]; then
+	echo Symlinking extension to the WordPress tests extensions directory...
+	ln -s "$PWD"/src "$wordpoints_extensions_dir/$extension_dir"
 else
-	echo Not symlinking module, already exists in WordPress tests module directory...
+	echo Not symlinking extension, already exists in WordPress tests extension directory...
 fi
 
 echo
@@ -99,7 +105,7 @@ echo Your general tests will be placed in the tests/phpunit/tests directory.
 echo You will find an example test case in tests/phpunit/tests/example.php
 echo
 echo Your uninstall test case is in tests/phpunit/test-uninstall.php
-echo You can modify it to match your module.
+echo You can modify it to match your extension.
 echo
 
 # EOF

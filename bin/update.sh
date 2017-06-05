@@ -2,7 +2,7 @@
 
 if [ ! -e .wordpoints-dev-lib-config.sh ]; then
     echo 'No configuration file (.wordpoints-dev-lib-config.sh) found.'
-    echo Assuming default configuration: DEV_LIB_PATH=dev-lib WORDPOINTS_PROJECT_TYPE=module
+    echo Assuming default configuration: DEV_LIB_PATH=dev-lib WORDPOINTS_PROJECT_TYPE=extension
 fi
 
 cd "${DEV_LIB_PATH}"

@@ -2,7 +2,7 @@
 
 # Default environment.
 export DEV_LIB_PATH=dev-lib
-export WORDPOINTS_PROJECT_TYPE=module
+export WORDPOINTS_PROJECT_TYPE=extension
 
 # This file is used to override the above defaults.
 if [ -e .wordpoints-dev-lib-config.sh ]; then

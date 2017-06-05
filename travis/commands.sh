@@ -75,7 +75,7 @@ setup-phpunit() {
 			"$WP_TESTS_DIR"/includes/testcase-ajax.php
 	fi
 
-	if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
+	if [[ $WORDPOINTS_PROJECT_TYPE == extension ]]; then
 
 		# Install WordPoints.
 		mkdir -p "$WORDPOINTS_DEVELOP_DIR"
@@ -83,8 +83,8 @@ setup-phpunit() {
 			| tar xvz --strip-components=1 -C "$WORDPOINTS_DEVELOP_DIR"
 		ln -s  "$WORDPOINTS_DEVELOP_DIR"/src "$WP_CORE_DIR"/wp-content/plugins/wordpoints
 
-		mkdir "$WP_CORE_DIR"/wp-content/wordpoints-modules
-		ln -s "$PROJECT_DIR" "$WP_CORE_DIR"/wp-content/wordpoints-modules/"$PROJECT_SLUG"
+		mkdir "$WP_CORE_DIR"/wp-content/wordpoints-extensions
+		ln -s "$PROJECT_DIR" "$WP_CORE_DIR"/wp-content/wordpoints-extensions/"$PROJECT_SLUG"
 
 	else
 		ln -s "$PROJECT_DIR" "$WP_CORE_DIR"/wp-content/plugins/"$PROJECT_SLUG"
