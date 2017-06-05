@@ -349,7 +349,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 */
 	public function haveTestExtensionInstalled( $extension ) {
 
-		$extensions_dir = wordpoints_modules_dir();
+		$extensions_dir = wordpoints_extensions_dir();
 		$test_extensions_dir = WORDPOINTS_DIR . '/../tests/phpunit/data/modules/';
 
 		if ( ! file_exists( $extensions_dir . $extension ) ) {
