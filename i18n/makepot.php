@@ -121,7 +121,12 @@ class WordPoints_MakePOT extends MakePOT {
 
 			$source = $this->get_first_lines( $module_file, $this->max_header_lines );
 
-			// Stop when we find a file with a module name header in it.
+			// Stop when we find a file with a Extension Name header in it.
+			if ( false !== $this->get_addon_header( 'Extension Name', $source ) ) {
+				$main_file = $module_file;
+				break;
+			}
+
 			if ( false !== $this->get_addon_header( 'Module Name', $source ) ) {
 				$main_file = $module_file;
 				break;
@@ -136,8 +141,12 @@ class WordPoints_MakePOT extends MakePOT {
 		$placeholders = array();
 		$placeholders['version'] = $this->get_addon_header( 'Version', $source );
 		$placeholders['author'] = $this->get_addon_header( 'Author', $source );
-		$placeholders['name'] = $this->get_addon_header( 'Module Name', $source );
+		$placeholders['name'] = $this->get_addon_header( 'Extension Name', $source );
 		$placeholders['slug'] = $slug;
+
+		if ( empty( $placeholders['name'] ) ) {
+			$placeholders['name'] = $this->get_addon_header( 'Module Name', $source );
+		}
 
 		// Attempt to extract the strings and write them to the POT file.
 		$result = $this->xgettext( 'wordpoints-module', $dir, $output, $placeholders );
@@ -184,6 +193,8 @@ class WordPoints_PotExtMeta extends PotExtMeta {
 	 */
 	public function __construct() {
 
+		$this->headers[] = 'Extension Name';
+		$this->headers[] = 'Extension URI';
 		$this->headers[] = 'Module Name';
 		$this->headers[] = 'Module URI';
 	}

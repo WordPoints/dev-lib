@@ -21,7 +21,9 @@ function wordpoints_dev_lib_get_modules( $module_folder = '' ) {
 
 	$modules = array();
 	$headers = array(
-		'name'        => 'Module Name',
+		'name'        => 'Extension Name',
+		'uri'         => 'Extension URI',
+		'module_name' => 'Module Name',
 		'module_uri'  => 'Module URI',
 		'version'     => 'Version',
 		'description' => 'Description',
