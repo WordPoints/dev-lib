@@ -23,6 +23,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_dir_include' => true,
 			'wordpoints_display_points' => true,
 			'wordpoints_escape_mysql_identifier' => true,
+			'wordpoints_extensions_url' => true,
 			'wordpoints_format_points' => true,
 			'wordpoints_get_array_option' => true,
 			'wordpoints_get_excluded_users' => true,
