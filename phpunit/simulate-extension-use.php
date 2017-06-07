@@ -24,7 +24,7 @@ require dirname( __FILE__ ) . '/../../tests/phpunit/includes/usage-simulator.php
 if (
 	getenv( 'WORDPOINTS_ONLY_UNINSTALL_EXTENSION' )
 	|| getenv( 'WORDPOINTS_ONLY_UNINSTALL_MODULE' ) // Back-pat.
-) {
+) { // @codingStandardsIgnoreLine
 
 	$network_wide = (
 		getenv( 'WORDPOINTS_EXTENSION_NETWORK_ACTIVE' )

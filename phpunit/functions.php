@@ -19,7 +19,7 @@
  *               indexed by the file names.
  */
 function wordpoints_dev_lib_get_modules( $module_folder = '' ) {
-	wordpoints_dev_lib_get_extensions( $module_folder );
+	return wordpoints_dev_lib_get_extensions( $module_folder );
 }
 
 /**
