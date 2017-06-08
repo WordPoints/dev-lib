@@ -376,6 +376,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		$updates = new \WordPoints_Extension_Updates(
 			array( 'module-7/module-7.php' => '1.1.0' )
 			, wp_list_pluck( wordpoints_get_modules(), 'version' )
+			, time() + DAY_IN_SECONDS
 		);
 
 		$updates->save();
