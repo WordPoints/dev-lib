@@ -48,6 +48,8 @@ class AcceptanceTester extends \Codeception\Actor {
 		$this->amOnPage(
 			add_query_arg( 'redirect_to', rawurlencode( $page ), '/wp-login.php' )
 		);
+
+		$this->fillField( '#user_login', 'admin' );
 		$this->fillField( '#user_login', 'admin' );
 		$this->fillField( '#user_pass', 'password' );
 		$this->click( '#wp-submit' );
@@ -80,6 +82,8 @@ class AcceptanceTester extends \Codeception\Actor {
 					$element->clear();
 
 				} catch ( \Facebook\WebDriver\Exception\InvalidElementStateException $e ) {
+
+				} catch ( \Exception $e ) {
 
 					codecept_debug(
 						'Error while waiting for new reaction:' . $e->getMessage()
