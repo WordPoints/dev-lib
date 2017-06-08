@@ -32,6 +32,8 @@ CODESNIFF_PATH_PHP_L10N_VALIDATOR=(. -path "./src/*" '(' -name '*.php' -o -name 
 # Codeception requires PHP 5.4+.
 if [[ $TRAVIS_PHP_VERSION == '5.2' || $TRAVIS_PHP_VERSION == '5.3' ]]; then
 	CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./tests/codeception/*")
+else
+	CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}")
 fi
 
 CODESNIFF_PATH_JS=("${CODESNIFF_PATH[@]}" -name '*.js')
