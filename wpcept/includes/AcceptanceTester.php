@@ -381,13 +381,20 @@ class AcceptanceTester extends \Codeception\Actor {
 
 		$updates->save();
 
+		$destination = WP_CONTENT_DIR . '/module-7-update.zip';
+		$package = WP_CONTENT_URL . '/module-7-update.zip';
+
+		// On Travis we run a single-threaded server, so we can't serve the download.
+		// Fortunately, we can install it as a local file instead.
+		if ( getenv( 'TRAVIS' ) ) {
+			$package = $destination;
+		}
+
 		$server = new \WordPoints_Extension_Server( 'wordpoints.org' );
 		$extension_data = new \WordPoints_Extension_Server_API_Extension_Data( '7', $server );
-		$extension_data->set( 'package', WP_CONTENT_URL . '/module-7-update.zip' );
+		$extension_data->set( 'package', $package );
 		$extension_data->set( 'changelog', 'Test changelog for Module 7.' );
 		$extension_data->set( 'is_free', true );
-
-		$destination = WP_CONTENT_DIR . '/module-7-update.zip';
 
 		if ( ! file_exists( $destination ) ) {
 			copy(
