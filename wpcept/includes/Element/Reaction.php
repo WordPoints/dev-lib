@@ -32,20 +32,30 @@ class Reaction extends Element {
 
 	/**
 	 * @since 2.5.0
+	 * @since 2.7.0 $group arg added.
 	 *
 	 * @param AcceptanceTester           $actor    The actor object.
 	 * @param \WordPoints_Hook_ReactionI $reaction The reaction object.
+	 * @param ReactionGroup|null         $group    A reaction group element.
 	 */
-	public function __construct( AcceptanceTester $actor, \WordPoints_Hook_ReactionI $reaction ) {
+	public function __construct(
+		AcceptanceTester $actor,
+		\WordPoints_Hook_ReactionI $reaction = null,
+		ReactionGroup $group = null
+	) {
 
 		$this->setActor( $actor );
 
-		$this->selector = sprintf(
-			$this->selector_pattern
-			, $reaction->get_reactor_slug()
-			// In selectors passed to WebDriver, backslashes need to be escaped.
-			, str_replace( '\\', '\\\\', $reaction->get_event_slug() )
-		);
+		if ( $reaction ) {
+			$this->selector = sprintf(
+				$this->selector_pattern
+				, $reaction->get_reactor_slug()
+				// In selectors passed to WebDriver, backslashes need to be escaped.
+				, str_replace( '\\', '\\\\', $reaction->get_event_slug() )
+			);
+		} else {
+			$this->selector = $group . ' .wordpoints-hook-reaction ';
+		}
 	}
 
 	/**
