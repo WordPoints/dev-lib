@@ -83,8 +83,6 @@ class AcceptanceTester extends \Codeception\Actor {
 
 				} catch ( \Facebook\WebDriver\Exception\InvalidElementStateException $e ) {
 
-				} catch ( \Exception $e ) {
-
 					codecept_debug(
 						'Error while waiting for new reaction:' . $e->getMessage()
 					);

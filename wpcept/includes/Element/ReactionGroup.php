@@ -33,9 +33,9 @@ class ReactionGroup extends Element {
 	/**
 	 * @since 2.7.0
 	 *
-	 * @param AcceptanceTester $actor The actor object.
-	 * @param                  $reactor_slug
-	 * @param                  $event_slug
+	 * @param AcceptanceTester $actor        The actor object.
+	 * @param string           $reactor_slug The reactor slug.
+	 * @param string           $event_slug   The event slug.
 	 */
 	public function __construct( AcceptanceTester $actor, $reactor_slug, $event_slug ) {
 
