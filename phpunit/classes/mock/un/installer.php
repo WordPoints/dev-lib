@@ -209,6 +209,13 @@ class WordPoints_PHPUnit_Mock_Un_Installer extends WordPoints_Un_Installer_Base 
 	public function update_single_to_1_0_0() {
 		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
 	}
+
+	/**
+	 * @since 2.7.0
+	 */
+	public function update_single_to_0_9_0() {
+		$this->method_calls[] = array( 'method' => __FUNCTION__, 'args' => array() );
+	}
 }
 
 // EOF
