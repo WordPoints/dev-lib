@@ -545,11 +545,13 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			}
 		}
 
+		// Back-compat, use $this->factory->wordpoints->points_log instead.
 		$this->factory->wordpoints_points_log =
 			new WordPoints_PHPUnit_Factory_For_Points_Log(
 				$this->factory
 			);
 
+		// Back-compat, use $this->factory->wordpoints->rank instead.
 		$this->factory->wordpoints_rank = new WordPoints_PHPUnit_Factory_For_Rank(
 			$this->factory
 		);
