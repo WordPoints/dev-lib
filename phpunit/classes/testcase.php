@@ -1264,7 +1264,6 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		return $this->getMockBuilder( $original_class_name )
 			->disableOriginalConstructor()
 			->disableOriginalClone()
-			->disableArgumentCloning()
 			->getMock();
 	}
 
@@ -1287,7 +1286,6 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		return $this->getMockBuilder( $original_class_name )
 			->disableOriginalConstructor()
 			->disableOriginalClone()
-			->disableArgumentCloning()
 			->setMethods( empty( $methods ) ? null : $methods )
 			->getMock();
 	}
