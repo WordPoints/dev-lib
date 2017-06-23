@@ -1246,6 +1246,56 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		return $xpath;
 	}
 
+	/**
+	 * Returns a test double for the specified class.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $originalClassName The name of the class to mock.
+	 *
+	 * @return PHPUnit_Framework_MockObject_MockObject The mock object.
+	 *
+	 * @throws Exception
+	 */
+	protected function createMock( $originalClassName ) {
+
+		if ( is_callable( 'parent::createMock' ) ) {
+			return parent::createMock();
+		}
+
+		return $this->getMockBuilder( $originalClassName )
+			->disableOriginalConstructor()
+			->disableOriginalClone()
+			->disableArgumentCloning()
+			->getMock();
+	}
+
+	/**
+	 * Returns a partial test double for the specified class.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $originalClassName The class to mock.
+	 * @param array  $methods           The methods to mock.
+	 *
+	 * @return PHPUnit_Framework_MockObject_MockObject The mock object.
+	 *
+	 * @throws Exception
+	 */
+	protected function createPartialMock( $originalClassName, array $methods ) {
+
+		if ( is_callable( 'parent::createPartialMock' ) ) {
+			return parent::createPartialMock();
+		}
+
+		return $this->getMockBuilder( $originalClassName )
+			->disableOriginalConstructor()
+			->disableOriginalClone()
+			->disableArgumentCloning()
+			->setMethods( empty( $methods ) ? null : $methods )
+			->getMock();
+	}
+
 	//
 	// Assertions.
 	//
