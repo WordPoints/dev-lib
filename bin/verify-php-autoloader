@@ -14,16 +14,6 @@
  * @since 2.4.0
  */
 
-// In case any classes need to load core dependencies.
-define( 'ABSPATH', getenv( 'WP_CORE_DIR' ) . '/' );
-
-/**
- * Load the WP_Widget class.
- *
- * @since 2.6.0
- */
-require_once( ABSPATH . '/wp-includes/class-wp-widget.php' );
-
 /**
  * Simulate loading of all files in a map as when falling back when SPL is disabled.
  *
@@ -41,6 +31,25 @@ $dir = $argv[1];
 
 // Load dependencies.
 $count = count( $argv );
+
+// In case any classes need to load core dependencies.
+define( 'ABSPATH', getenv( 'WP_CORE_DIR' ) . '/' );
+
+/**
+ * Load the WP_Widget class.
+ *
+ * @since 2.6.0
+ */
+require_once( ABSPATH . '/wp-includes/class-wp-widget.php' );
+
+if ( strpos( $dir, 'admin' ) ) {
+	/**
+	 * Load the WP_List_Table class.
+	 *
+	 * @since 2.7.0
+	 */
+	require_once( ABSPATH . '/wp-admin/includes/class-wp-list-table.php' );
+}
 
 for ( $i = 2; $i < $count; $i++ ) {
 	simulate_autoload_fallback( $argv[ $i ] );
