@@ -1251,19 +1251,17 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @since 2.7.0
 	 *
-	 * @param string $originalClassName The name of the class to mock.
+	 * @param string $original_class_name The name of the class to mock.
 	 *
 	 * @return PHPUnit_Framework_MockObject_MockObject The mock object.
-	 *
-	 * @throws Exception
 	 */
-	protected function createMock( $originalClassName ) {
+	protected function createMock( $original_class_name ) {
 
 		if ( is_callable( 'parent::createMock' ) ) {
-			return parent::createMock();
+			return parent::createMock( $original_class_name );
 		}
 
-		return $this->getMockBuilder( $originalClassName )
+		return $this->getMockBuilder( $original_class_name )
 			->disableOriginalConstructor()
 			->disableOriginalClone()
 			->disableArgumentCloning()
@@ -1275,20 +1273,18 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @since 2.7.0
 	 *
-	 * @param string $originalClassName The class to mock.
-	 * @param array  $methods           The methods to mock.
+	 * @param string $original_class_name The class to mock.
+	 * @param array  $methods             The methods to mock.
 	 *
 	 * @return PHPUnit_Framework_MockObject_MockObject The mock object.
-	 *
-	 * @throws Exception
 	 */
-	protected function createPartialMock( $originalClassName, array $methods ) {
+	protected function createPartialMock( $original_class_name, array $methods ) {
 
 		if ( is_callable( 'parent::createPartialMock' ) ) {
-			return parent::createPartialMock();
+			return parent::createPartialMock( $original_class_name, $methods );
 		}
 
-		return $this->getMockBuilder( $originalClassName )
+		return $this->getMockBuilder( $original_class_name )
 			->disableOriginalConstructor()
 			->disableOriginalClone()
 			->disableArgumentCloning()
