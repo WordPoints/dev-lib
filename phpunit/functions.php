@@ -76,6 +76,10 @@ function wordpoints_dev_lib_get_extensions( $extension_folder = '' ) {
 
 		$extension_data = wordpoints_dev_lib_get_file_data( $extension_file, $headers );
 
+		if ( ! empty( $extension_data['module_name'] ) ) {
+			$extension_data['name'] = $extension_data['module_name'];
+		}
+
 		if ( empty( $extension_data['name'] ) ) {
 			continue;
 		}
