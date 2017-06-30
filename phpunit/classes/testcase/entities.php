@@ -156,7 +156,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		if ( isset( $data['children'] ) ) {
 			foreach ( $data['children'] as $slug => $child_data ) {
 
-				$child = new $child_data['class']( $slug );
+				$child = new $child_data['class']( $slug, $entity->get_slug() );
 
 				$this->assertInstanceOf( 'WordPoints_Entity_ChildI', $child );
 
