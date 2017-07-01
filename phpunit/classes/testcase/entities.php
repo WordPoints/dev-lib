@@ -278,6 +278,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 			array(
 				'post_author' => $this->factory->user->create(),
 				'post_parent' => $this->factory->post->create(),
+				'tags_input'  => $this->factory->term->create(),
 			)
 		);
 	}
