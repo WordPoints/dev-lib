@@ -27,6 +27,7 @@
  * @property $updates
  * @property $uninstall
  * @property $updating_from
+ * @property WordPoints_Installable $installable
  *
  * @method get_db_version()
  * @method maybe_load_custom_caps()
@@ -70,6 +71,11 @@
  * @method set_component_version( $component, $version )
  */
 class WordPoints_PHPUnit_Mock_Un_Installer extends WordPoints_Un_Installer_Base {
+
+	/**
+	 * @since 2.7.0
+	 */
+	protected $type = 'module';
 
 	/**
 	 * Manually set whether to skip per-site install or not.
