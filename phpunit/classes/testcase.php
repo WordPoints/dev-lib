@@ -1290,6 +1290,31 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			->getMock();
 	}
 
+	/**
+	 * Returns a partial test double for the specified abstract class.
+	 *
+	 * The specified methods will be mocked in addition to all of the class's
+	 * abstract methods.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $original_class_name The abstract class to mock.
+	 * @param array  $methods             The concrete methods to mock.
+	 *
+	 * @return PHPUnit_Framework_MockObject_MockObject The mock object.
+	 */
+	protected function getPartialMockForAbstactClass( $original_class_name, array $methods ) {
+		return $this->getMockForAbstractClass(
+			$original_class_name
+			, array()
+			, ''
+			, true
+			, true
+			, true
+			, $methods
+		);
+	}
+
 	//
 	// Assertions.
 	//
