@@ -51,6 +51,28 @@ class WordPoints_PHPUnit_Mock_Filter {
 	public $count_callback;
 
 	/**
+	 * Callback to get the result of when the hook is run.
+	 *
+	 * The results will be saved in {@see self::$callback_results}.
+	 *
+	 * Useful for checking the current state when a filter is run.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @var callable
+	 */
+	public $callback;
+
+	/**
+	 * The results of the callback function ({@see self::$callback}).
+	 *
+	 * @since 2.7.0
+	 *
+	 * @var array
+	 */
+	public $callback_results = array();
+
+	/**
 	 * The IDs of the current users each time the hook was called.
 	 *
 	 * @since 2.6.0
@@ -86,6 +108,10 @@ class WordPoints_PHPUnit_Mock_Filter {
 		if ( ! $this->count_callback || call_user_func( $this->count_callback, $var ) ) {
 			$this->call_count++;
 			$this->calls[] = func_get_args();
+
+			if ( isset( $this->callback ) ) {
+				$this->callback_results[] = call_user_func( $this->callback );
+			}
 		}
 
 		if ( isset( $this->return_value ) ) {
