@@ -1247,6 +1247,41 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Sets a protected property of an object.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param object $object   The object.
+	 * @param string $property The property name.
+	 * @param mixed  $value    The value to give the property.
+	 */
+	protected function set_protected_property( $object, $property, $value ) {
+
+		$reflection          = new ReflectionClass( $object );
+		$reflection_property = $reflection->getProperty( $property );
+		$reflection_property->setAccessible( true );
+		$reflection_property->setValue( $object, $value );
+	}
+
+	/**
+	 * Gets the value of a protected property from an object.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param object $object   The object.
+	 * @param string $property The property name.
+	 *
+	 * @return mixed The property value.
+	 */
+	protected function get_protected_property( $object, $property ) {
+
+		$reflection          = new ReflectionClass( $object );
+		$reflection_property = $reflection->getProperty( $property );
+		$reflection_property->setAccessible( true );
+		return $reflection_property->getValue( $object );
+	}
+
+	/**
 	 * Returns a test double for the specified class.
 	 *
 	 * @since 2.7.0
