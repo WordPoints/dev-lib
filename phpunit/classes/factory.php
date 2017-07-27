@@ -26,6 +26,7 @@
  * @property-read WordPoints_PHPUnit_Factory_For_Post_Type $post_type
  * @property-read WordPoints_PHPUnit_Factory_For_Rank $rank
  * @property-read WordPoints_PHPUnit_Factory_For_User_Role $user_role
+ * @property-read WordPoints_PHPUnit_Factory_For_Widget $widget
  */
 class WordPoints_PHPUnit_Factory {
 
@@ -57,6 +58,23 @@ class WordPoints_PHPUnit_Factory {
 	public static function init() {
 
 		self::$factory = new WordPoints_PHPUnit_Factory();
+
+		$factory = self::$factory;
+		$factory->register( 'entity', 'WordPoints_PHPUnit_Factory_For_Entity' );
+		$factory->register( 'entity_context', 'WordPoints_PHPUnit_Factory_For_Entity_Context' );
+		$factory->register( 'hook_reaction', 'WordPoints_PHPUnit_Factory_For_Hook_Reaction' );
+		$factory->register( 'hook_reaction_store', 'WordPoints_PHPUnit_Factory_For_Hook_Reaction_Store' );
+		$factory->register( 'hook_reactor', 'WordPoints_PHPUnit_Factory_For_Hook_Reactor' );
+		$factory->register( 'hook_extension', 'WordPoints_PHPUnit_Factory_For_Hook_Extension' );
+		$factory->register( 'hook_event', 'WordPoints_PHPUnit_Factory_For_Hook_Event' );
+		$factory->register( 'hook_action', 'WordPoints_PHPUnit_Factory_For_Hook_Action' );
+		$factory->register( 'hook_condition', 'WordPoints_PHPUnit_Factory_For_Hook_Condition' );
+		$factory->register( 'points_log', 'WordPoints_PHPUnit_Factory_For_Points_Log' );
+		$factory->register( 'points_type', 'WordPoints_PHPUnit_Factory_For_Points_Type' );
+		$factory->register( 'post_type', 'WordPoints_PHPUnit_Factory_For_Post_Type' );
+		$factory->register( 'rank', 'WordPoints_PHPUnit_Factory_For_Rank' );
+		$factory->register( 'user_role', 'WordPoints_PHPUnit_Factory_For_User_Role' );
+		$factory->register( 'widget', 'WordPoints_PHPUnit_Factory_For_Widget' );
 
 		return self::$factory;
 	}
