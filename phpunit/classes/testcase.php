@@ -749,7 +749,9 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		delete_site_transient( 'wordpoints_all_site_ids' );
 
-		WordPoints_Installables::maybe_do_updates();
+		wordpoints_delete_maybe_network_option( 'wordpoints_installable_versions' );
+
+		wordpoints_installables_maybe_update();
 	}
 
 	/**
@@ -778,8 +780,10 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			, array( $component => 1 )
 		);
 
+		wordpoints_delete_maybe_network_option( 'wordpoints_installable_versions' );
+
 		// Run the update.
-		WordPoints_Installables::maybe_do_updates();
+		wordpoints_installables_maybe_update();
 	}
 
 	/**
@@ -827,8 +831,15 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			, array( $extension => 1 )
 		);
 
+		wordpoints_delete_maybe_network_option( 'wordpoints_installable_versions' );
+
 		// Run the update.
-		WordPoints_Installables::maybe_do_updates();
+		// Back-compat with WordPoints < 2.4.0.
+		if ( function_exists( 'wordpoints_installables_maybe_update' ) ) {
+			wordpoints_installables_maybe_update();
+		} else {
+			WordPoints_Installables::maybe_do_updates();
+		}
 	}
 
 	/**
