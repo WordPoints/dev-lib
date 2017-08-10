@@ -936,8 +936,17 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	public function get_db_schema() {
 
 		if ( ! isset( $this->db_schema ) ) {
-			$installer = WordPoints_Installables::get_installer( 'component', 'points' );
-			$this->db_schema = $installer->get_db_schema();
+
+			global $wpdb;
+
+			$installer = new WordPoints_Points_Installable();
+			$db_tables = $installer->get_db_tables();
+
+			foreach ( $db_tables['global'] as $table_name => $table_schema ) {
+				$this->db_schema .= "CREATE TABLE {$wpdb->base_prefix}{$table_name} (
+					{$table_schema}
+				);\n";
+			}
 		}
 
 		return $this->db_schema;
