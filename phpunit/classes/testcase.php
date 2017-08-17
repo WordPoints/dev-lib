@@ -601,6 +601,12 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		$wordpoints_data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 		$wordpoints_data['version'] = $version;
 		wordpoints_update_maybe_network_option( 'wordpoints_data', $wordpoints_data );
+
+		if ( is_multisite() && ! is_wordpoints_network_active() ) {
+			$wordpoints_data = get_site_option( 'wordpoints_data' );
+			$wordpoints_data['version'] = $version;
+			update_site_option( 'wordpoints_data', $wordpoints_data );
+		}
 	}
 
 	/**
@@ -632,6 +638,12 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		$wordpoints_data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 		$wordpoints_data['components'][ $component ]['version'] = $version;
 		wordpoints_update_maybe_network_option( 'wordpoints_data', $wordpoints_data );
+
+		if ( is_multisite() && ! is_wordpoints_network_active() ) {
+			$wordpoints_data = get_site_option( 'wordpoints_data' );
+			$wordpoints_data['components'][ $component ]['version'] = $version;
+			update_site_option( 'wordpoints_data', $wordpoints_data );
+		}
 	}
 
 	/**
@@ -678,17 +690,21 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function set_extension_db_version( $extension, $version = '1.0.0', $network_wide = false ) {
 
-		if ( $network_wide ) {
+		if ( is_multisite() ) {
 			$wordpoints_data = get_site_option( 'wordpoints_data' );
-		} else {
+		}
+
+		if ( ! $network_wide ) {
 			$wordpoints_data = get_option( 'wordpoints_data' );
 		}
 
 		$wordpoints_data['modules'][ $extension ]['version'] = $version;
 
-		if ( $network_wide ) {
+		if ( is_multisite() ) {
 			update_site_option( 'wordpoints_data', $wordpoints_data );
-		} else {
+		}
+
+		if ( ! $network_wide ) {
 			update_option( 'wordpoints_data', $wordpoints_data );
 		}
 	}
