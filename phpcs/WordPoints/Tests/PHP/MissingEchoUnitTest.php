@@ -7,6 +7,8 @@
  * @since 1.0.0
  */
 
+use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+
 /**
  * Unit test class for the MissingEcho sniff.
  *

@@ -7,13 +7,15 @@
  * @since 2.6.0
  */
 
+use WordPress\AbstractFunctionRestrictionsSniff;
+
 /**
  * Sniff for restricted assertions used in PHPUnit tests.
  *
  * @since 2.6.0
  */
 class WordPoints_Sniffs_PHPUnit_RestrictedAssertionsSniff
-	extends WordPress_AbstractFunctionRestrictionsSniff {
+	extends AbstractFunctionRestrictionsSniff {
 
 	/**
 	 * @since 2.6.0

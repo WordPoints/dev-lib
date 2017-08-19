@@ -132,7 +132,7 @@ wpdl-codesniff-phpcs-base() {
 	if [ ! -e $PHPCS_DIR ]; then
 		local phpcs="$command"
 	else
-		local phpcs="$PHPCS_DIR"/scripts/"$command"
+		local phpcs="$PHPCS_DIR"/bin/"$command"
 	fi
 
 	if [ -z $2 ]; then

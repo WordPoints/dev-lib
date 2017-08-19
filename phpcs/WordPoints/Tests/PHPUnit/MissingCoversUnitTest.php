@@ -7,6 +7,8 @@
  * @since 2.3.0
  */
 
+use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+
 /**
  * Unit test class for the missing covers sniff.
  *

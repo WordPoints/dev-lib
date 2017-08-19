@@ -66,12 +66,12 @@ export CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES
 export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
 export PHPCS_DIR=/tmp/phpcs
 export PHPCS_GITHUB_SRC=squizlabs/PHP_CodeSniffer
-export PHPCS_GIT_TREE=2.8.1
+export PHPCS_GIT_TREE=3.0.2
 
 # WPCS
 export WPCS_DIR=/tmp/wpcs
 export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
-export WPCS_GIT_TREE=607db751e90e6d32f96fcb15c4aec8609d059d57
+export WPCS_GIT_TREE=28bebecc1fd063ed1d34ba07d6188854cf4f06e2
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
 
 # WP L10n Validator

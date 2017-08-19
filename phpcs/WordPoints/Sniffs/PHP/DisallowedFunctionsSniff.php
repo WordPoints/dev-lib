@@ -7,6 +7,8 @@
  * @since 2.1.0
  */
 
+use WordPress\AbstractFunctionRestrictionsSniff;
+
 /**
  * WordPoints_Sniffs_PHP_DisallowedFunctionsSniff.
  *
@@ -15,7 +17,7 @@
  * @since 2.1.0
  */
 class WordPoints_Sniffs_PHP_DisallowedFunctionsSniff
-	extends WordPress_Sniffs_Functions_FunctionRestrictionsSniff {
+	extends AbstractFunctionRestrictionsSniff {
 
 	/**
 	 * @since 2.1.0

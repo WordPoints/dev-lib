@@ -177,7 +177,7 @@ class WordPoints_MakePOT extends MakePOT {
 
 		// Now attempt to append the headers from the extension file, so they can be
 		// translated too.
-		$potextmeta = new WordPoints_PotExtMeta;
+		$potextmeta = new WordPoints_PotExtMeta();
 		if ( ! $potextmeta->append( $main_file, $output ) ) {
 			return false;
 		}
@@ -227,7 +227,7 @@ class WordPoints_PotExtMeta extends PotExtMeta {
 		$makepot = new WordPoints_MakePOT();
 		$source  = $makepot->get_first_lines( $ext_filename, 50 );
 		$pot     = '';
-		$po      = new PO;
+		$po      = new PO();
 
 		foreach ( $this->headers as $header ) {
 
@@ -256,7 +256,7 @@ $included_files = get_included_files();
 
 if ( __FILE__ === $included_files[0] ) {
 
-	$makepot = new WordPoints_MakePOT;
+	$makepot = new WordPoints_MakePOT();
 
 	if ( count( $argv ) >= 3 && in_array( $argv[1], $makepot->projects, true ) ) {
 

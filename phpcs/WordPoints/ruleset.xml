@@ -4,13 +4,16 @@
 
 	<rule ref="WordPress-Core">
 		<!--
-			When associative arrays have a single key we allow them to be on a
+			When associative arrays have only a few keys we allow them to be on a
 			single line, but this sniff doesn't allow for that.
 		-->
-		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeKeyFound" />
+		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound" />
 
 		<!-- https://github.com/WordPoints/dev-lib/issues/181 -->
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Invalid" />
+
+		<!-- We indent breaks to the level of the case, not the case body. -->
+		<exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakIndent" />
 	</rule>
 
 	<rule ref="WordPress-Extra">
@@ -127,7 +130,8 @@
 	</rule>
 
 	<rule ref="WordPoints.PHPUnit.MissingCovers">
-		<exclude-pattern>^((?!(.*/MissingCoversUnitTest\.inc$|/tests/phpunit/tests/.*)))</exclude-pattern>
+		<include-pattern>/tests/phpunit/tests/*</include-pattern>
+		<include-pattern>*/MissingCoversUnitTest.inc</include-pattern>
 	</rule>
 
 	<rule ref="Squiz.Scope.MethodScope"/>
@@ -198,6 +202,14 @@
 			we'll replace this with the new hooks API which does it right.
 		-->
 		<exclude-pattern>/src/components/ranks/*</exclude-pattern>
+	</rule>
+
+	<rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+		<!-- Deprecated methods in a deprecated class in a deprecated file. -->
+		<exclude-pattern>src/components/points/includes/class-un-installer.php</exclude-pattern>
+		<!-- Abstract protected method named the same as a public interface method. -->
+		<exclude-pattern>src/classes/hook/reaction/store.php</exclude-pattern>
+		<exclude-pattern>src/classes/hook/reaction/store/options.php</exclude-pattern>
 	</rule>
 
 	<exclude-pattern>/vendor/*</exclude-pattern>

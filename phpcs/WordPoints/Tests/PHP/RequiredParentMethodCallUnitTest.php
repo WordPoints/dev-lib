@@ -4,6 +4,8 @@
  * Unit test class for the RequiredParentMethodCall Sniff.
  */
 
+use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+
 /**
  * Tests for the RequiredParentMethodCall sniff.
  */

@@ -7,6 +7,8 @@
  * @since 2.6.0
  */
 
+use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+
 /**
  * Unit test class for the restricted assertions sniff.
  *

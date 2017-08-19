@@ -71,7 +71,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	public static function instance() {
 
 		if ( ! isset( self::$instance ) ) {
-			self::$instance = new WordPoints_PHPUnit_Bootstrap_Loader;
+			self::$instance = new WordPoints_PHPUnit_Bootstrap_Loader();
 			parent::$instance = self::$instance;
 		}
 

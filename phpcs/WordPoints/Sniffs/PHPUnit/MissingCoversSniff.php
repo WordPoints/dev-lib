@@ -31,6 +31,11 @@ class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements PHP_CodeSniffer_Sn
 		$is_function = T_FUNCTION === $tokens[ $stackPtr ]['code'];
 		$is_class = ! $is_function;
 
+		// This is probably an interface.
+		if ( ! isset( $tokens[ $stackPtr ]['scope_closer'] ) ) {
+			return null;
+		}
+
 		$scope_closer = $tokens[ $stackPtr ]['scope_closer'];
 
 		if ( $is_function ) {

@@ -1121,7 +1121,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$widget = $this->get_widget_html( $instance );
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $widget );
 		$xpath    = new DOMXPath( $document );
 
@@ -1165,7 +1165,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		}
 
 		// Creating a new mock filesystem.
-		$this->mock_fs = new WP_Mock_Filesystem;
+		$this->mock_fs = new WP_Mock_Filesystem();
 
 		// Tell the WordPress filesystem API shim to use this mock filesystem.
 		WP_Filesystem_Mock::set_mock( $this->mock_fs );
@@ -1235,7 +1235,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * @throws WordPoints_PHPUnit_Exception An exception.
 	 */
 	public function throw_exception() {
-		throw new WordPoints_PHPUnit_Exception;
+		throw new WordPoints_PHPUnit_Exception();
 	}
 
 	/**
@@ -1275,7 +1275,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$shortcode = $this->do_shortcode( $this->shortcode, $atts );
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $shortcode );
 		$xpath    = new DOMXPath( $document );
 
@@ -1399,7 +1399,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function assertWordPointsShortcodeError( $string ) {
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
 		$this->assertSame(
@@ -1417,7 +1417,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function assertNotWordPointsShortcodeError( $string ) {
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
 		$this->assertSame(
@@ -1435,7 +1435,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function assertWordPointsWidgetError( $string ) {
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
 		$this->assertSame(
@@ -1453,7 +1453,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function assertNotWordPointsWidgetError( $string ) {
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
 		$this->assertSame(
@@ -1478,7 +1478,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function assertWordPointsAdminNotice( $string, $args = array() ) {
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
 
@@ -1522,7 +1522,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function assertNotWordPointsAdminNotice( $string ) {
 
-		$document = new DOMDocument;
+		$document = new DOMDocument();
 		$document->loadHTML( $string );
 		$xpath = new DOMXPath( $document );
 

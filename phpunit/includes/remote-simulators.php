@@ -59,7 +59,7 @@ $simulator = sanitize_key( $_SERVER['HTTP_X_WORDPOINTS_TESTS_SIMULATOR'] );
 $simulator_class = "WordPoints_PHPUnit_Remote_Simulator_{$simulator}";
 
 /** @var WordPoints_PHPUnit_Remote_Simulator $simulator */
-$simulator = new $simulator_class;
+$simulator = new $simulator_class();
 $simulator->add_dependencies( $loader );
 
 $loader->install_plugins();
