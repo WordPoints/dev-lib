@@ -16,6 +16,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_add_network_option' => true,
 			'wordpoints_add_points' => array( 1, 2, 3, 4 ),
 			'wordpoints_add_rank' => array( 2, 3, 4 ),
+			'wordpoints_admin_show_update_skipped_notices' => true,
 			'wordpoints_alter_points' => array( 1, 2, 3, 4 ),
 			'wordpoints_component' => true,
 			'wordpoints_debug_message' => true,
@@ -31,6 +32,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_get_formatted_user_rank' => array( 1, 2, 3 ),
 			'wordpoints_get_maybe_network_array_option' => true,
 			'wordpoints_get_maybe_network_option' => array( 1, 2 ),
+			'wordpoints_get_points_log_meta' => array( 2 ),
 			'wordpoints_get_points_logs_query' => true,
 			'wordpoints_get_points_logs_query_args' => true,
 			'wordpoints_get_points_type_setting' => true,
@@ -111,6 +113,8 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Un_Installer_Base::uninstall_metadata' => true,
 			'WordPoints_Un_Installer_Base::uninstall_' => true,
 			'WordPoints_Un_Installer_Base::update_' => true,
+			'WordPoints_Uninstaller_Factory_Metadata::__construct' => array( 1 ),
+			'WordPoints_Updater_Factory::__construct' => array( 1 ),
 			'WordPoints_Widget::get_field_name' => true,
 
 			// Property methods.
@@ -211,6 +215,9 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'WordPoints_Hook_Reactor::$action_types' => true,
 			'WordPoints_Hook_Reactor::$arg_types' => true,
 			'WordPoints_Hook_Reactor::$slug' => true,
+			'WordPoints_Installable::$slug' => true,
+			'WordPoints_Installable::$type' => true,
+			'WordPoints_Installable_Component::$slug' => true,
 			'WordPoints_Points_Widget_Logs::$query_slug' => true,
 			'WordPoints_Un_Installer_Base::$type' => true,
 		)
