@@ -132,7 +132,7 @@ setup-codesniff() {
 		install-from-github WPCS
 
 		# Configure PHPCS to use WPCS.
-		"$PHPCS_DIR"/scripts/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
+		"$PHPCS_DIR"/bin/phpcs --config-set installed_paths "$WPCS_DIR","$DEV_LIB_PATH"/phpcs
 	fi
 
 	if [[ $DO_WPL10NV == 1 ]]; then
