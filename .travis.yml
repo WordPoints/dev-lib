@@ -15,7 +15,7 @@ before_script:
   - source .wordpoints-dev-lib-config.sh
   - export DEV_LIB_PATH=none
   - source bin/env.sh
-  - wordpoints-dev-lib-config
+  - export CODESNIFF_PATH_PHP_PHPCS=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./phpcs/WordPoints/Tests/*")
   - source bin/functions.sh
   - source travis/commands.sh
   - install-from-github WPCS
@@ -23,7 +23,6 @@ before_script:
   - $PHPCS_DIR/bin/phpcs --config-set installed_paths "$WPCS_DIR",phpcs
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - composer global require "phpunit/phpunit=^5.7.15"
-  - set -x
 
 script:
   - wpdl-codesniff-xmllint
