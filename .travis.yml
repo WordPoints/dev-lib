@@ -12,8 +12,10 @@ sudo: false
 before_script:
   - npm install -g jshint
   - gem install travis-lint
+  - source .wordpoints-dev-lib-config.sh
   - export DEV_LIB_PATH=none
   - source bin/env.sh
+  - wordpoints-dev-lib-config
   - source bin/functions.sh
   - source travis/commands.sh
   - install-from-github WPCS
