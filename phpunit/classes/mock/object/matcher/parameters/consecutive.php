@@ -51,8 +51,8 @@ class WordPoints_PHPUnit_Mock_Object_Matcher_Parameters_Consecutive
 		foreach ( $parameterGroups as $index => $parameters ) {
 			foreach ( $parameters as $parameter ) {
 
-				if ( ! ( $parameter instanceof \PHPUnit_Framework_Constraint ) ) {
-					$parameter = new \PHPUnit_Framework_Constraint_IsEqual(
+				if ( ! ( $parameter instanceof PHPUnit_Framework_Constraint ) ) {
+					$parameter = new PHPUnit_Framework_Constraint_IsEqual(
 						$parameter
 					);
 				}
