@@ -16,27 +16,43 @@ class WordPoints_PHPUnit_Mock_Object_Builder_Invocation_Mocker
 	extends PHPUnit_Framework_MockObject_Builder_InvocationMocker {
 
 	/**
-	 * Returns an invocation mocker that requires a method should return a value.
+	 * Asserts that a method should return a value.
 	 *
 	 * @since 2.7.0
 	 *
 	 * @param mixed $value The value that the method should return.
 	 *
-	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker Return value stub.
+	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker This object.
 	 */
 	public function willReturn( $value ) {
 		return $this->will( new PHPUnit_Framework_MockObject_Stub_Return( $value ) );
 	}
 
 	/**
-	 * Returns an invocation mocker that requires a method to return a callback value.
+	 * Asserts that a method should return a value map.
+	 *
+	 * @param array $valueMap The values that the method should return.
+	 *
+	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker This object.
+	 */
+	public function willReturnMap( array $valueMap ) {
+
+		return $this->will(
+			new PHPUnit_Framework_MockObject_Stub_ReturnValueMap(
+				$valueMap
+			)
+		);
+	}
+
+	/**
+	 * Asserts that a method to return a callback value.
 	 *
 	 * @since 2.7.0
 	 *
 	 * @param callable $callback The callback that will supply the value the method
 	 *                           should return.
 	 *
-	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker Return value stub.
+	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker This object.
 	 */
 	public function willReturnCallback( $callback ) {
 
@@ -69,11 +85,11 @@ class WordPoints_PHPUnit_Mock_Object_Builder_Invocation_Mocker
 	}
 
 	/**
-	 * Sets up a matcher that requires a method to be called with certain parameters.
+	 * Asserts that a method should be called with certain parameters.
 	 *
 	 * @param mixed ...$argument The parameters.
 	 *
-	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker Parameter matcher.
+	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker This object.
 	 */
 	public function with() {
 
@@ -88,11 +104,11 @@ class WordPoints_PHPUnit_Mock_Object_Builder_Invocation_Mocker
 	}
 
 	/**
-	 * Sets up a matcher that requires a method to be called with certain parameters.
+	 * Asserts that a method should be called with certain sets of parameters.
 	 *
 	 * @param mixed ...$argument The sets of consecutive parameters.
 	 *
-	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker Parameter matcher.
+	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker This object.
 	 */
 	public function withConsecutive() {
 
