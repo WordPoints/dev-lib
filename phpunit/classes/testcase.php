@@ -1339,7 +1339,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @return PHPUnit_Framework_MockObject_MockObject The mock object.
 	 */
-	protected function getPartialMockForAbstactClass( $original_class_name, array $methods ) {
+	protected function getPartialMockForAbstractClass( $original_class_name, array $methods ) {
 		return $this->getMockForAbstractClass(
 			$original_class_name
 			, array()
