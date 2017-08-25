@@ -45,7 +45,7 @@ class WordPoints_PHPUnit_Mock_Object_Builder_Invocation_Mocker
 	}
 
 	/**
-	 * Asserts that a method to return a callback value.
+	 * Asserts that a method should return a callback value.
 	 *
 	 * @since 2.7.0
 	 *
@@ -60,6 +60,22 @@ class WordPoints_PHPUnit_Mock_Object_Builder_Invocation_Mocker
 			new PHPUnit_Framework_MockObject_Stub_ReturnCallback(
 				$callback
 			)
+		);
+	}
+
+	/**
+	 * Asserts that a method should return values on consecutive calls.
+	 *
+	 * @param mixed ...$value The values to return on consecutive calls.
+	 *
+	 * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker This Object.
+	 */
+	public function willReturnOnConsecutiveCalls() {
+
+		$args = func_get_args();
+
+		return $this->will(
+			new PHPUnit_Framework_MockObject_Stub_ConsecutiveCalls( $args )
 		);
 	}
 
