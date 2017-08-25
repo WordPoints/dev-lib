@@ -61,6 +61,10 @@
 		</properties>
 	</rule>
 
+	<!-- These are copied from PHPUnit Mock Objects. -->
+	<exclude-pattern>phpunit/classes/mock/object/builder/invocation/mocker.php</exclude-pattern>
+	<exclude-pattern>/phpunit/classes/mock/object/matcher/parameters/consecutive.php</exclude-pattern>
+
 	<exclude-pattern>/phpcs/WordPoints/Tests/*</exclude-pattern>
 
 </ruleset>
