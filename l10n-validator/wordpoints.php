@@ -160,9 +160,10 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'$wordpoints_components->activate' => true,
 
 			// Universal instance methods.
-			'(unknown)->get_reaction_store' => array( 1 ),
-			'(unknown)->get_sub_app' => array( 1 ),
 			'(unknown)->set_current_mode' => array( 1 ),
+			'(unknown)->get_reaction_store' => array( 1 ),
+			'(unknown)->get_reaction_stores' => array( 1 ),
+			'(unknown)->get_sub_app' => array( 1 ),
 		)
 	);
 
