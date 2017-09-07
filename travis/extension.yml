@@ -23,6 +23,12 @@ env:
 
 sudo: false
 
+addons:
+  apt:
+    packages:
+      # Needed for `xmllint`.
+      - libxml2-utils
+
 matrix:
   include:
     # Only run nightly against trunk.
