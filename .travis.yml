@@ -1,4 +1,3 @@
-
 # Travis CI config for the WordPoints developer tools.
 
 language: php
@@ -8,6 +7,12 @@ php:
 
 # Use the new infrastructure.
 sudo: false
+
+addons:
+  apt:
+    packages:
+      # Needed for `xmllint`.
+      - libxml2-utils
 
 before_script:
   - npm install -g jshint
