@@ -763,8 +763,6 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$this->wordpoints_set_db_version( $from );
 
-		delete_site_transient( 'wordpoints_all_site_ids' );
-
 		wordpoints_delete_maybe_network_option( 'wordpoints_installable_versions' );
 
 		wordpoints_installables_maybe_update();

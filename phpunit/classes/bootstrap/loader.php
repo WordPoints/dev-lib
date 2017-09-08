@@ -449,9 +449,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 *
 	 * @since 2.6.0
 	 */
-	public function clean_database() {
-		delete_site_transient( 'wordpoints_all_site_ids' );
-	}
+	public function clean_database() {}
 }
 
 // EOF
