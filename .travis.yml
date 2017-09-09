@@ -36,6 +36,7 @@ script:
   - wpdl-codesniff-bash
   - wpdl-codesniff-jshint
   - wpdl-codesniff-strings
+  - wpdl-codesniff-dittography
   - CODESNIFF_PATH_PHP_PHPCS=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./phpcs/WordPoints/Tests/*"); wpdl-codesniff-phpcs
   - find ./travis -name '*.yml' -exec travis-lint {} \;
   - CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*' '!' -path './phpcs/*' '!' -path './l10n-validator/*'); phpenv global 5.2 && wpdl-codesniff-php-syntax

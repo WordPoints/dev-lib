@@ -27,6 +27,7 @@ wpdl-codesniff() {
 	wpdl-codesniff-php-autoloaders
 	wpdl-codesniff-phpcs
 	wpdl-codesniff-strings
+	wpdl-codesniff-dittography
 	wpdl-codesniff-l10n
 	wpdl-codesniff-bash
 	wpdl-codesniff-jshint
@@ -159,6 +160,17 @@ wpdl-codesniff-strings() {
 	wpdl-get-codesniff-files STRINGS \
 		| xargs -0 grep -H -n -v "${CODESNIFF_IGNORED_STRINGS[@]}" \
 		| grep -e 'target="_blank"' -e http[^s_.-]
+
+	# grep exits with 1 if nothing was found.
+	[[ $? == '1' ]]
+}
+
+# Check files for dittography.
+wpdl-codesniff-dittography() {
+
+	wpdl-get-codesniff-files STRINGS DITTOGRAPHY \
+		| xargs -0 grep -H -n -v "${CODESNIFF_IGNORED_DITTOGRAPHY[@]}" \
+		| grep -iE --color=auto '[^$|/]\b([a-z].*?)\b[[:space:]*]+\1\b[^-]'
 
 	# grep exits with 1 if nothing was found.
 	[[ $? == '1' ]]

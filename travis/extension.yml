@@ -66,6 +66,7 @@ script:
     - codesniff-php-autoloaders
     - codesniff-phpcs
     - codesniff-strings
+    - codesniff-dittography
     - codesniff-jshint
     - codesniff-l10n
     - codesniff-xmllint

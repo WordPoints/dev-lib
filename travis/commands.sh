@@ -179,6 +179,15 @@ codesniff-strings() {
 	fi
 }
 
+# Check all files for repeated strings.
+codesniff-dittography() {
+	if [[ $TRAVISCI_RUN == codesniff ]]; then
+		wpdl-codesniff-dittography
+	else
+		echo 'Not running dittography check.'
+	fi
+}
+
 # Check JS files with jshint.
 codesniff-jshint() {
 	if [[ $TRAVISCI_RUN == codesniff ]]; then
