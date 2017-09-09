@@ -211,7 +211,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 	}
 
 	/**
-	 * Provides an array of possible settings settings which are not met.
+	 * Provides an array of possible settings which are not met.
 	 *
 	 * @since 2.6.0
 	 *
