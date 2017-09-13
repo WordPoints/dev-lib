@@ -103,6 +103,11 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 			'after_load_wordpress'
 			, array( $this, 'clean_database' )
 		);
+
+		$this->add_action(
+			'after_load_wordpress'
+			, array( $this, 'disable_uninstall_errors' )
+		);
 	}
 
 	/**
@@ -450,6 +455,19 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 * @since 2.6.0
 	 */
 	public function clean_database() {}
+
+	/**
+	 * Ensures that we don't get uninstall-related errors when not uninstalling.
+	 *
+	 * `is_wordpoints_network_active()` gives errors if used during uninstall.
+	 *
+	 * @since 2.7.0
+	 */
+	public function disable_uninstall_errors() {
+		if ( ! $this->running_uninstall_tests() ) {
+			add_filter( 'wordpoints_is_uninstalling', '__return_false' );
+		}
+	}
 }
 
 // EOF
