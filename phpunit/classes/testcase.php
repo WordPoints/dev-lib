@@ -1062,7 +1062,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		return false !== strpos(
 			$sql
 			, '
-					ORDER BY COALESCE(CONVERT(`meta`.`meta_value`, SIGNED INTEGER), 0) DESC
+					ORDER BY COALESCE(CONVERT(`meta`.`meta_value`, SIGNED INTEGER), 0) DESC, `ID` ASC
 					LIMIT'
 		);
 	}
