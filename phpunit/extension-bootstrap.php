@@ -60,7 +60,7 @@ define( 'WORDPOINTS_MODULE_TESTS_DIR', WORDPOINTS_EXTENSION_TESTS_DIR );
  *
  * @since 2.4.0
  */
-require_once( dirname( __FILE__ ) . '/classes/class/autoloader.php' );
+require_once dirname( __FILE__ ) . '/classes/class/autoloader.php';
 
 WordPoints_PHPUnit_Class_Autoloader::register_dir(
 	WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes/'
@@ -77,7 +77,7 @@ WordPoints_PHPUnit_Class_Autoloader::register_dir(
  *
  * @since 1.1.0
  */
-require_once( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/functions.php' );
+require_once WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/functions.php';
 
 $extension = new WordPoints_PHPUnit_Module(
 	WORDPOINTS_EXTENSION_TESTS_DIR . '/../../src'
@@ -105,14 +105,14 @@ if ( $has_uninstall_tester ) {
 	 *
 	 * @since 1.1.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/includes/functions.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/includes/functions.php';
 
 	/**
 	 * The WordPoints modules uninstall testing functions.
 	 *
 	 * @since 1.1.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/includes/functions.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/includes/functions.php';
 }
 
 /**
@@ -123,7 +123,7 @@ if ( $has_uninstall_tester ) {
  *
  * @since 1.0.0
  */
-require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php' );
+require_once getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php';
 
 if ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/autoload_52.php' ) ) {
 
@@ -132,7 +132,7 @@ if ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/autoload_52.ph
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/autoload_52.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/autoload_52.php';
 
 } elseif ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/autoload.php' ) ) {
 
@@ -141,7 +141,7 @@ if ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/autoload_52.ph
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/autoload.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/autoload.php';
 }
 
 if ( class_exists( 'WPPPB_Loader' ) ) {
@@ -151,7 +151,7 @@ if ( class_exists( 'WPPPB_Loader' ) ) {
 	 *
 	 * @since 2.5.0
 	 */
-	require_once( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes/bootstrap/loader.php' );
+	require_once WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/classes/bootstrap/loader.php';
 }
 
 if ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/functions.php' ) ) {
@@ -161,7 +161,7 @@ if ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/functions.php' ) )
 	 *
 	 * @since 1.0.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/functions.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/functions.php';
 }
 
 if (
@@ -198,7 +198,7 @@ if (
  *
  * @since 1.0.0
  */
-require( WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/includes/bootstrap.php' );
+require WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/includes/bootstrap.php';
 
 if ( file_exists( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php' ) ) {
 
@@ -207,7 +207,7 @@ if ( file_exists( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php'
 	 *
 	 * @since 1.0.0
 	 */
-	require_once( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php' );
+	require_once getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php';
 }
 
 if ( $has_uninstall_tester ) {
@@ -217,14 +217,14 @@ if ( $has_uninstall_tester ) {
 	 *
 	 * @since 1.1.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/bootstrap.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/jdgrimes/wp-plugin-uninstall-tester/bootstrap.php';
 
 	/**
 	 * The WordPoints modules uninstall testing bootstrap.
 	 *
 	 * @since 1.1.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/bootstrap.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/bootstrap.php';
 }
 
 if (
@@ -238,7 +238,7 @@ if (
 	 *
 	 * @since 1.0.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../src/admin/admin.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/../../src/admin/admin.php';
 }
 
 if ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/bootstrap.php' ) ) {
@@ -248,7 +248,7 @@ if ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/bootstrap.php' ) )
 	 *
 	 * @since 1.0.0
 	 */
-	require_once( WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/bootstrap.php' );
+	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/bootstrap.php';
 }
 
 // EOF

@@ -43,7 +43,7 @@ abstract class WordPoints_PHPUnit_TestCase_Ajax_Points extends WordPoints_PHPUni
 			 *
 			 * @since 2.6.0
 			 */
-			require_once( WORDPOINTS_DIR . '/components/points/admin/admin.php' );
+			require_once WORDPOINTS_DIR . '/components/points/admin/admin.php';
 
 			self::$included_functions = true;
 

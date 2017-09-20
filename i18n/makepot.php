@@ -16,7 +16,7 @@ if ( ! getenv( 'WP_TESTS_DIR' ) ) {
  *
  * @since 1.3.0
  */
-require_once( getenv( 'WP_TESTS_DIR' ) . '/../../tools/i18n/makepot.php' );
+require_once getenv( 'WP_TESTS_DIR' ) . '/../../tools/i18n/makepot.php';
 
 /**
  * Generate a POT file for a WordPoints extension.

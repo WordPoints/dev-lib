@@ -46,7 +46,7 @@ if ( ! defined( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR' ) ) {
 	 *
 	 * @since 2.6.0
 	 */
-	require_once( dirname( __FILE__ ) . '/../classes/class/autoloader.php' );
+	require_once dirname( __FILE__ ) . '/../classes/class/autoloader.php';
 }
 
 /**
@@ -86,7 +86,7 @@ if ( ! defined( 'RUNNING_WORDPOINTS_EXTENSION_TESTS' ) ) {
 	 *
 	 * @since 2.6.0
 	 */
-	require_once( WORDPOINTS_TESTS_DIR . '/../../vendor/autoload_52.php' );
+	require_once WORDPOINTS_TESTS_DIR . '/../../vendor/autoload_52.php';
 }
 
 $loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();

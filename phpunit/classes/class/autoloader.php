@@ -123,7 +123,7 @@ class WordPoints_PHPUnit_Class_Autoloader {
 					continue;
 				}
 
-				require_once( $full_path );
+				require_once $full_path;
 
 				return;
 			}

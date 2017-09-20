@@ -39,7 +39,7 @@ define( 'WORDPOINTS_RUNNING_REMOTE_SIMULATOR', true );
  *
  * @since 2.7.0
  */
-require_once( dirname( __FILE__ ) . '/../classes/class/autoloader.php' );
+require_once dirname( __FILE__ ) . '/../classes/class/autoloader.php';
 
 WordPoints_PHPUnit_Class_Autoloader::register_dir(
 	dirname( __FILE__ ) . '/../classes/'
@@ -51,7 +51,7 @@ WordPoints_PHPUnit_Class_Autoloader::register_dir(
  *
  * @since 2.7.0
  */
-require_once( dirname( __FILE__ ) . '/../../../vendor/autoload_52.php' );
+require_once dirname( __FILE__ ) . '/../../../vendor/autoload_52.php';
 
 $loader = new WordPoints_PHPUnit_Remote_Simulator_Bootstrap_Loader();
 

@@ -13,6 +13,6 @@
  *
  * @since 2.7.0
  */
-require( dirname( __FILE__ ) . '/extension-bootstrap.php' );
+require dirname( __FILE__ ) . '/extension-bootstrap.php';
 
 // EOF

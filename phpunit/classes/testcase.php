@@ -913,7 +913,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			$wpdb->query( "DROP TABLE `{$table}`" );
 		}
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		// Create the tables again with the specified charset.
 		$schema = $this->get_db_schema();
@@ -1159,7 +1159,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			 *
 			 * @since 2.6.0
 			 */
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
+			require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
 		}
 
 		// Creating a new mock filesystem.

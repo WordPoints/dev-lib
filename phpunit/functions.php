@@ -161,7 +161,7 @@ function wordpoints_dev_lib_load_module( $module_file ) {
 
 	WordPoints_Module_Paths::register( $module_file );
 
-	require( $module_file );
+	require $module_file;
 
 	$module = wordpoints_module_basename( $module_file );
 	$network_wide = is_multisite() && getenv( 'WORDPOINTS_NETWORK_ACTIVE' );
@@ -195,7 +195,7 @@ function wordpoints_dev_lib_load_the_module() {
 
 	// Load the module's admin-side code too, if asked.
 	if ( defined( 'WORDPOINTS_TESTS_LOAD_MODULE_ADMIN' ) ) {
-		require( WORDPOINTS_TESTS_LOAD_MODULE_ADMIN );
+		require WORDPOINTS_TESTS_LOAD_MODULE_ADMIN;
 	}
 }
 

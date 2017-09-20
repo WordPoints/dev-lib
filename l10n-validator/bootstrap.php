@@ -12,20 +12,20 @@
  *
  * @since 1.1.0
  */
-include_once( __DIR__ . '/php.php' );
+require_once __DIR__ . '/php.php';
 
 /**
  * The ignores for WordPress stuff.
  *
  * @since 1.1.0
  */
-include_once( __DIR__ . '/wordpress.php' );
+require_once __DIR__ . '/wordpress.php';
 
 /**
  * The ignores for WordPoints stuff.
  *
  * @since 1.1.0
  */
-include_once( __DIR__ . '/wordpoints.php' );
+require_once __DIR__ . '/wordpoints.php';
 
 // EOF

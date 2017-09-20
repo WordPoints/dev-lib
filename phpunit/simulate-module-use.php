@@ -13,6 +13,6 @@
  *
  * @since 2.7.0
  */
-require( dirname( __FILE__ ) . '/simulate-extension-use.php' );
+require dirname( __FILE__ ) . '/simulate-extension-use.php';
 
 // EOF

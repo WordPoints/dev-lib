@@ -12,7 +12,7 @@
  *
  * @since 2.7.0
  */
-require_once( getenv( 'WORDPOINTS_TESTS_DIR' ) . '/includes/functions.php' );
+require_once getenv( 'WORDPOINTS_TESTS_DIR' ) . '/includes/functions.php';
 
 /**
  * The extension's usage simulator script.
