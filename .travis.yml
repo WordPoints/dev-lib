@@ -42,7 +42,17 @@ before_script:
   - source travis/commands.sh
   - install-from-github WPCS
   - mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b master $PHPCS_DIR
-  - $PHPCS_DIR/bin/phpcs --config-set installed_paths "$WPCS_DIR",phpcs
+  - |
+    # Setting the include path requires at least PHP 5.4.
+    if [[ $TRAVIS_PHP_VERSION == 5.2 || $TRAVIS_PHP_VERSION == 5.3 ]]; then
+        phpenv global 5.4
+    fi
+
+    $PHPCS_DIR/bin/phpcs --config-set installed_paths "$WPCS_DIR",phpcs
+
+    if [[ $TRAVIS_PHP_VERSION == 5.2 || $TRAVIS_PHP_VERSION == 5.3 ]]; then
+        phpenv global "$TRAVIS_PHP_VERSION"
+    fi
   - if [[ $TRAVIS_PHP_VERSION == 5.2 ]]; then CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*' '!' -path './phpcs/*' '!' -path './l10n-validator/*'); fi
   - if [[ $TRAVIS_PHP_VERSION == 5.3 ]]; then CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*'); fi
 
