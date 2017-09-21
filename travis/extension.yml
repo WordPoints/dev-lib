@@ -8,8 +8,6 @@ php:
     - 5.6
     - 5.5
     - 5.4
-    - 5.3
-    - 5.2
 
 env:
     - TRAVISCI_RUN=codesniff
@@ -21,6 +19,8 @@ env:
     - TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
     - TRAVISCI_RUN=phpunit WP_VERSION=4.6 WORDPOINTS_VERSION=master
 
+dist: trusty
+
 sudo: false
 
 addons:
@@ -31,6 +31,49 @@ addons:
 
 matrix:
   include:
+    # Use Ubuntu Precise because Trusty doesn't support PHP 5.2 or 5.3.
+    - php: 5.3
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=develop
+    - php: 5.3
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
+    - php: 5.3
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
+    - php: 5.3
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
+    - php: 5.3
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=develop
+    - php: 5.3
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
+    - php: 5.3
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.6 WORDPOINTS_VERSION=master
+    - php: 5.2
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=develop
+    - php: 5.2
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
+    - php: 5.2
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
+    - php: 5.2
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
+    - php: 5.2
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=develop
+    - php: 5.2
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
+    - php: 5.2
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.6 WORDPOINTS_VERSION=master
     # Only run nightly against trunk.
     - php: nightly
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop
@@ -43,10 +86,6 @@ matrix:
     - php: 5.5
       env: TRAVISCI_RUN=codesniff
     - php: 5.4
-      env: TRAVISCI_RUN=codesniff
-    - php: 5.3
-      env: TRAVISCI_RUN=codesniff
-    - php: 5.2
       env: TRAVISCI_RUN=codesniff
     # WordPress 4.6 doesn't support PHP 7.1.
     - php: 7.1
