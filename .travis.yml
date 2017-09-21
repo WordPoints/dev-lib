@@ -45,6 +45,7 @@ before_script:
   - export DEV_LIB_PATH=none
   - source bin/env.sh
   - source bin/functions.sh
+  - wordpoints-dev-lib-config
   - source travis/commands.sh
   - install-from-github WPCS
   - mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b $PHPCS_BRANCH $PHPCS_DIR
