@@ -15,7 +15,7 @@ addons:
 
 env:
   global:
-    - PHPCS_BRANCH=master
+    - DO_PHPCS=1
 
 matrix:
   include:
@@ -28,10 +28,10 @@ matrix:
     # Use Ubuntu Precise because Trusty doesn't support PHP 5.2 or 5.3.
     - php: 5.3
       dist: precise
-      env: PHPCS_BRANCH=2.9
+      env: DO_PHPCS=0
     - php: 5.2
       dist: precise
-      env: PHPCS_BRANCH=2.9
+      env: DO_PHPCS=0
     - php: nightly
   allow_failures:
     - php: nightly
@@ -47,8 +47,8 @@ before_script:
   - wordpoints-dev-lib-config
   - source travis/commands.sh
   - install-from-github WPCS
-  - mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b $PHPCS_BRANCH $PHPCS_DIR
-  - $PHPCS_DIR/bin/phpcs --config-set installed_paths "$WPCS_DIR",phpcs
+  - if [[ $DO_PHPCS == 1 ]]; then mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b master $PHPCS_DIR; fi
+  - if [[ $DO_PHPCS == 1 ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths "$WPCS_DIR",phpcs; fi
   - if [[ $TRAVIS_PHP_VERSION == 5.2 ]]; then CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*' '!' -path './phpcs/*' '!' -path './l10n-validator/*'); fi
   - if [[ $TRAVIS_PHP_VERSION == 5.3 ]]; then CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*'); fi
 
@@ -58,7 +58,7 @@ script:
   - wpdl-codesniff-jshint
   - wpdl-codesniff-strings
   - wpdl-codesniff-dittography
-  - CODESNIFF_PATH_PHP_PHPCS=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./phpcs/WordPoints/Tests/*"); wpdl-codesniff-phpcs
+  - if [[ $DO_PHPCS == 1 ]]; then wpdl-codesniff-phpcs; fi
   - find ./travis -name '*.yml' -exec travis-lint {} \;
   - wpdl-codesniff-php-syntax
   - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then phpunit --bootstrap="$WPCS_DIR/Test/phpcs3-bootstrap.php" --filter WordPoints /tmp/phpcs/tests/AllTests.php; fi
