@@ -46,7 +46,7 @@ before_script:
   - source bin/functions.sh
   - wordpoints-dev-lib-config
   - source travis/commands.sh
-  - install-from-github WPCS
+  - if [[ $RUN_PHPCS == 1 ]]; then mkdir -p $WPCS_DIR && git clone --depth 1 https://github.com/${WPCS_GITHUB_SRC}.git -b develop $WPCS_DIR; fi
   - if [[ $RUN_PHPCS == 1 ]]; then mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b master $PHPCS_DIR; fi
   - if [[ $RUN_PHPCS == 1 ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths "$WPCS_DIR",phpcs; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then export PATH="$HOME/.composer/vendor/bin:$PATH"; fi
