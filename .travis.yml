@@ -38,7 +38,6 @@ matrix:
     - php: 7.2
 
 before_script:
-  - phpenv versions
   - npm install -g jshint
   - gem install travis-lint
   - source .wordpoints-dev-lib-config.sh
