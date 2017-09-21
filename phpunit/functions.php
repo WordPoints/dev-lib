@@ -100,7 +100,7 @@ function wordpoints_dev_lib_get_extensions( $extension_folder = '' ) {
  * @param string $file    Path to the file.
  * @param array  $headers List of headers.
  *
- * @return array Array of file headers.
+ * @return array An array of file headers.
  */
 function wordpoints_dev_lib_get_file_data( $file, $headers ) {
 
