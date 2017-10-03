@@ -43,6 +43,7 @@ WP_L10n_Validator::register_config_callback( function( $parser ) {
 			'wordpoints_modules_url' => true,
 			'wordpoints_points_show_top_users' => array( 3 ),
 			'wordpoints_prepare__in' => true,
+			'wordpoints_register_extension' => true,
 			'wordpoints_register_points_logs_query' => true,
 			'wordpoints_show_admin_message' => array( 2 ),
 			'wordpoints_show_points_logs_query' => true,
