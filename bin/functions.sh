@@ -9,6 +9,7 @@ get-textdomain () {
 
 	text_domain=$(grep -oh "Text Domain: .*" src/*.php)
 	text_domain=${text_domain#"Text Domain: "}
+	text_domain=${text_domain##* }
 
 	if [[ $text_domain == '' ]]; then
 		echo Please enter the textdomain for your project:
