@@ -65,7 +65,10 @@ fi
 export CODESNIFF_PHP_AUTOLOADER_DEPENDENCIES
 
 # PHPCS
-export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
+if [[ -z $DO_PHPCS ]]; then
+	export DO_PHPCS=$(if [ -e phpcs.ruleset.xml ]; then echo 1; else echo 0; fi)
+fi
+
 export PHPCS_DIR=/tmp/phpcs
 export PHPCS_GITHUB_SRC=squizlabs/PHP_CodeSniffer
 export PHPCS_GIT_TREE=3.0.2
