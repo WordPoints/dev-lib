@@ -77,7 +77,7 @@ abstract class WordPoints_PHPUnit_TestCase_Entities
 		$this->assertTrue( $entity->set_the_value( $the_entity ) );
 		$this->assertSame( $the_id, $entity->get_the_value() );
 		$this->assertSame( $the_id, $entity->get_the_id() );
-		$this->assertSame( $the_human_id, $entity->get_the_human_id() );
+		$this->assertSame( (string) $the_human_id, $entity->get_the_human_id() );
 
 		if ( isset( $data['human_id_field'] ) ) {
 			$this->assertSame(
