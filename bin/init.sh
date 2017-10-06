@@ -101,7 +101,7 @@ if [ -e composer.json ]; then
 		echo Adding WPPPB to composer
 		composer require --dev jdgrimes/wpppb
 	else
-		composer update jdgrimes/wpppb
+		composer require --dev jdgrimes/wpppb:^0.3.0
 	fi
 else
 	echo Copying composer.json
