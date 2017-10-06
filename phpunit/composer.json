@@ -3,7 +3,7 @@
         "php": ">=5.2.0"
     },
     "require-dev": {
-        "jdgrimes/wpppb": "^0.2",
+        "jdgrimes/wpppb": "^0.3",
         "xrstf/composer-php52": "^1.0"
     },
     "scripts": {

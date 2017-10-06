@@ -70,6 +70,18 @@ abstract class WordPoints_PHPUnit_TestCase_Extension_Uninstall
 	}
 
 	/**
+	 * @since 2.7.0
+	 */
+	public function delete_extra_site() {
+
+		add_filter( 'wordpoints_is_uninstalling', '__return_false' );
+
+		parent::delete_extra_site();
+
+		remove_filter( 'wordpoints_is_uninstalling', '__return_false' );
+	}
+
+	/**
 	 * @since 2.6.0 As WordPoints_PHPUnit_TestCase_Module_Uninstall.
 	 * @since 2.7.0
 	 */

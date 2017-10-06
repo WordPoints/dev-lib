@@ -21,7 +21,13 @@ if ( isset( $custom_files['before_components'] ) ) {
 $components_object = WordPoints_Components::instance();
 
 foreach ( $components as $component => $component_info ) {
-	$components_object->activate( $component );
+
+	$result = $components_object->activate( $component );
+
+	if ( ! $result ) {
+		echo "Error: Component activation failed for {$component}." . PHP_EOL;
+		exit( 1 );
+	}
 }
 
 // Load files to be included after the components are installed.

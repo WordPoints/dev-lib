@@ -100,6 +100,8 @@ if [ -e composer.json ]; then
 	if ! grep -q jdgrimes/wpppb composer.json; then
 		echo Adding WPPPB to composer
 		composer require --dev jdgrimes/wpppb
+	else
+		composer update jdgrimes/wpppb
 	fi
 else
 	echo Copying composer.json

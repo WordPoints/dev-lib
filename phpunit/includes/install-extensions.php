@@ -26,7 +26,19 @@ if ( isset( $custom_files['before_modules'] ) ) {
 
 // Activate the extensions.
 foreach ( $extensions as $extension => $extension_info ) {
-	wordpoints_activate_module( $extension, '', $extension_info['network_wide'] );
+
+	$result = wordpoints_activate_module( $extension, '', $extension_info['network_wide'] );
+
+	if ( is_wp_error( $result ) ) {
+
+		echo "Error: Extension activation failed for {$extension}:" . PHP_EOL;
+
+		foreach ( $result->get_error_messages() as $message ) {
+			echo "- {$message}" . PHP_EOL;
+		}
+
+		exit( 1 );
+	}
 }
 
 // Load files to be included after the extensions are installed.

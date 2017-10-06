@@ -395,6 +395,13 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 
 		static $uninstall_tests;
 
+		if (
+			! file_exists( 'phpunit.uninstall.xml' )
+			&& ! file_exists( 'phpunit.uninstall.xml.dist' )
+		) {
+			$uninstall_tests = false;
+		}
+
 		if ( ! isset( $uninstall_tests ) ) {
 
 			ob_start();
