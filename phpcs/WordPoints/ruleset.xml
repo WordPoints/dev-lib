@@ -214,7 +214,7 @@
 
 	<rule ref="Generic.Formatting.MultipleStatementAlignment">
 		<properties>
-			<property name="maxPadding" value="12" />
+			<property name="maxPadding" value="16" />
 		</properties>
 	</rule>
 
