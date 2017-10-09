@@ -223,6 +223,7 @@
 			<property name="ignoreNewline" value="false" />
 			<property name="alignMultilineItems" value="!=100" />
 		</properties>
+		<exclude-pattern>*/index.php</exclude-pattern>
 	</rule>
 
 	<exclude-pattern>/vendor/*</exclude-pattern>
