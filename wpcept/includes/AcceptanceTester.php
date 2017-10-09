@@ -351,7 +351,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	 */
 	public function haveTestExtensionInstalled( $extension ) {
 
-		$extensions_dir = wordpoints_extensions_dir();
+		$extensions_dir      = wordpoints_extensions_dir();
 		$test_extensions_dir = WORDPOINTS_DIR . '/../tests/phpunit/data/modules/';
 
 		if ( ! file_exists( $extensions_dir . $extension ) ) {
@@ -389,7 +389,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		);
 
 		$destination = WP_CONTENT_DIR . '/module-7-update.zip';
-		$package = WP_CONTENT_URL . '/module-7-update.zip';
+		$package     = WP_CONTENT_URL . '/module-7-update.zip';
 
 		// On Travis we run a single-threaded server, so we can't serve the download.
 		// Fortunately, we can install it as a local file instead.
@@ -397,7 +397,7 @@ class AcceptanceTester extends \Codeception\Actor {
 			$package = $destination;
 		}
 
-		$server = new \WordPoints_Extension_Server( 'wordpoints.org' );
+		$server         = new \WordPoints_Extension_Server( 'wordpoints.org' );
 		$extension_data = new \WordPoints_Extension_Server_API_Extension_Data( '7', $server );
 		$extension_data->set( 'package', $package );
 		$extension_data->set( 'changelog', 'Test changelog for Module 7.' );

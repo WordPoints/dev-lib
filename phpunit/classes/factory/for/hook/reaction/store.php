@@ -42,7 +42,7 @@ class WordPoints_PHPUnit_Factory_For_Hook_Reaction_Store extends WP_UnitTest_Fac
 
 		$reaction_stores = wordpoints_hooks()->get_sub_app( 'reaction_stores' );
 
-		$slug = $args['slug'];
+		$slug  = $args['slug'];
 		$class = $args['class'];
 
 		$contexts = wordpoints_entities()->get_sub_app( 'contexts' );

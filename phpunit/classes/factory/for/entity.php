@@ -49,7 +49,7 @@ class WordPoints_PHPUnit_Factory_For_Entity extends WP_UnitTest_Factory_For_Thin
 			);
 		}
 
-		$slug = $args['slug'];
+		$slug  = $args['slug'];
 		$class = $args['class'];
 
 		unset( $args['slug'], $args['class'] );

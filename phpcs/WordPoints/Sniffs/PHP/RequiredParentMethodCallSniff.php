@@ -22,9 +22,9 @@ class WordPoints_Sniffs_PHP_RequiredParentMethodCallSniff implements PHP_CodeSni
 	 * @var string[]
 	 */
 	public $methods = array(
-		'setUp' => true,
-		'tearDown' => true,
-		'setUpBeforeClass' => true,
+		'setUp'              => true,
+		'tearDown'           => true,
+		'setUpBeforeClass'   => true,
 		'tearDownAfterClass' => true,
 	);
 

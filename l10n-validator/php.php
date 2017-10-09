@@ -7,17 +7,19 @@
  * @since 1.1.0
  */
 
-WP_L10n_Validator::register_config_callback( function( $parser ) {
+WP_L10n_Validator::register_config_callback(
+	function( $parser ) {
 
-	$parser->add_ignored_functions(
-		array(
-			// Functions.
-			'class_exists' => true,
-			'define' => true,
-		)
-	);
+		$parser->add_ignored_functions(
+			array(
+				// Functions.
+				'class_exists' => true,
+				'define'       => true,
+			)
+		);
 
-	$parser->add_ignored_strings( array( 'style="display:none;"' ) );
-});
+		$parser->add_ignored_strings( array( 'style="display:none;"' ) );
+	}
+);
 
 // EOF

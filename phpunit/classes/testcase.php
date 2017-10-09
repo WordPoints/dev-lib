@@ -439,7 +439,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 		if ( ! empty( self::$_fixtures_ids ) ) {
 
 			$this->fixture_ids = self::$_fixtures_ids;
-			$this->fixtures = self::$_fixtures;
+			$this->fixtures    = self::$_fixtures;
 
 		} elseif ( isset( $this->shared_fixtures ) ) {
 
@@ -464,7 +464,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 				}
 
 				self::$_fixtures_ids[ $type ] = array();
-				self::$_fixtures[ $type ] = array();
+				self::$_fixtures[ $type ]     = array();
 
 				if ( is_int( $definitions ) ) {
 					$definitions = array( array( 'count' => $definitions ) );
@@ -525,7 +525,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 				} // End foreach ( $definitions ).
 
 				$this->fixture_ids = self::$_fixtures_ids;
-				$this->fixtures = self::$_fixtures;
+				$this->fixtures    = self::$_fixtures;
 
 			} // End foreach ( $this->shared_fixtures ).
 
@@ -568,7 +568,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		if ( isset( self::$backup_app ) ) {
 			WordPoints_App::$main = self::$backup_app;
-			self::$backup_app = null;
+			self::$backup_app     = null;
 		}
 
 		unset( $GLOBALS['current_screen'] );
@@ -598,12 +598,12 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 */
 	protected function wordpoints_set_db_version( $version = '1.0.0' ) {
 
-		$wordpoints_data = wordpoints_get_maybe_network_option( 'wordpoints_data' );
+		$wordpoints_data            = wordpoints_get_maybe_network_option( 'wordpoints_data' );
 		$wordpoints_data['version'] = $version;
 		wordpoints_update_maybe_network_option( 'wordpoints_data', $wordpoints_data );
 
 		if ( is_multisite() && ! is_wordpoints_network_active() ) {
-			$wordpoints_data = get_site_option( 'wordpoints_data' );
+			$wordpoints_data            = get_site_option( 'wordpoints_data' );
 			$wordpoints_data['version'] = $version;
 			update_site_option( 'wordpoints_data', $wordpoints_data );
 		}
@@ -1121,9 +1121,8 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$document = new DOMDocument();
 		$document->loadHTML( $widget );
-		$xpath    = new DOMXPath( $document );
 
-		return $xpath;
+		return new DOMXPath( $document );
 	}
 
 	/**
@@ -1275,9 +1274,8 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 		$document = new DOMDocument();
 		$document->loadHTML( $shortcode );
-		$xpath    = new DOMXPath( $document );
 
-		return $xpath;
+		return new DOMXPath( $document );
 	}
 
 	/**

@@ -93,7 +93,7 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 
 		// Merge any custom functions with the defaults, if we haven't already.
 		if ( ! self::$addedCustomFunctions ) {
-			self::$outputFunctions = array_merge( self::$outputFunctions, $this->customOutputFunctions );
+			self::$outputFunctions      = array_merge( self::$outputFunctions, $this->customOutputFunctions );
 			self::$addedCustomFunctions = true;
 		}
 

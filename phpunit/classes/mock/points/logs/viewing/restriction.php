@@ -98,7 +98,7 @@ class WordPoints_PHPUnit_Mock_Points_Logs_Viewing_Restriction
 		if ( self::$listen_for_sites ) {
 			self::$sites_construct[] = array(
 				'site_id' => get_current_blog_id(),
-				'log' => $log,
+				'log'     => $log,
 			);
 		}
 	}

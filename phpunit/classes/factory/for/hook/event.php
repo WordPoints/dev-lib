@@ -43,14 +43,14 @@ class WordPoints_PHPUnit_Factory_For_Hook_Event extends WP_UnitTest_Factory_For_
 		$hooks  = wordpoints_hooks();
 		$events = $hooks->get_sub_app( 'events' );
 
-		$slug = $args['slug'];
+		$slug  = $args['slug'];
 		$class = $args['class'];
 
 		unset( $args['slug'], $args['class'] );
 
 		if ( ! isset( $args['actions'] ) ) {
 			$args['actions'] = array(
-				'fire' => 'test_action',
+				'fire'    => 'test_action',
 				'reverse' => 'test_reverse_action',
 			);
 		}

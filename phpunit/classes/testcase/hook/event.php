@@ -159,7 +159,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 		$this->target = $target;
 
-		self::$tested_targets[] = $this->target;
+		self::$tested_targets[]  = $this->target;
 		self::$_expected_targets = $this->expected_targets;
 
 		switch ( $reactor_slug ) {
@@ -182,8 +182,8 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 					$settings['reversals'] = array( 'toggle_off' => 'toggle_on' );
 				}
 
-				$assertion = 'assert_user_has_points';
-				$reverse_assertion = 'assert_user_has_no_points';
+				$assertion           = 'assert_user_has_points';
+				$reverse_assertion   = 'assert_user_has_no_points';
 				$reaction_store_slug = 'points';
 			break;
 
@@ -192,7 +192,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 				return;
 		}
 
-		$settings['target'] = $target;
+		$settings['target']  = $target;
 		$settings['reactor'] = $reactor_slug;
 
 		$reaction = $this->hooks
@@ -346,9 +346,9 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 			if ( $arg instanceof WordPoints_Entity_Relationship ) {
 
-				$child_slug = $arg->get_related_entity_slug();
-				$arg = $arg->get_child( $child_slug );
-				$slug = $arg->get_slug();
+				$child_slug     = $arg->get_related_entity_slug();
+				$arg            = $arg->get_child( $child_slug );
+				$slug           = $arg->get_slug();
 				$target_stack[] = $slug;
 
 			} elseif ( $arg instanceof WordPoints_Hook_ArgI ) {

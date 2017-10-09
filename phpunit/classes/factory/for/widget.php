@@ -79,9 +79,10 @@ class WordPoints_PHPUnit_Factory_For_Widget extends WP_UnitTest_Factory_For_Thin
 
 		$sidebar[] = $id_base . '-' . $multi_number;
 
-		$_POST['sidebar'] = $sidebar_id;
-		$_POST[ "widget-{$id_base}" ] = array( $multi_number => $settings );
+		$_POST['sidebar']   = $sidebar_id;
 		$_POST['widget-id'] = $sidebar;
+
+		$_POST[ "widget-{$id_base}" ] = array( $multi_number => $settings );
 
 		if (
 			! isset( $wp_registered_widget_updates[ $id_base ] )
@@ -100,7 +101,7 @@ class WordPoints_PHPUnit_Factory_For_Widget extends WP_UnitTest_Factory_For_Thin
 		}
 
 		/** @var WP_Widget $handler */
-		$handler = $control['callback'][0];
+		$handler          = $control['callback'][0];
 		$handler->updated = false;
 
 		return $handler;

@@ -86,7 +86,7 @@ abstract class WordPoints_PHPUnit_TestCase_Ajax extends WP_Ajax_UnitTestCase {
 
 		if ( isset( $this->backup_app ) ) {
 			WordPoints_App::$main = $this->backup_app;
-			$this->backup_app = null;
+			$this->backup_app     = null;
 		}
 
 		WordPoints_PHPUnit_Mock_Entity_Context::$current_id = 1;
@@ -430,12 +430,13 @@ abstract class WordPoints_PHPUnit_TestCase_Ajax extends WP_Ajax_UnitTestCase {
 
 						case 'valid':
 							$invalid_requests[ 'missing_' . $rest ] = array( $request );
+
 							$next_part = $parts[1];
 						break;
 
 						case 'optional':
 							$next_part = $parts[2];
-							$rest = substr( $rest, 0, 9 /* optional_ */ );
+							$rest      = substr( $rest, 0, 9 /* optional_ */ );
 						break;
 					}
 

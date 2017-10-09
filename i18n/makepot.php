@@ -48,12 +48,12 @@ class WordPoints_MakePOT extends MakePOT {
 		$this->meta['wordpoints'] = $this->meta['wp-plugin'];
 
 		$this->meta['wordpoints-extension'] = array(
-			'description' => 'Translation of the WordPoints extension {name} {version} by {author}',
+			'description'        => 'Translation of the WordPoints extension {name} {version} by {author}',
 			'msgid-bugs-address' => '',
-			'copyright-holder' => '{author}',
-			'package-name' => 'WordPoints {name}',
-			'package-version' => '{version}',
-			'comments' => "Copyright (C) {year} {copyright-holder}\nThis file is distributed under the same license as the {package-name} package.",
+			'copyright-holder'   => '{author}',
+			'package-name'       => 'WordPoints {name}',
+			'package-version'    => '{version}',
+			'comments'           => "Copyright (C) {year} {copyright-holder}\nThis file is distributed under the same license as the {package-name} package.",
 		);
 
 		$this->meta['wordpoints-module'] = $this->meta['wordpoints-extension'];
@@ -158,11 +158,11 @@ class WordPoints_MakePOT extends MakePOT {
 			return false;
 		}
 
-		$placeholders = array();
+		$placeholders            = array();
 		$placeholders['version'] = $this->get_addon_header( 'Version', $source );
-		$placeholders['author'] = $this->get_addon_header( 'Author', $source );
-		$placeholders['name'] = $this->get_addon_header( 'Extension Name', $source );
-		$placeholders['slug'] = $slug;
+		$placeholders['author']  = $this->get_addon_header( 'Author', $source );
+		$placeholders['name']    = $this->get_addon_header( 'Extension Name', $source );
+		$placeholders['slug']    = $slug;
 
 		if ( empty( $placeholders['name'] ) ) {
 			$placeholders['name'] = $this->get_addon_header( 'Module Name', $source );

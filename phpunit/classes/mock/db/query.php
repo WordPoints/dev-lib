@@ -18,8 +18,8 @@ class WordPoints_PHPUnit_Mock_DB_Query extends WordPoints_DB_Query {
 	 * @since 2.6.0
 	 */
 	public $columns = array(
-		'id' => array( 'format' => '%d', 'unsigned' => true ),
-		'int_col' => array( 'format' => '%d' ),
+		'id'       => array( 'format' => '%d', 'unsigned' => true ),
+		'int_col'  => array( 'format' => '%d' ),
 		'text_col' => array( 'format' => '%s' ),
 		'date_col' => array( 'format' => '%s', 'is_date' => true ),
 	);

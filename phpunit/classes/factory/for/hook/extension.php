@@ -42,7 +42,7 @@ class WordPoints_PHPUnit_Factory_For_Hook_Extension extends WP_UnitTest_Factory_
 
 		$extensions = wordpoints_hooks()->get_sub_app( 'extensions' );
 
-		$slug = $args['slug'];
+		$slug  = $args['slug'];
 		$class = $args['class'];
 
 		unset( $args['slug'], $args['class'] );

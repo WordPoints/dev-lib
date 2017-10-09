@@ -26,7 +26,7 @@ class WordPoints_PHPUnit_Factory_For_User_Role extends WP_UnitTest_Factory_For_T
 		parent::__construct( $factory );
 
 		$this->default_generation_definitions = array(
-			'name' => new WP_UnitTest_Generator_Sequence(
+			'name'         => new WP_UnitTest_Generator_Sequence(
 				'user_role_%s'
 			),
 			'display_name' => new WP_UnitTest_Generator_Sequence(

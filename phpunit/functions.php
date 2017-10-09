@@ -36,7 +36,7 @@ function wordpoints_dev_lib_get_modules( $module_folder = '' ) {
 function wordpoints_dev_lib_get_extensions( $extension_folder = '' ) {
 
 	$extensions = array();
-	$headers = array(
+	$headers    = array(
 		'name'        => 'Extension Name',
 		'uri'         => 'Extension URI',
 		'module_name' => 'Module Name',
@@ -163,7 +163,7 @@ function wordpoints_dev_lib_load_module( $module_file ) {
 
 	require $module_file;
 
-	$module = wordpoints_module_basename( $module_file );
+	$module       = wordpoints_module_basename( $module_file );
 	$network_wide = is_multisite() && getenv( 'WORDPOINTS_NETWORK_ACTIVE' );
 
 	/**

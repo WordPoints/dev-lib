@@ -88,9 +88,9 @@ class WordPoints_PHPUnit_Mock_Hook_Extension
 	protected function validate_action_type_settings( $settings ) {
 
 		$this->validations[] = array(
-			'settings' => $settings,
-			'validator' => $this->validator,
-			'event_args' => $this->event_args,
+			'settings'    => $settings,
+			'validator'   => $this->validator,
+			'event_args'  => $this->event_args,
 			'field_stack' => $this->validator->get_field_stack(),
 		);
 

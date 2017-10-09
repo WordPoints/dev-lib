@@ -87,7 +87,7 @@ class WordPoints_PHPUnit_Mock_Entity_Context extends WordPoints_Entity_Context {
 			return false;
 		}
 
-		self::$stack[ $this->slug ][] = $this->get_current_id();
+		self::$stack[ $this->slug ][]     = $this->get_current_id();
 		self::$current_ids[ $this->slug ] = $id;
 
 		return true;

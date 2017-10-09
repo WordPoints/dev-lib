@@ -42,7 +42,7 @@ class WordPoints_PHPUnit_Factory_For_Hook_Action extends WP_UnitTest_Factory_For
 			WordPoints_PHPUnit_TestCase::mock_apps();
 		}
 
-		$slug = $args['slug'];
+		$slug  = $args['slug'];
 		$class = $args['class'];
 
 		unset( $args['slug'], $args['class'] );

@@ -29,7 +29,7 @@ class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements PHP_CodeSniffer_Sn
 		$tokens = $phpcsFile->getTokens();
 
 		$is_function = T_FUNCTION === $tokens[ $stackPtr ]['code'];
-		$is_class = ! $is_function;
+		$is_class    = ! $is_function;
 
 		// This is probably an interface.
 		if ( ! isset( $tokens[ $stackPtr ]['scope_closer'] ) ) {
@@ -56,7 +56,7 @@ class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements PHP_CodeSniffer_Sn
 		}
 
 		// Find the previous token (excluding scope modifiers and whitespace).
-		$exclude = PHP_CodeSniffer_Tokens::$methodPrefixes;
+		$exclude   = PHP_CodeSniffer_Tokens::$methodPrefixes;
 		$exclude[] = T_WHITESPACE;
 
 		$comment_closer = $phpcsFile->findPrevious( $exclude, $stackPtr - 1, 0, $exclude );

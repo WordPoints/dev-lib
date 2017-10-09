@@ -230,7 +230,7 @@ class WordPointsLoader extends Module {
 
 			if ( 'update_core' === $transient ) {
 				$array['version_checked'] = $GLOBALS['wp_version'];
-				$array['updates'] = array();
+				$array['updates']         = array();
 			}
 
 			set_site_transient( $transient, (object) $array );

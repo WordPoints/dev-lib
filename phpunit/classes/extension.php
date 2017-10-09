@@ -94,7 +94,7 @@ class WordPoints_PHPUnit_Extension {
 
 		$extensions = wordpoints_dev_lib_get_extensions( $this->dir );
 
-		$this->file = key( $extensions );
+		$this->file    = key( $extensions );
 		$this->headers = $extensions[ $this->file ];
 	}
 }

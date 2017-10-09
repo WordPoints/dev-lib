@@ -103,10 +103,10 @@ class WordPoints_PHPUnit_Mock_Entity_Restriction
 
 		if ( self::$listen_for_contexts ) {
 			self::$contexts_construct[] = array(
-				'context' => wordpoints_entities()
-					->get_sub_app( 'contexts' )
-					->get( self::$listen_for_contexts )
-					->get_current_id(),
+				'context'   => wordpoints_entities()
+						->get_sub_app( 'contexts' )
+						->get( self::$listen_for_contexts )
+						->get_current_id(),
 				'entity_id' => $entity_id,
 				'hierarchy' => $hierarchy,
 			);

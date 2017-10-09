@@ -91,23 +91,23 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 		);
 
 		$entity = array( 'test_entity' => $conditions );
-		$child = array( 'test_entity' => array( 'child' => $conditions ) );
+		$child  = array( 'test_entity' => array( 'child' => $conditions ) );
 
 		$both = $child;
 		$both['test_entity']['_conditions'] = $conditions['_conditions'];
 
 		return array(
-			'none' => array( array( $action_type => array() ) ),
-			'empty' => array( array( 'conditions' => array( $action_type => array() ) ) ),
-			'entity' => array( array( 'conditions' => array( $action_type => $entity ) ) ),
-			'child' => array( array( 'conditions' => array( $action_type => $child ) ) ),
-			'both' => array( array( 'conditions' => array( $action_type => $both ) ) ),
+			'none'         => array( array( $action_type => array() ) ),
+			'empty'        => array( array( 'conditions' => array( $action_type => array() ) ) ),
+			'entity'       => array( array( 'conditions' => array( $action_type => $entity ) ) ),
+			'child'        => array( array( 'conditions' => array( $action_type => $child ) ) ),
+			'both'         => array( array( 'conditions' => array( $action_type => $both ) ) ),
 			'two_entities' => array(
 				array(
 					'conditions' => array(
 						$action_type => array(
 							'test_entity' => $conditions,
-							'another' => $conditions,
+							'another'     => $conditions,
 						),
 					),
 				),
@@ -161,7 +161,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 		);
 
 		$invalid_setting_fields = array(
-			'type' => 'invalid',
+			'type'     => 'invalid',
 			'settings' => array(),
 		);
 
@@ -266,14 +266,14 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 
 		$data = array_merge(
 			array(
-				'action_type' => 'test_fire',
+				'action_type'         => 'test_fire',
 				'signature_arg_guids' => '',
-				'event' => 'test_event',
-				'reactor' => 'test_reactor',
-				'reaction_mode' => wordpoints_hooks()->get_current_mode(),
-				'reaction_store' => 'test_reaction_store',
+				'event'               => 'test_event',
+				'reactor'             => 'test_reactor',
+				'reaction_mode'       => wordpoints_hooks()->get_current_mode(),
+				'reaction_store'      => 'test_reaction_store',
 				'reaction_context_id' => array( 'site' => 1, 'network' => 1 ),
-				'reaction_id' => 1,
+				'reaction_id'         => 1,
 			)
 			, $data
 		);
@@ -289,12 +289,12 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 		}
 
 		if ( ! isset( $data['meta_key'] ) && ! isset( $data['meta_query'] ) ) {
-			$data['meta_key'] = 'reversed_by';
+			$data['meta_key']     = 'reversed_by';
 			$data['meta_compare'] = 'NOT EXISTS';
 		}
 
 		$query = new WordPoints_Hook_Hit_Query( $data );
-		$hits = $query->get();
+		$hits  = $query->get();
 
 		$this->assertCount( $count, $hits );
 
