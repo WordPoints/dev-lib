@@ -212,6 +212,19 @@
 		<exclude-pattern>src/classes/hook/reaction/store/options.php</exclude-pattern>
 	</rule>
 
+	<rule ref="Generic.Formatting.MultipleStatementAlignment">
+		<properties>
+			<property name="maxPadding" value="12" />
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="ignoreNewline" value="false" />
+			<property name="alignMultilineItems" value="!=100" />
+		</properties>
+	</rule>
+
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern type="relative">^/dev-lib/*</exclude-pattern>
 	<exclude-pattern>/.idea/*</exclude-pattern>
