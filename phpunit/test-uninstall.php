@@ -11,8 +11,10 @@
  * Tests uninstalling the extension.
  *
  * @since 1.0.0
+ *
+ * @covers WordPoints_My_Extension_Installable
  */
-class My_Extension_Uninstall_Test
+class WordPoints_My_Extension_Uninstall_Test
 	extends WordPoints_PHPUnit_TestCase_Extension_Uninstall {
 
 	/**
