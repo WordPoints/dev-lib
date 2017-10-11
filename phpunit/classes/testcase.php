@@ -1584,7 +1584,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			$message = '';
 
 			foreach ( $reaction->get_errors() as $error ) {
-				$message .= PHP_EOL . 'Field: ' . implode( '.',  $error['field'] );
+				$message .= PHP_EOL . 'Field: ' . implode( '.', $error['field'] );
 				$message .= PHP_EOL . 'Error: ' . $error['message'];
 			}
 
