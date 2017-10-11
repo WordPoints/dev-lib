@@ -384,7 +384,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		$updates->save();
 
 		set_site_transient(
-			'wrdpnts_' . md5( 'extension_server_api-wordpoints.org' )
+			'wordpoints_extension_server_api-wordpoints.org'
 			, 'edd_software_licensing_free'
 		);
 
