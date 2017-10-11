@@ -14,6 +14,9 @@
 
 		<!-- We indent breaks to the level of the case, not the case body. -->
 		<exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakIndent" />
+
+		<!-- We use comma-in-front style for multi-line function calls.-->
+		<exclude name="Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma" />
 	</rule>
 
 	<rule ref="WordPress-Extra">
