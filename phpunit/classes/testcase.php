@@ -837,15 +837,23 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 			$from = $this->previous_version;
 		}
 
-		$this->set_extension_db_version( $extension, $from );
+		$network_active = is_wordpoints_module_active_for_network(
+			WordPoints_Modules::get_data( $extension, 'raw_file' )
+		);
+
+		$this->set_extension_db_version( $extension, $from, $network_active );
 
 		// Make sure that the extension is marked as active in the database.
 		wordpoints_update_maybe_network_option(
 			'wordpoints_active_modules'
 			, array( $extension => 1 )
+			, $network_active
 		);
 
-		wordpoints_delete_maybe_network_option( 'wordpoints_installable_versions' );
+		wordpoints_delete_maybe_network_option(
+			'wordpoints_installable_versions'
+			, $network_active
+		);
 
 		// Run the update.
 		// Back-compat with WordPoints < 2.4.0.
