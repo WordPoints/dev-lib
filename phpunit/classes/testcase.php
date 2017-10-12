@@ -953,7 +953,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 
 			global $wpdb;
 
-			$installer = new WordPoints_Points_Installable();
+			$installer = new WordPoints_Points_Installable( 'points' );
 			$db_tables = $installer->get_db_tables();
 
 			foreach ( $db_tables['global'] as $table_name => $table_schema ) {
