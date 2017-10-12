@@ -28,6 +28,15 @@ class WordPointsLoader extends Module {
 	protected $config = array( 'extension' => null, 'module' => null );
 
 	/**
+	 * The WordPress loader.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @var \WordPoints_PHPUnit_Bootstrap_Loader
+	 */
+	protected $wordpress_loader;
+
+	/**
 	 * @since 2.4.0
 	 */
 	public function _cleanup() {
@@ -42,8 +51,9 @@ class WordPointsLoader extends Module {
 	 */
 	public function _initialize() {
 
-		// Load everything up and install it.
-		$this->load_wordpress();
+		// Prepare to load WordPress.
+		$this->wordpress_loader = \WordPoints_PHPUnit_Bootstrap_Loader::instance();
+
 		$this->load_wordpoints();
 
 		// Back-compat.
@@ -66,6 +76,9 @@ class WordPointsLoader extends Module {
 
 			$this->load_wordpoints_extension( $this->config['extension'] );
 		}
+
+		// Load everything up and install it.
+		$this->load_wordpress();
 
 		// Disable time-consuming unnecessary features, like update checks.
 		$this->streamline_wordpress();
@@ -109,12 +122,17 @@ class WordPointsLoader extends Module {
 		// Catch output from PHPUnit bootstrap.
 		ob_start();
 
-		/**
-		 * Sets up the WordPress test environment.
-		 *
-		 * @since 2.4.0
-		 */
-		require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
+		$this->wordpress_loader->remove_action(
+			'after_load_wordpress'
+			, array( $this->wordpress_loader, 'init_wordpoints_factory' )
+		);
+
+		$this->wordpress_loader->remove_action(
+			'after_load_wordpress'
+			, array( $this->wordpress_loader, 'throw_errors_for_database_errors' )
+		);
+
+		$this->wordpress_loader->load_wordpress();
 
 		$this->debugSection( 'WordPress Bootstrap Output', ob_get_clean() );
 
@@ -124,29 +142,6 @@ class WordPointsLoader extends Module {
 			. ( is_multisite() ? ' multisite' : '' )
 			. PHP_EOL
 		);
-	}
-
-	/**
-	 * Load and activate WordPoints.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @throws ModuleException If there is an error activating WordPoints.
-	 */
-	protected function load_wordpoints() {
-
-		$result = activate_plugin(
-			'wordpoints/wordpoints.php'
-			, ''
-			, (bool) getenv( 'WORDPOINTS_NETWORK_ACTIVE' )
-		);
-
-		if ( is_wp_error( $result ) ) {
-			throw new ModuleException(
-				__CLASS__
-				, "\nError activating WordPoints: " . $result->get_error_message()
-			);
-		}
 
 		echo(
 			'Running WordPoints '
@@ -157,46 +152,49 @@ class WordPointsLoader extends Module {
 	}
 
 	/**
+	 * Sets up to load WordPoints.
+	 *
+	 * @since 2.4.0
+	 */
+	protected function load_wordpoints() {
+
+		$this->wordpress_loader->add_plugin(
+			'wordpoints/wordpoints.php'
+			, getenv( 'WORDPOINTS_NETWORK_ACTIVE' )
+		);
+
+		$this->wordpress_loader->add_component( 'ranks' );
+	}
+
+	/**
 	 * Load and activate the module.
 	 *
 	 * @since 2.4.0
 	 * @deprecated 2.7.0 Use load_wordpoints_extension() instead.
 	 *
 	 * @param string $module The module, e.g., 'module/module.php'.
-	 *
-	 * @throws ModuleException If there is an error activating the module.
 	 */
 	protected function load_wordpoints_module( $module ) {
 		$this->load_wordpoints_extension( $module );
 	}
 
 	/**
-	 * Load and activate the extension.
+	 * Specify a WordPoints extension to load.
 	 *
 	 * @since 2.4.0 As load_wordpoints_module().
 	 * @since 2.7.0
 	 *
 	 * @param string $extension The extension, e.g., 'extension/extension.php'.
-	 *
-	 * @throws ModuleException If there is an error activating the extension.
 	 */
 	protected function load_wordpoints_extension( $extension ) {
 
-		$result = wordpoints_activate_module(
+		$this->wordpress_loader->add_extension(
 			$extension
-			, ''
 			, (bool) (
 				getenv( 'WORDPOINTS_EXTENSION_NETWORK_ACTIVE' )
 				|| getenv( 'WORDPOINTS_MODULE_NETWORK_ACTIVE' ) // Back-pat.
 			)
 		);
-
-		if ( is_wp_error( $result ) ) {
-			throw new ModuleException(
-				__CLASS__
-				, "\nError activating WordPoints extension: " . $result->get_error_message()
-			);
-		}
 
 		echo "Running WordPoints extension {$extension}\n";
 	}

@@ -15,4 +15,13 @@ Codeception\Util\Autoload::addNamespace(
 // Support lowercase "cept" suffixes for our test file names.
 WordPoints\Tests\Codeception\TestLoader::support_lowercase_formats();
 
+/**
+ * WordPoints bootstrap loader class.
+ *
+ * Used to load WordPress and any plugins and WordPoints extensions.
+ *
+ * @since 2.7.0
+ */
+require_once __DIR__ . '/../../dev-lib/phpunit/classes/bootstrap/loader.php';
+
 // EOF

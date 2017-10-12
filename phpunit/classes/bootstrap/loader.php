@@ -117,11 +117,37 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 	 *
 	 * @since 2.6.0
 	 *
-	 * @param string   $action   The action to hook the function to
+	 * @param string   $action   The action to hook the function to.
 	 * @param callable $function The function to hook to this action.
 	 */
 	public function add_action( $action, $function ) {
 		$this->actions[ $action ][] = $function;
+	}
+
+	/**
+	 * Unhook a function from a custom action.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string   $action   The action to unhook the function from.
+	 * @param callable $function The function to unhook from this action.
+	 *
+	 * @return bool Whether the function was removed successfully.
+	 */
+	public function remove_action( $action, $function ) {
+
+		if ( ! isset( $this->actions[ $action ] ) ) {
+			return false;
+		}
+
+		foreach ( $this->actions[ $action ] as $index => $func ) {
+			if ( $func === $function ) {
+				unset( $this->actions[ $action ][ $index ] );
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
