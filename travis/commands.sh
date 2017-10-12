@@ -106,7 +106,7 @@ setup-wpcept() {
 		return
 	fi
 
-	composer require --prefer-source codeception/codeception:2.1.4
+	composer require --prefer-source codeception/codeception:2.1.9
 	composer require --prefer-source lucatume/wp-browser:1.10.11
 
 	# We start the server up early so that it has time to prepare.
