@@ -69,7 +69,6 @@ if [ ! -e tests/codeception ]; then
 	echo Copying Codeception tests scaffold
 	mkdir -p tests/codeception
 	cp -r "$DEV_LIB_PATH"/wpcept/scaffold/* tests/codeception
-	ln -s ../../"$DEV_LIB_PATH"/wpcept/bootstrap.php tests/codeception/bootstrap.php
 fi
 
 # Copy the default Grunt file.
