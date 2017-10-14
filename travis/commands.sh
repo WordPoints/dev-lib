@@ -335,7 +335,7 @@ wpcept-basic() {
 		verbosity='-vvv'
 	fi
 
-	vendor/bin/wpcept "$verbosity" run "${@}"
+	vendor/bin/wpcept run "$verbosity" "${@}"
 }
 
 # EOF
