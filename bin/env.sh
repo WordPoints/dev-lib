@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Debugging
+if [[ -z $DEV_LIB_DEBUG ]]; then
+	export DEV_LIB_DEBUG=0
+fi
+
+# Project type
 if [[ $WORDPOINTS_PROJECT_TYPE == module ]]; then
 	WORDPOINTS_PROJECT_TYPE=extension
 fi

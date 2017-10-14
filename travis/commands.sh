@@ -109,11 +109,17 @@ setup-wpcept() {
 	composer require --prefer-source codeception/codeception:2.1.9
 	composer require --prefer-source lucatume/wp-browser:1.10.11
 
+	local redirect='>/dev/null'
+
+	if [[ $DEV_LIB_DEBUG == 1 ]]; then
+		redirect='>/dev/stdout'
+	fi
+
 	# We start the server up early so that it has time to prepare.
-	php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" >/dev/null 2>&1 &
+	php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" "$redirect" 2>&1 &
 
 	# Start up the webdriver so that it has time to prepare as well.
-	phantomjs --webdriver=4444 >/dev/null &
+	phantomjs --webdriver=4444 "$redirect" &
 }
 
 # Set up for the codesniff pass.
@@ -320,7 +326,13 @@ wpcept-basic() {
 		return
 	fi
 
-	vendor/bin/wpcept run "${@}"
+	local verbosity=''
+
+	if [[ $DEV_LIB_DEBUG == 1 ]]; then
+		verbosity='-vvv'
+	fi
+
+	vendor/bin/wpcept "$verbosity" run "${@}"
 }
 
 # EOF
