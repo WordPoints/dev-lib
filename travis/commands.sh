@@ -75,6 +75,9 @@ setup-phpunit() {
 			"$WP_TESTS_DIR"/includes/testcase-ajax.php
 	fi
 
+	# Set up default theme.
+	ln -s "$WP_CORE_DIR/wp-content/themes/twentyseventeen" "$WP_CORE_DIR/wp-content/themes/default"
+
 	if [[ $WORDPOINTS_PROJECT_TYPE == extension ]]; then
 
 		# Install WordPoints.
