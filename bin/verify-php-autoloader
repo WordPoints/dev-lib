@@ -42,7 +42,7 @@ define( 'ABSPATH', getenv( 'WP_CORE_DIR' ) . '/' );
  */
 require_once( ABSPATH . '/wp-includes/class-wp-widget.php' );
 
-if ( strpos( $dir, 'admin' ) ) {
+if ( strpos( implode( $argv ), 'admin' ) ) {
 	/**
 	 * Load the WP_List_Table class.
 	 *
