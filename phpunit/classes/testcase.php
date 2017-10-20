@@ -1625,6 +1625,27 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Asserts that two values are of ths same type and within a certain amount.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param mixed $expected The expected value.
+	 * @param mixed $actual   The actual value.
+	 * @param int   $delta    The maximum difference between the two values.
+	 */
+	public function assertSameWithDelta( $expected, $actual, $delta = 2 ) {
+
+		if ( $expected === $actual || gettype( $expected ) !== gettype( $actual ) ) {
+			$this->assertSame( $expected, $actual );
+		} else {
+			self::assertThat(
+				$actual
+				, new PHPUnit_Framework_Constraint_IsEqual( $expected, $delta )
+			);
+		}
+	}
+
+	/**
 	 * Asserts that two objects have identical properties.
 	 *
 	 * This differs from the behavior of assertEquals() in that strict comparison is
