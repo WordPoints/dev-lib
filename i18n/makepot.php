@@ -273,7 +273,7 @@ if ( __FILE__ === $included_files[0] ) {
 
 	} else {
 
-		$usage  = "Usage: php makepot.php <project> <directory> [<output> [<slug>]]  \n\n";
+		$usage  = "Usage: php makepot.php <project> <directory> [<output> [<slug>]]\n\n";
 		$usage .= "Generate POT file <output> from the files in <directory>\n";
 		$usage .= 'Available projects: ' . implode( ', ', $makepot->projects ) . "\n";
 		fwrite( STDERR, $usage );
