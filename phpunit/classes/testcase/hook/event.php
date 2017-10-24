@@ -81,6 +81,18 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	protected $hooks;
 
 	/**
+	 * Whether this event is a legacy points hook event.
+	 *
+	 * Only legacy events need to be tested against the legacy points reactor. These
+	 * are events which legacy points hooks are imported to.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @var bool
+	 */
+	protected $is_legacy_points_event = false;
+
+	/**
 	 * A list of targets which are expected to be tested.
 	 *
 	 * @since 2.6.0
@@ -299,6 +311,10 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 
 		$reactors = $this->hooks->get_sub_app( 'reactors' )->get_all();
 
+		if ( ! $this->is_legacy_points_event ) {
+			unset( $reactors['points_legacy'] );
+		}
+
 		$arg_types_index = array();
 
 		/** @var WordPoints_Hook_ReactorI $reactor */
@@ -398,7 +414,11 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 * @param int $user_id The ID of the user.
 	 */
 	protected function assert_user_has_points( $user_id ) {
-		$this->assertSame( 10, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame(
+			10
+			, wordpoints_get_points( $user_id, 'points' )
+			, 'The user should have been awarded 10 points.'
+		);
 	}
 
 	/**
@@ -409,7 +429,11 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 * @param int $user_id The ID of the user.
 	 */
 	protected function assert_user_has_no_points( $user_id ) {
-		$this->assertSame( 0, wordpoints_get_points( $user_id, 'points' ) );
+		$this->assertSame(
+			0
+			, wordpoints_get_points( $user_id, 'points' )
+			, 'The user should have had all of their points removed.'
+		);
 	}
 
 	// @codingStandardsIgnoreStart
