@@ -81,6 +81,18 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	protected $hooks;
 
 	/**
+	 * Whether this event is a legacy points hook event.
+	 *
+	 * Only legacy events need to be tested against the legacy points reactor. These
+	 * are events which legacy points hooks are imported to.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @var bool
+	 */
+	protected $is_legacy_points_event = false;
+
+	/**
 	 * A list of targets which are expected to be tested.
 	 *
 	 * @since 2.6.0
@@ -298,6 +310,10 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 		$this->hooks = wordpoints_hooks();
 
 		$reactors = $this->hooks->get_sub_app( 'reactors' )->get_all();
+
+		if ( ! $this->is_legacy_points_event ) {
+			unset( $reactors['points_legacy'] );
+		}
 
 		$arg_types_index = array();
 
