@@ -329,7 +329,7 @@ wpcept-basic() {
 		return
 	fi
 
-	local verbosity=''
+	local verbosity='-v'
 
 	if [[ $DEV_LIB_DEBUG == 1 ]]; then
 		verbosity='-vvv'
