@@ -301,6 +301,19 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 	/**
+	 * Deactivate a component.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $slug The component slug.
+	 *
+	 * @return bool Whether the component was deactivated successfully.
+	 */
+	public function hadDeactivatedComponent( $slug ) {
+		return \WordPoints_Components::instance()->deactivate( $slug );
+	}
+
+	/**
 	 * Activate a module.
 	 *
 	 * @since 2.5.0
