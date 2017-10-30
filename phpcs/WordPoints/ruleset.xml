@@ -9,9 +9,6 @@
 		-->
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound" />
 
-		<!-- https://github.com/WordPoints/dev-lib/issues/181 -->
-		<exclude name="Squiz.Commenting.LongConditionClosingComment.Invalid" />
-
 		<!-- We indent breaks to the level of the case, not the case body. -->
 		<exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakIndent" />
 
@@ -21,7 +18,6 @@
 
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Variables.GlobalVariables" />
-		<exclude name="Generic.Strings.UnnecessaryStringConcat" />
 		<!--
 			We check syntax separately, so no need to have PHPCS do it. (And it is a
 			huge performance hog since it does this with `shell_exec()`.)
@@ -116,8 +112,6 @@
 		</properties>
 	</rule>
 
-	<rule ref="PSR2.ControlStructures.ElseIfDeclaration" />
-
 	<rule ref="WordPoints.PHP.MissingEcho" />
 	<rule ref="WordPoints.PHP.RequiredParentMethodCall" />
 
@@ -136,9 +130,6 @@
 		<include-pattern>/tests/phpunit/tests/*</include-pattern>
 		<include-pattern>*/MissingCoversUnitTest.inc</include-pattern>
 	</rule>
-
-	<rule ref="Squiz.Scope.MethodScope"/>
-	<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
 
 	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
@@ -186,7 +177,6 @@
 		<!-- Deprecated legacy code. -->
 		<exclude-pattern>/tests/phpunit/includes/mocks/points-hooks.php</exclude-pattern>
 	</rule>
-	<rule ref="Generic.Files.OneInterfacePerFile"/>
 
 	<rule ref="WordPress.Files.FileName">
 		<properties>
