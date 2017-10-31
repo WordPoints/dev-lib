@@ -252,15 +252,15 @@ class WordPoints_PotExtMeta extends PotExtMeta {
 }
 
 // Run the CLI only if the file wasn't included.
-$included_files = get_included_files();
+$included_files = get_included_files(); // WPCS: prefix OK.
 
 if ( __FILE__ === $included_files[0] ) {
 
-	$makepot = new WordPoints_MakePOT();
+	$makepot = new WordPoints_MakePOT(); // WPCS: prefix OK.
 
 	if ( count( $argv ) >= 3 && in_array( $argv[1], $makepot->projects, true ) ) {
 
-		$result = call_user_func(
+		$result = call_user_func( // WPCS: prefix OK.
 			array( $makepot, str_replace( '-', '_', $argv[1] ) )
 			, realpath( $argv[2] )
 			, isset( $argv[3] ) ? $argv[3] : null
@@ -273,9 +273,9 @@ if ( __FILE__ === $included_files[0] ) {
 
 	} else {
 
-		$usage  = "Usage: php makepot.php <project> <directory> [<output> [<slug>]]\n\n";
-		$usage .= "Generate POT file <output> from the files in <directory>\n";
-		$usage .= 'Available projects: ' . implode( ', ', $makepot->projects ) . "\n";
+		$usage  = "Usage: php makepot.php <project> <directory> [<output> [<slug>]]\n\n"; // WPCS: prefix OK.
+		$usage .= "Generate POT file <output> from the files in <directory>\n"; // WPCS: prefix OK.
+		$usage .= 'Available projects: ' . implode( ', ', $makepot->projects ) . "\n"; // WPCS: prefix OK.
 		fwrite( STDERR, $usage );
 		exit( 1 );
 	}

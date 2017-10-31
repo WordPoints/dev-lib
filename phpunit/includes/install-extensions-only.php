@@ -7,10 +7,10 @@
  * @since 2.7.0
  */
 
-$extensions_info  = json_decode( $argv[1], true );
-$config_file_path = $argv[2];
-$is_multisite     = (bool) $argv[3];
-$custom_files     = json_decode( $argv[4], true );
+$extensions_info  = json_decode( $argv[1], true ); // WPCS: prefix OK.
+$config_file_path = $argv[2]; // WPCS: prefix OK.
+$is_multisite     = (bool) $argv[3]; // WPCS: prefix OK.
+$custom_files     = json_decode( $argv[4], true ); // WPCS: prefix OK.
 
 /**
  * The bootstrap file for loading WordPress.
@@ -19,7 +19,7 @@ $custom_files     = json_decode( $argv[4], true );
  */
 require dirname( __FILE__ ) . '/../../../vendor/jdgrimes/wpppb/src/bin/bootstrap.php';
 
-$data = $extensions_info;
+$data = $extensions_info; // WPCS: prefix OK.
 
 /**
  * Installs extensions.

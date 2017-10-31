@@ -28,7 +28,7 @@ define( 'WORDPOINTS_TESTS_DIR', rtrim( getenv( 'WORDPOINTS_TESTS_DIR' ), '/' ) )
  *
  * @type string
  */
-define( 'WP_HTTP_TC_CACHE_DIR', WORDPOINTS_TESTS_DIR . '/cache/wp-http-testcase' );
+define( 'WP_HTTP_TC_CACHE_DIR', WORDPOINTS_TESTS_DIR . '/cache/wp-http-testcase' ); // WPCS: prefix OK.
 
 if ( ! defined( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR' ) ) {
 
@@ -89,15 +89,15 @@ if ( ! defined( 'RUNNING_WORDPOINTS_EXTENSION_TESTS' ) ) {
 	require_once WORDPOINTS_TESTS_DIR . '/../../vendor/autoload_52.php';
 }
 
-$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
-$loader->add_plugin(
+$wordpoints_loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
+$wordpoints_loader->add_plugin(
 	'wordpoints/wordpoints.php'
 	, getenv( 'WORDPOINTS_NETWORK_ACTIVE' )
 );
 
-$loader->add_component( 'ranks' );
+$wordpoints_loader->add_component( 'ranks' );
 
-$loader->load_wordpress();
+$wordpoints_loader->load_wordpress();
 
 /**
  * Include the plugin's constants so that we can access the current version.

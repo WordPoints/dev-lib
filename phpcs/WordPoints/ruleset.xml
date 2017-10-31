@@ -219,6 +219,18 @@
 		<exclude-pattern>*/index.php</exclude-pattern>
 	</rule>
 
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array" value="wordpoints,_wordpoints,is_wordpoints" />
+		</properties>
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
+		<!-- These files are included within function scope. -->
+		<exclude-pattern>*/screens/*</exclude-pattern>
+		<exclude-pattern>src/uninstall.php</exclude-pattern>
+	</rule>
+
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern type="relative">^/dev-lib/*</exclude-pattern>
 	<exclude-pattern>/.idea/*</exclude-pattern>

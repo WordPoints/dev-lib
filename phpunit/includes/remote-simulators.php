@@ -53,18 +53,34 @@ WordPoints_PHPUnit_Class_Autoloader::register_dir(
  */
 require_once dirname( __FILE__ ) . '/../../../vendor/autoload_52.php';
 
-$loader = new WordPoints_PHPUnit_Remote_Simulator_Bootstrap_Loader();
+/**
+ * Initializes the remote simulator.
+ *
+ * Only available during remote simulation.
+ *
+ * @since 2.7.0
+ */
+function wordpoints_remote_simulator_init() {
 
-$simulator       = sanitize_key( $_SERVER['HTTP_X_WORDPOINTS_TESTS_SIMULATOR'] );
-$simulator_class = "WordPoints_PHPUnit_Remote_Simulator_{$simulator}";
+	if ( ! isset( $_SERVER['HTTP_X_WORDPOINTS_TESTS_SIMULATOR'] ) ) {
+		return;
+	}
 
-/** @var WordPoints_PHPUnit_Remote_Simulator $simulator */
-$simulator = new $simulator_class();
-$simulator->add_dependencies( $loader );
+	$loader = new WordPoints_PHPUnit_Remote_Simulator_Bootstrap_Loader();
 
-$loader->install_plugins();
+	$simulator       = sanitize_key( $_SERVER['HTTP_X_WORDPOINTS_TESTS_SIMULATOR'] );
+	$simulator_class = "WordPoints_PHPUnit_Remote_Simulator_{$simulator}";
 
-add_action( 'init', array( $simulator, 'start' ) );
-add_action( 'shutdown', array( $simulator, 'stop' ) );
+	/** @var WordPoints_PHPUnit_Remote_Simulator $simulator */
+	$simulator = new $simulator_class();
+	$simulator->add_dependencies( $loader );
+
+	$loader->install_plugins();
+
+	add_action( 'init', array( $simulator, 'start' ) );
+	add_action( 'shutdown', array( $simulator, 'stop' ) );
+}
+
+wordpoints_remote_simulator_init();
 
 // EOF

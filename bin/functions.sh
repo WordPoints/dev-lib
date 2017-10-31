@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
 
+# Get the value of an extension/plugin header.
+wpdl-get-extension-header () {
+
+	local header=$1
+
+	if [[ ! -e src ]]; then
+		return;
+	fi
+
+	local value=$(grep -oh "${header}: .*" src/*.php)
+	value=${value#"${header}: "}
+	value=${value##* }
+
+	echo -n "$value"
+}
+
 #*
 # Get the project's textdomain.
 #
@@ -7,9 +23,7 @@
 #/
 get-textdomain () {
 
-	text_domain=$(grep -oh "Text Domain: .*" src/*.php)
-	text_domain=${text_domain#"Text Domain: "}
-	text_domain=${text_domain##* }
+	text_domain=$(wpdl-get-extension-header "Text Domain")
 
 	if [[ $text_domain == '' ]]; then
 		echo Please enter the textdomain for your project:
@@ -137,12 +151,21 @@ wpdl-codesniff-phpcs-base() {
 		local phpcs="$PHPCS_DIR"/bin/"$command"
 	fi
 
+	local config
+	config=()
+
+	local prefix=$(wpdl-get-extension-header Namespace)
+
+	if [[ $prefix != '' ]]; then
+		config=(--runtime-set prefixes "wordpoints_${prefix}")
+	fi
+
 	if [ -z $2 ]; then
 		wpdl-get-codesniff-files PHP PHPCS
 	else
 		echo -n "${2}"
 	fi \
-		| xargs -0 "$phpcs" -s --standard="$WPCS_STANDARD"
+		| xargs -0 "$phpcs" -s --standard="$WPCS_STANDARD" "${config[@]}"
 }
 
 # Check php files with PHPCS.

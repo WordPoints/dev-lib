@@ -33,13 +33,13 @@ define( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR', dirname( __FILE__ ) );
  * @since 1.0.0 As RUNNING_WORDPOINTS_MODULE_TESTS
  * @since 2.7.0
  */
-define( 'RUNNING_WORDPOINTS_EXTENSION_TESTS', true );
+define( 'RUNNING_WORDPOINTS_EXTENSION_TESTS', true ); // WPCS: prefix OK.
 
 /**
  * @since 1.0.0
  * @deprecated 2.7.0
  */
-define( 'RUNNING_WORDPOINTS_MODULE_TESTS', true );
+define( 'RUNNING_WORDPOINTS_MODULE_TESTS', true ); // WPCS: prefix OK.
 
 /**
  * The path to the tests of the extension being tested.
@@ -79,26 +79,28 @@ WordPoints_PHPUnit_Class_Autoloader::register_dir(
  */
 require_once WORDPOINTS_DEV_LIB_PHPUNIT_DIR . '/functions.php';
 
-$extension = new WordPoints_PHPUnit_Module(
+$wordpoints_extension = new WordPoints_PHPUnit_Extension(
 	WORDPOINTS_EXTENSION_TESTS_DIR . '/../../src'
 );
 
 if ( is_dir( WORDPOINTS_EXTENSION_TESTS_DIR . '/classes/' ) ) {
 
-	$namespace = $extension->get_header( 'namespace' );
+	$wordpoints_namespace = $wordpoints_extension->get_header( 'namespace' );
 
-	if ( $namespace ) {
+	if ( $wordpoints_namespace ) {
 		WordPoints_PHPUnit_Class_Autoloader::register_dir(
 			WORDPOINTS_EXTENSION_TESTS_DIR . '/classes/'
-			, "WordPoints_{$namespace}_PHPUnit_"
+			, "WordPoints_{$wordpoints_namespace}_PHPUnit_"
 		);
 	}
+
+	unset( $wordpoints_namespace );
 }
 
 // This is mainly left here for back-compat with pre 2.5.0 behavior.
-$has_uninstall_tester = is_dir( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/' );
+$wordpoints_has_uninstall_tester = is_dir( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../vendor/wordpoints/module-uninstall-tester/' );
 
-if ( $has_uninstall_tester ) {
+if ( $wordpoints_has_uninstall_tester ) {
 
 	/**
 	 * The plugin uninstall testing functions.
@@ -169,28 +171,28 @@ if (
 	&& ! defined( 'WORDPOINTS_MODULE_TESTS_LOADER' )
 ) {
 
-	$loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
-	$loader->add_extension(
-		$extension->get_basename()
+	$wordpoints_loader = WordPoints_PHPUnit_Bootstrap_Loader::instance();
+	$wordpoints_loader->add_extension(
+		$wordpoints_extension->get_basename()
 		, (
 			getenv( 'WORDPOINTS_EXTENSION_NETWORK_ACTIVE' )
 			|| getenv( 'WORDPOINTS_MODULE_NETWORK_ACTIVE' ) // Back-pat.
 		)
 	);
 
-} elseif ( ! $has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() ) {
+} elseif ( ! $wordpoints_has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() ) {
 
 	// Hook to load WordPoints.
 	tests_add_filter( 'muplugins_loaded', 'wordpointstests_manually_load_plugin' );
 
 	// Hook to load the extension.
-	if ( defined( 'WORDPOINTS_MODULE_TESTS_LOADER' ) ) {
-		$module_loader = WORDPOINTS_MODULE_TESTS_LOADER;
-	} else {
-		$module_loader = 'wordpoints_dev_lib_load_the_module';
-	}
-
-	tests_add_filter( 'plugins_loaded', $module_loader, 14 );
+	tests_add_filter(
+		'plugins_loaded',
+		defined( 'WORDPOINTS_MODULE_TESTS_LOADER' )
+			? WORDPOINTS_MODULE_TESTS_LOADER
+			: 'wordpoints_dev_lib_load_the_module'
+		, 14
+	);
 }
 
 /**
@@ -210,7 +212,7 @@ if ( file_exists( getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php'
 	require_once getenv( 'WP_TESTS_DIR' ) . '/includes/speed-trap-listener.php';
 }
 
-if ( $has_uninstall_tester ) {
+if ( $wordpoints_has_uninstall_tester ) {
 
 	/**
 	 * The plugin uninstall testing bootstrap.
@@ -228,8 +230,8 @@ if ( $has_uninstall_tester ) {
 }
 
 if (
-	( ! $has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() )
-	&& ( ! isset( $loader ) || ! $loader->running_uninstall_tests() )
+	( ! $wordpoints_has_uninstall_tester || ! running_wordpoints_module_uninstall_tests() )
+	&& ( ! isset( $wordpoints_loader ) || ! $wordpoints_loader->running_uninstall_tests() )
 	&& file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/../../src/admin/admin.php' )
 ) {
 
@@ -240,6 +242,8 @@ if (
 	 */
 	require_once WORDPOINTS_EXTENSION_TESTS_DIR . '/../../src/admin/admin.php';
 }
+
+unset( $wordpoints_loader, $wordpoints_extension, $wordpoints_has_uninstall_tester );
 
 if ( file_exists( WORDPOINTS_EXTENSION_TESTS_DIR . '/includes/bootstrap.php' ) ) {
 

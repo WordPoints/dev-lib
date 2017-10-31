@@ -61,6 +61,11 @@
 		</properties>
 	</rule>
 
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<exclude-pattern>/wpcept/scaffold/_support/AcceptanceTester.php</exclude-pattern>
+		<exclude-pattern>/phpunit/test.php</exclude-pattern>
+	</rule>
+
 	<!-- These are copied from PHPUnit Mock Objects. -->
 	<exclude-pattern>phpunit/classes/mock/object/builder/invocation/mocker.php</exclude-pattern>
 	<exclude-pattern>/phpunit/classes/mock/object/matcher/parameters/consecutive.php</exclude-pattern>

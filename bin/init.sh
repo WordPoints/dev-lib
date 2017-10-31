@@ -76,9 +76,7 @@ if [ ! -e Gruntfile.js ]; then
 	echo Copying Grunt configuration file
 	cp "$DEV_LIB_PATH"/grunt/Gruntfile.js ./
 
-	namespace=$(grep -oh "Namespace: .*" src/*.php)
-	namespace=${namespace#"Namespace: "}
-	namespace=${namespace##* }
+	namespace=$(wpdl-get-extension-header Namespace)
 	namespace=$(echo "$namespace" | tr '[:upper:]' '[:lower:]')
 
 	sed -i '' "s/%class_prefix%/wordpoints_${namespace}_/" Gruntfile.js
