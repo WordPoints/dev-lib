@@ -415,6 +415,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		$extension_data->set( 'package', $package );
 		$extension_data->set( 'changelog', 'Test changelog for Module 7.' );
 		$extension_data->set( 'is_free', true );
+		$extension_data->set( 'ed25519_signature', 'ff6910b2f3760d62bf6cccda5c5d558bf8544a783757bcff2f4625e039c7b1231b14de3bdceec2f385841c90f77bbc0bfd1f93a859ae24ff2fc0e42eb712f608' );
 
 		if ( ! file_exists( $destination ) ) {
 			copy(

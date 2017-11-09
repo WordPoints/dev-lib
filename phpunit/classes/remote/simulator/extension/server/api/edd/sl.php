@@ -22,6 +22,7 @@ class WordPoints_PHPUnit_Remote_Simulator_Extension_Server_API_EDD_SL
 
 		$loader->add_plugin( 'easy-digital-downloads/easy-digital-downloads.php' );
 		$loader->add_plugin( 'edd-software-licensing/edd-software-licenses.php' );
+		$loader->add_plugin( 'edd-sl-cryptographic-signatures/edd-sl-cryptographic-signatures.php' );
 	}
 
 	/**
@@ -42,6 +43,14 @@ class WordPoints_PHPUnit_Remote_Simulator_Extension_Server_API_EDD_SL
 		add_post_meta( 123, 'edd_price', '100.00' );
 		add_post_meta( 123, '_edd_sl_version', '1.2.3' );
 		add_post_meta( 123, '_edd_sl_changelog', 'A test changelog.' );
+		add_post_meta( 123, '_edd_sl_upgrade_file_key', 1 );
+		add_post_meta(
+			123
+			, 'edd_download_files'
+			, array(
+				1 => array( 'ed25519_signature' => 'test_signature' ),
+			)
+		);
 
 		// Create the license.
 		$license_id = wp_insert_post(
