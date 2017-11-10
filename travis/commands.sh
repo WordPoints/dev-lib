@@ -86,13 +86,7 @@ setup-phpunit() {
 			| tar xvz --strip-components=1 -C "$WORDPOINTS_DEVELOP_DIR"
 		ln -s  "$WORDPOINTS_DEVELOP_DIR"/src "$WP_CORE_DIR"/wp-content/plugins/wordpoints
 
-		local extensions_dir
-
-		if [[ $WORDPOINTS_VERSION == master ]]; then
-			extensions_dir="$WP_CORE_DIR"/wp-content/wordpoints-modules
-		else
-			extensions_dir="$WP_CORE_DIR"/wp-content/wordpoints-extensions
-		fi
+		local extensions_dir="$WP_CORE_DIR"/wp-content/wordpoints-extensions
 
 		mkdir "$extensions_dir"
 		ln -s "$PROJECT_DIR" "$extensions_dir"/"$PROJECT_SLUG"
