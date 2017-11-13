@@ -154,10 +154,14 @@ wpdl-codesniff-phpcs-base() {
 	local config
 	config=()
 
+	if [[ $PROJECT_SLUG != 'wordpoints' ]]; then
+		config=(--runtime-set minimum_supported_wp_version 4.7)
+	fi
+
 	local prefix=$(wpdl-get-extension-header Namespace)
 
 	if [[ $prefix != '' ]]; then
-		config=(--runtime-set prefixes "wordpoints_${prefix}")
+		config=("${config[@]}" --runtime-set prefixes "wordpoints_${prefix}")
 	fi
 
 	if [ -z $2 ]; then

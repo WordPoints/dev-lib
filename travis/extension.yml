@@ -14,9 +14,10 @@ env:
     - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=develop
     - TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=develop
+    - TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=master
     - TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
     - TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=develop
     - TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
 
 dist: trusty
@@ -40,13 +41,16 @@ matrix:
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
     - php: 5.3
       dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=develop
+    - php: 5.3
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=master
+    - php: 5.3
+      dist: precise
       env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
     - php: 5.3
       dist: precise
       env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
-    - php: 5.3
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=develop
     - php: 5.3
       dist: precise
       env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
@@ -58,13 +62,16 @@ matrix:
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
     - php: 5.2
       dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=develop
+    - php: 5.2
+      dist: precise
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=master
+    - php: 5.2
+      dist: precise
       env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
     - php: 5.2
       dist: precise
       env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
-    - php: 5.2
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=develop
     - php: 5.2
       dist: precise
       env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
