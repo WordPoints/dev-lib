@@ -1703,15 +1703,17 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 * is used.
 	 *
 	 * @since 2.6.0
+	 * @since 2.7.0 The $message arg was added.
 	 *
-	 * @param mixed $value The value that an array is expected to contain.
-	 * @param array $array The array that should contain an identical value.
+	 * @param mixed  $value   The value that an array is expected to contain.
+	 * @param array  $array   The array that should contain an identical value.
+	 * @param string $message An optional message.
 	 */
-	public function assertContainsSame( $value, $array ) {
+	public function assertContainsSame( $value, $array, $message = '' ) {
 
 		$this->assertInternalType( 'array', $array );
 
-		$this->assertTrue( in_array( $value, $array, true ) );
+		$this->assertTrue( in_array( $value, $array, true ), $message );
 	}
 
 	/**

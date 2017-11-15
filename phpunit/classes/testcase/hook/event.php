@@ -277,9 +277,10 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	public function test_checked_expected_targets() {
 
 		foreach ( self::$_expected_targets as $expected_target ) {
-			if ( ! in_array( $expected_target, self::$tested_targets, true ) ) {
-				$this->fail(
-					'Expected target not tested: '
+			$this->assertContainsSame(
+				$expected_target
+				, self::$tested_targets
+				, 'Expected target not tested: '
 					. self::target_implode( $expected_target ) . PHP_EOL . PHP_EOL
 					. 'Tested targets:' . PHP_EOL
 					. implode(
@@ -291,8 +292,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 							)
 						)
 					)
-				);
-			}
+			);
 		}
 
 		self::$tested_targets = array();
