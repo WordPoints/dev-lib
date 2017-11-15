@@ -501,6 +501,25 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 			add_filter( 'wordpoints_is_uninstalling', '__return_false' );
 		}
 	}
+
+	/**
+	 * @since 2.7.0
+	 */
+	public function phpunit_compat() {
+
+		parent::phpunit_compat();
+
+		if (
+			class_exists( 'PHPUnit\Runner\Version' )
+			&& version_compare( PHPUnit\Runner\Version::id(), '6.0', '>=' )
+		) {
+
+			class_alias(
+				'PHPUnit\Framework\Constraint\StringContains'
+				, 'PHPUnit_Framework_Constraint_StringContains'
+			);
+		}
+	}
 }
 
 // EOF
