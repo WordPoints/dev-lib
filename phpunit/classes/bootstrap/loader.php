@@ -509,10 +509,7 @@ class WordPoints_PHPUnit_Bootstrap_Loader extends WPPPB_Loader {
 
 		parent::phpunit_compat();
 
-		if (
-			class_exists( 'PHPUnit\Runner\Version' )
-			&& version_compare( PHPUnit\Runner\Version::id(), '6.0', '>=' )
-		) {
+		if ( class_exists( 'PHPUnit\Runner\Version' ) ) {
 
 			class_alias(
 				'PHPUnit\Framework\Constraint\StringContains'
