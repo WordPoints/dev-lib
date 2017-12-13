@@ -191,7 +191,8 @@ wpdl-codesniff-strings() {
 			-e 'target="_blank"' \
 			-e http[^s_.-] \
 			-e '<script' -e '\son[a-z]+=' -e '<style' -e 'style=' \
-			-e 'button-secondary' -e '"button-primary'
+			-e 'button-secondary' -e '"button-primary' \
+			-e 'md5'
 
 	# grep exits with 1 if nothing was found.
 	[[ $? == '1' ]]
