@@ -17,8 +17,6 @@ WP_L10n_Validator::register_config_callback(
 				'define'       => true,
 			)
 		);
-
-		$parser->add_ignored_strings( array( 'style="display:none;"' ) );
 	}
 );
 
