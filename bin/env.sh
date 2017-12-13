@@ -47,7 +47,7 @@ CODESNIFF_PATH_XML=("${CODESNIFF_PATH[@]}" '(' -name '*.xml' -o -name '*.xml.dis
 CODESNIFF_PATH_BASH=("${CODESNIFF_PATH[@]}" -name '*.sh')
 CODESNIFF_PATH_STRINGS=("${CODESNIFF_PATH[@]}" '!' -name "*.lock" '!' -path "*/_generated/*" '!' -path "*/_output/*" '!' -name "*.min*" '!' -name "*-rtl*")
 CODESNIFF_PATH_STRINGS_DITTOGRAPHY=("${CODESNIFF_PATH_STRINGS[@]}")
-CODESNIFF_IGNORED_STRINGS=(-e http://semver.org/ -e http://keepachangelog.com/ -e http://www.php-fig.org/ -e http://127.0.0.1:8080 -e CODESNIFF_IGNORED_STRINGS -e 'grep -e' -e 'type="text/template"')
+CODESNIFF_IGNORED_STRINGS=(-e http://semver.org/ -e http://keepachangelog.com/ -e http://www.php-fig.org/ -e http://127.0.0.1:8080 -e CODESNIFF_IGNORED_STRINGS -e '\s-e ' -e 'type="text/template"')
 CODESNIFF_IGNORED_DITTOGRAPHY=(-e CODESNIFF_IGNORED_DITTOGRAPHY -e 'px auto auto' -e "\['input input'\]")
 
 export CODESNIFF_PATH

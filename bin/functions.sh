@@ -187,7 +187,11 @@ wpdl-codesniff-strings() {
 
 	wpdl-get-codesniff-files STRINGS \
 		| xargs -0 grep -H -n -v "${CODESNIFF_IGNORED_STRINGS[@]}" \
-		| grep -e 'target="_blank"' -e http[^s_.-] -e '<script' -e '\son[a-z]+=' -e '<style' -e 'style='
+		| grep --color=auto \
+			-e 'target="_blank"' \
+			-e http[^s_.-] \
+			-e '<script' -e '\son[a-z]+=' -e '<style' -e 'style=' \
+			-e 'button-secondary' -e '"button-primary'
 
 	# grep exits with 1 if nothing was found.
 	[[ $? == '1' ]]
