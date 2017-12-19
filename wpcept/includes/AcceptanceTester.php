@@ -9,14 +9,19 @@
 
 namespace WordPoints\Tests\Codeception;
 
+use _generated\AcceptanceTesterActions;
+use Codeception\Actor;
+use Facebook\WebDriver\Exception\InvalidElementStateException;
+use Facebook\WebDriver\WebDriverElement;
+
 /**
  * Tester for use in the acceptance tests.
  *
  * @since 2.4.0
  */
-class AcceptanceTester extends \Codeception\Actor {
+class AcceptanceTester extends Actor {
 
-	use \_generated\AcceptanceTesterActions;
+	use AcceptanceTesterActions;
 
 	/**
 	 * Logs the user in as the admin.
@@ -73,7 +78,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		// and may not be manipulated."
 		$I->waitForElementChange(
 			$element
-			, function ( \Facebook\WebDriver\WebDriverElement $element ) {
+			, function ( WebDriverElement $element ) {
 
 				try {
 
@@ -81,10 +86,10 @@ class AcceptanceTester extends \Codeception\Actor {
 					// reaction and doesn't have a description yet.
 					$element->clear();
 
-				} catch ( \Facebook\WebDriver\Exception\InvalidElementStateException $e ) {
+				} catch ( InvalidElementStateException $e ) {
 
 					codecept_debug(
-						'Error while waiting for new reaction:' . $e->getMessage()
+						'Error while waiting for element to become interactable:' . $e->getMessage()
 					);
 				}
 
@@ -168,7 +173,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 	/**
-	 * Asserts taht a points type exists in the database.
+	 * Asserts that a points type exists in the database.
 	 *
 	 * @since 2.4.0
 	 *
