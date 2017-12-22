@@ -19,7 +19,7 @@
 	</rule>
 
 	<rule ref="WordPress-Extra">
-		<exclude name="WordPress.Variables.GlobalVariables" />
+		<exclude name="WordPress.WP.GlobalVariablesOverride" />
 		<!--
 			We check syntax separately, so no need to have PHPCS do it. (And it is a
 			huge performance hog since it does this with `shell_exec()`.)
@@ -45,16 +45,9 @@
 		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
 	</rule>
 
-	<rule ref="WordPress-VIP">
-		<exclude name="WordPress.VIP.SuperGlobalInputUsage" />
-		<exclude name="WordPress.VIP.DirectDatabaseQuery.SchemaChange" />
-		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
-		<!--
-			These rules are excluded because they produce error-level false
-			positives. They will be added back in when the changes are committed to
-			the stable version upstream. Until then, the issue numbers are supplied.
-		-->
-		<exclude name="WordPress.VIP.SlowDBQuery" /><!-- WordPoints/wordpoints#90 -->
+	<rule ref="WordPress.DB.DirectDatabaseQuery">
+		<exclude name="WordPress.DB.DirectDatabaseQuery.SchemaChange" />
+		<exclude name="WordPress.DB.DirectDatabaseQuery.DirectQuery" />
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.ValidFunctionName">
@@ -73,38 +66,23 @@
 		</properties>
 	</rule>
 
-	<rule ref="WordPress.VIP.RestrictedFunctions">
-		<properties>
-			<property name="exclude" value="switch_to_blog,custom_role,wp_is_mobile,user_meta" />
-		</properties>
-	</rule>
-	<rule ref="WordPress.VIP.RestrictedVariables">
-		<properties>
-			<property name="exclude" value="user_meta" />
-		</properties>
-		<exclude-pattern>/tests/*</exclude-pattern>
-	</rule>
-	<rule ref="WordPress.VIP.DirectDatabaseQuery">
+	<rule ref="WordPress.DB.DirectDatabaseQuery">
 		<properties>
 			<property name="customCacheDeleteFunctions" value="wordpoints_flush_points_logs_caches" type="array" />
 		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
-	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
+	<rule ref="WordPress.Security.ValidatedSanitizedInput">
 		<properties>
 			<property name="customSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_verify_nonce" type="array" />
 			<property name="customUnslashingSanitizingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint" type="array" />
 		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
-	<rule ref="WordPress.XSS.EscapeOutput">
+	<rule ref="WordPress.Security.EscapeOutput">
 		<properties>
 			<property name="customEscapingFunctions" value="wordpoints_int,wordpoints_posint,wordpoints_negint,wordpoints_format_points,wordpoints_sanitize_wp_error" type="array" />
 		</properties>
-		<exclude-pattern>/tests/*</exclude-pattern>
-	</rule>
-	<rule ref="WordPress.VIP.FileSystemWritesDisallow">
-		<exclude-pattern>/tools/*</exclude-pattern>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
@@ -117,14 +95,14 @@
 	<rule ref="WordPoints.PHP.MissingEcho" />
 	<rule ref="WordPoints.PHP.RequiredParentMethodCall" />
 
-	<rule ref="WordPress.CSRF.NonceVerification">
+	<rule ref="WordPress.Security.NonceVerification">
 		<properties>
 			<property name="customNonceVerificationFunctions" value="wordpoints_verify_nonce" type="array" />
 		</properties>
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
-	<rule ref="WordPress.WP.PreparedSQL">
+	<rule ref="WordPress.DB.PreparedSQL">
 		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
@@ -135,10 +113,6 @@
 
 	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
 		<exclude-pattern>/tests/codeception/*</exclude-pattern>
-	</rule>
-
-	<rule ref="WordPress.VIP.RestrictedFunctions.error_log">
-		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 
 	<rule ref="WordPress.WP.I18n.MissingTranslatorsComment">
