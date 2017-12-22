@@ -3,10 +3,10 @@
 	<description>Sniffs for the coding standards of the WordPoints plugin</description>
 
 	<rule ref="phpcs/WordPoints/ruleset.xml">
-		<exclude name="WordPress.XSS.EscapeOutput" />
-		<exclude name="WordPress.CSRF.NonceVerification" />
-		<exclude name="WordPress.WP.PreparedSQL" />
-		<exclude name="WordPress.VIP.DirectDatabaseQuery.NoCaching" />
+		<exclude name="WordPress.Security.EscapeOutput" />
+		<exclude name="WordPress.Security.NonceVerification" />
+		<exclude name="WordPress.DB.PreparedSQL" />
+		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching" />
 		<exclude name="WordPoints.PHPUnit.MissingCovers" />
 	</rule>
 
@@ -19,12 +19,6 @@
 	<rule ref="WordPress.WP.AlternativeFunctions">
 		<properties>
 			<property name="exclude" value="file_system_read" />
-		</properties>
-	</rule>
-
-	<rule ref="WordPress.VIP.FileSystemWritesDisallow">
-		<properties>
-			<property name="exclude" value="file_ops" />
 		</properties>
 	</rule>
 
