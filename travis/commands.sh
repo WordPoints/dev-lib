@@ -115,8 +115,15 @@ setup-wpcept() {
 	# We start the server up early so that it has time to prepare.
 	php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" >"$redirect" 2>&1 &
 
+
+	local debug='false'
+
+	if [[ $DEV_LIB_DEBUG == 1 ]]; then
+		debug='true'
+	fi
+
 	# Start up the webdriver so that it has time to prepare as well.
-	phantomjs --webdriver=4444 >"$redirect" &
+	phantomjs --webdriver=4444 --debug="$debug" >"$redirect" &
 }
 
 # Set up for the codesniff pass.
