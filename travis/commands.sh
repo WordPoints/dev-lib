@@ -106,6 +106,18 @@ setup-wpcept() {
 	composer require --prefer-source codeception/codeception:2.1.9
 	composer require --prefer-source lucatume/wp-browser:1.10.11
 
+	# Install an older version of PhantomJS.
+	# See https://github.com/WordPoints/wordpoints/issues/757
+	local PHANTOM_VERSION="phantomjs-1.9.8"
+	local PHANTOM_JS="$PHANTOM_VERSION-linux-x86_64"
+
+	cd /tmp/
+	wget "https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2"
+	tar xvjf "$PHANTOM_JS.tar.bz2"
+
+	alias phantomjs="/tmp/$PHANTOM_JS/bin/phantomjs"
+	cd -
+
 	local redirect='/dev/null'
 
 	if [[ $DEV_LIB_DEBUG == 1 ]]; then
@@ -114,7 +126,6 @@ setup-wpcept() {
 
 	# We start the server up early so that it has time to prepare.
 	php -S "$WP_CEPT_SERVER" -t "$WP_CORE_DIR" >"$redirect" 2>&1 &
-
 
 	local debug='false'
 
