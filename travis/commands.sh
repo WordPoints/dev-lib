@@ -106,17 +106,15 @@ setup-wpcept() {
 	composer require --prefer-source codeception/codeception:2.1.9
 	composer require --prefer-source lucatume/wp-browser:1.10.11
 
-	# Install an older version of PhantomJS.
-	# See https://github.com/WordPoints/wordpoints/issues/757
-	local PHANTOM_VERSION="phantomjs-1.9.8"
-	local PHANTOM_JS="$PHANTOM_VERSION-linux-x86_64"
+	if [[ $PHANTOMJS_VERSION != '' ]]; then
 
-	cd /tmp/
-	wget "https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2"
-	tar xvjf "$PHANTOM_JS.tar.bz2"
+		cd /tmp/
+		wget "https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOMJS_VERSION.tar.bz2"
+		tar xvjf "$PHANTOMJS_VERSION.tar.bz2"
 
-	alias phantomjs="/tmp/$PHANTOM_JS/bin/phantomjs"
-	cd -
+		alias phantomjs="/tmp/$PHANTOMJS_VERSION/bin/phantomjs"
+		cd -
+	fi
 
 	local redirect='/dev/null'
 

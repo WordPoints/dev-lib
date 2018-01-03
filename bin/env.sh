@@ -100,6 +100,7 @@ export DO_CODE_COVERAGE=$(if [[ $TRAVIS_PHP_VERSION == '7.0' ]] && grep -q codec
 # WP Browser (Codeception)
 export DO_WP_CEPT=$(if [[ $TRAVIS_PHP_VERSION == '7.0' ]] && find tests/codeception/acceptance/ -mindepth 1 -name "*.cept.php" | read; then echo 1; else echo 0; fi)
 export WP_CEPT_SERVER='127.0.0.1:8080'
+export PHANTOMJS_VERSION='' # E.g.: phantomjs-1.9.8-linux-x86_64
 
 # WordPoints
 if [[ -z $WORDPOINTS_DEVELOP_DIR ]]; then
