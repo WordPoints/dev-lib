@@ -33,8 +33,8 @@ foreach ( $wordpoints_extensions as $wordpoints_extension => $extension_info ) {
 
 		echo "Error: Extension activation failed for {$wordpoints_extension}:" . PHP_EOL;
 
-		foreach ( $wordpoints_result->get_error_messages() as $message ) {
-			echo "- {$message}" . PHP_EOL;
+		foreach ( $wordpoints_result->get_error_messages() as $wordpoints_message ) {
+			echo "- {$wordpoints_message}" . PHP_EOL;
 		}
 
 		exit( 1 );
