@@ -62,6 +62,9 @@ matrix:
       env: TRAVISCI_RUN=codesniff
     - php: 5.4
       env: TRAVISCI_RUN=codesniff
+    # WordPress 4.8 is not compatible with PHP 7.2.
+    - php: 7.2
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8
   allow_failures:
     - php: nightly
   fast_finish: true

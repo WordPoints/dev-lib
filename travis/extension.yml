@@ -90,6 +90,13 @@ matrix:
       env: TRAVISCI_RUN=codesniff
     - php: 5.4
       env: TRAVISCI_RUN=codesniff
+    # WordPress below 4.9 is not compatible with PHP 7.2.
+    - php: 7.2
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
+    - php: 7.2
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
+    - php: 7.2
+      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
   allow_failures:
     - php: nightly
   fast_finish: true
