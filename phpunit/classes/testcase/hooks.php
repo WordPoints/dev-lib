@@ -256,18 +256,20 @@ abstract class WordPoints_PHPUnit_TestCase_Hooks extends WordPoints_PHPUnit_Test
 	 * Assert that one or more hits were logged.
 	 *
 	 * @since 2.6.0
+	 * @since 2.7.0 The $signature_arg_guids parameter was added.
 	 *
-	 * @param array $data  The hit data.
-	 * @param int   $count The number of expected logs.
+	 * @param array  $data                The hit data.
+	 * @param int    $count               The number of expected logs.
+	 * @param string $signature_arg_guids The GUIDs of the signature args.
 	 */
-	public function assertHitsLogged( array $data, $count = 1 ) {
+	public function assertHitsLogged( array $data, $count = 1, $signature_arg_guids = '' ) {
 
 		$now = current_time( 'timestamp', true );
 
 		$data = array_merge(
 			array(
 				'action_type'         => 'test_fire',
-				'signature_arg_guids' => '',
+				'signature_arg_guids' => $signature_arg_guids,
 				'event'               => 'test_event',
 				'reactor'             => 'test_reactor',
 				'reaction_mode'       => wordpoints_hooks()->get_current_mode(),
