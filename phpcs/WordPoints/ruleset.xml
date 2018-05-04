@@ -43,6 +43,8 @@
 		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
 		<!-- https://github.com/squizlabs/PHP_CodeSniffer/issues/601 -->
 		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
+		<!-- This unfortunately flags even cases where there are only tags. -->
+		<exclude name="Generic.Commenting.DocComment.SpacingBeforeTags" />
 	</rule>
 
 	<rule ref="WordPress.DB.DirectDatabaseQuery">
