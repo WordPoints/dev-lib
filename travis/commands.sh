@@ -37,8 +37,12 @@ setup-phpunit() {
 	setup-composer
 
 	if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." || $TRAVIS_PHP_VERSION == nightly ]]; then
+
 		export PATH="$HOME/.composer/vendor/bin:$PATH"
 		composer global require "phpunit/phpunit=^6"
+
+		which phpunit
+		phpunit --version
 	fi
 
 	# Fix method() not being available for mocked classes on PHPUnit 3.6.
