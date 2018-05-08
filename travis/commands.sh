@@ -38,7 +38,12 @@ setup-phpunit() {
 
 	if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." || $TRAVIS_PHP_VERSION == nightly ]]; then
 
-		export PATH="$HOME/.composer/vendor/bin:$PATH"
+		if [[ $TRAVIS_PHP_VERSION == "7.0" ]]; then
+			export PATH="$HOME/.composer/vendor/bin:$PATH"
+		else
+			export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+		fi
+
 		composer global require "phpunit/phpunit=^6"
 
 		which phpunit
