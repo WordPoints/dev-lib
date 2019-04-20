@@ -16,6 +16,7 @@
 
 		<!-- We use comma-in-front style for multi-line function calls.-->
 		<exclude name="Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
 	</rule>
 
 	<rule ref="WordPress-Extra">
