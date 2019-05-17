@@ -7,7 +7,9 @@
  * @since 2.6.0
  */
 
-use WordPress\AbstractFunctionRestrictionsSniff;
+use WordPressCS\WordPress\AbstractFunctionRestrictionsSniff;
+use PHP_CodeSniffer\Util\Tokens;
+
 
 /**
  * Sniff for restricted assertions used in PHPUnit tests.
@@ -29,7 +31,7 @@ class WordPoints_Sniffs_PHPUnit_RestrictedAssertionsSniff
 		) {
 
 			$prev = $this->phpcsFile->findPrevious(
-				PHP_CodeSniffer_Tokens::$emptyTokens
+				Tokens::$emptyTokens
 				, ( $stackPtr - 1 )
 				, null
 				, true

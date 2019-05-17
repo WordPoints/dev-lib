@@ -7,12 +7,15 @@
  * @since 2.3.0
  */
 
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Tokens;
+
 /**
  * Sniff for missing @covers annotations on PHPUnit tests.
  *
  * @since 2.3.0
  */
-class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements PHP_CodeSniffer_Sniff {
+class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements Sniff {
 
 	/**
 	 * @since 2.3.0
@@ -24,7 +27,7 @@ class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements PHP_CodeSniffer_Sn
 	/**
 	 * @since 2.3.0
 	 */
-	public function process( PHP_CodeSniffer_File $phpcsFile, $stackPtr ) {
+	public function process( PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr ) {
 
 		$tokens = $phpcsFile->getTokens();
 
@@ -56,7 +59,7 @@ class WordPoints_Sniffs_PHPUnit_MissingCoversSniff implements PHP_CodeSniffer_Sn
 		}
 
 		// Find the previous token (excluding scope modifiers and whitespace).
-		$exclude   = PHP_CodeSniffer_Tokens::$methodPrefixes;
+		$exclude   = Tokens::$methodPrefixes;
 		$exclude[] = T_WHITESPACE;
 
 		$comment_closer = $phpcsFile->findPrevious( $exclude, $stackPtr - 1, 0, $exclude );

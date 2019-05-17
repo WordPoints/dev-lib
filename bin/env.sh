@@ -77,12 +77,12 @@ fi
 
 export PHPCS_DIR=/tmp/phpcs
 export PHPCS_GITHUB_SRC=squizlabs/PHP_CodeSniffer
-export PHPCS_GIT_TREE=3.2.2
+export PHPCS_GIT_TREE=3.4.2
 
 # WPCS
 export WPCS_DIR=/tmp/wpcs
 export WPCS_GITHUB_SRC=WordPress-Coding-Standards/WordPress-Coding-Standards
-export WPCS_GIT_TREE=8b8bcb649bdc8c2b781f3f0160b4c2a10f4c6e9b
+export WPCS_GIT_TREE=2.1.0
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
 
 # WP L10n Validator

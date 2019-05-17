@@ -7,6 +7,10 @@
  * @since 1.0.0
  */
 
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Tokens;
+
+
 /**
  * WordPoints_Sniffs_PHP_MissingEchoSniff.
  *
@@ -14,7 +18,7 @@
  *
  * @since 1.0.0
  */
-class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
+class WordPoints_Sniffs_PHP_MissingEchoSniff implements Sniff {
 
 	/**
 	 * Custom functions that directly output their data.
@@ -89,7 +93,7 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 	/**
 	 * @since 1.0.0
 	 */
-	public function process( PHP_CodeSniffer_File $phpcsFile, $stackPtr ) {
+	public function process( PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr ) {
 
 		// Merge any custom functions with the defaults, if we haven't already.
 		if ( ! self::$addedCustomFunctions ) {
@@ -125,7 +129,7 @@ class WordPoints_Sniffs_PHP_MissingEchoSniff implements PHP_CodeSniffer_Sniff {
 				$data[0] .= $tokens[ $stackPtr + 1 ]['content'] . $tokens[ $stackPtr + 2 ]['content'];
 			}
 
-			if ( in_array( $tokens[ $stackPtr + 2 ]['code'], PHP_CodeSniffer_Tokens::$assignmentTokens, true ) ) {
+			if ( in_array( $tokens[ $stackPtr + 2 ]['code'], Tokens::$assignmentTokens, true ) ) {
 				return;
 			}
 

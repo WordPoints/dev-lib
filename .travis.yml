@@ -62,6 +62,6 @@ script:
   - if [[ $RUN_PHPCS == 1 ]]; then CODESNIFF_PATH_PHP_PHPCS=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./phpcs/WordPoints/Tests/*"); wpdl-codesniff-phpcs; fi
   - find ./travis -name '*.yml' -exec travis-lint {} \;
   - wpdl-codesniff-php-syntax
-  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then phpunit --bootstrap="$WPCS_DIR/Test/phpcs3-bootstrap.php" --filter WordPoints /tmp/phpcs/tests/AllTests.php; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then phpunit --bootstrap="$PHPCS_DIR/tests/bootstrap.php" --filter WordPoints "$PHPCS_DIR/tests/AllTests.php"; fi
 
 # EOF

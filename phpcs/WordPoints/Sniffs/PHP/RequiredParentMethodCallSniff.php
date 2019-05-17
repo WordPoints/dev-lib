@@ -7,12 +7,15 @@
  * @since 2.2.0
  */
 
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Tokens;
+
 /**
  * Warns about methods not calling the parent method when they are supposed to.
  *
  * @since 2.2.0
  */
-class WordPoints_Sniffs_PHP_RequiredParentMethodCallSniff implements PHP_CodeSniffer_Sniff {
+class WordPoints_Sniffs_PHP_RequiredParentMethodCallSniff implements Sniff {
 
 	/**
 	 * A list of methods whose parents are required to be called.
@@ -38,7 +41,7 @@ class WordPoints_Sniffs_PHP_RequiredParentMethodCallSniff implements PHP_CodeSni
 	/**
 	 * @since 2.0.0
 	 */
-	public function process( PHP_CodeSniffer_File $phpcsFile, $stackPtr ) {
+	public function process( PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr ) {
 
 		$tokens = $phpcsFile->getTokens();
 		$token  = $tokens[ $stackPtr ];
@@ -67,7 +70,7 @@ class WordPoints_Sniffs_PHP_RequiredParentMethodCallSniff implements PHP_CodeSni
 
 			// Find next non empty token index, should be double colon.
 			$next = $phpcsFile->findNext(
-				PHP_CodeSniffer_Tokens::$emptyTokens
+				Tokens::$emptyTokens
 				, $next + 1
 				, null
 				, true
@@ -80,7 +83,7 @@ class WordPoints_Sniffs_PHP_RequiredParentMethodCallSniff implements PHP_CodeSni
 
 			// Find next non empty token index, should be the function name.
 			$next = $phpcsFile->findNext(
-				PHP_CodeSniffer_Tokens::$emptyTokens
+				Tokens::$emptyTokens
 				, $next + 1
 				, null
 				, true
