@@ -8,15 +8,7 @@ setup-composer() {
 		return
 	fi
 
-	# Composer requires PHP 5.3.
-	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
-		phpenv global 5.4
-		composer self-update
-		composer install --prefer-source
-		phpenv global "$TRAVIS_PHP_VERSION"
-	else
-		composer install --prefer-source
-	fi
+	composer install --prefer-source
 }
 
 # Install a package from GitHub.
@@ -48,11 +40,6 @@ setup-phpunit() {
 
 		which phpunit
 		phpunit --version
-	fi
-
-	# Fix method() not being available for mocked classes on PHPUnit 3.6.
-	if [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
-		cp "$DEV_LIB_PATH"/phpunit/mocked_class.tpl /home/travis/.phpenv/versions/5.2.17/pear/PHPUnit/Framework/MockObject/Generator
 	fi
 
 	mkdir -p "$WP_DEVELOP_DIR"
@@ -171,7 +158,7 @@ setup-codesniff() {
 
 # Check php files for syntax errors.
 codesniff-php-syntax() {
-	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == develop && $TRAVIS_PHP_VERSION != '5.3' ]]; then
+	if [[ $TRAVISCI_RUN == codesniff ]] || [[ $TRAVISCI_RUN == phpunit && $WP_VERSION == develop && $TRAVIS_PHP_VERSION != '7.3' ]]; then
 		wpdl-codesniff-php-syntax
 	else
 		echo 'Not running PHP syntax check.'

@@ -155,7 +155,7 @@ wpdl-codesniff-phpcs-base() {
 	config=()
 
 	if [[ $PROJECT_SLUG != 'wordpoints' ]]; then
-		config=(--runtime-set minimum_supported_wp_version 4.7)
+		config=(--runtime-set minimum_supported_wp_version 5.2)
 	fi
 
 	local prefix=$(wpdl-get-extension-header Namespace)
@@ -271,18 +271,11 @@ wpdl-test-phpunit() {
 			return
 		fi
 
-		if [[ $WP_VERSION == '3.8' && $TEST_GROUP == ajax && $WP_MULTISITE == 1 ]]; then
-			echo 'Not running multisite Ajax tests on 3.8, see https://github.com/WordPoints/wordpoints/issues/239.'
-			return
-		fi
-
 		GROUP_OPTION=(--group="$TEST_GROUP")
 		CLOVER_FILE+="-$TEST_GROUP"
 
 		if [[ $TEST_GROUP == uninstall && -e phpunit.uninstall.xml.dist ]]; then
 			GROUP_OPTION=(--configuration=phpunit.uninstall.xml.dist)
-		elif [[ $TRAVIS_PHP_VERSION == '5.2' ]]; then
-			sed -i '' -e "s/<group>$TEST_GROUP<\/group>//" ./phpunit.xml.dist
 		fi
 	fi
 

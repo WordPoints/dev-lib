@@ -3,22 +3,19 @@
 language: php
 
 php:
+    - 7.3
     - 7.2
     - 7.1
     - 7.0
     - 5.6
-    - 5.5
-    - 5.4
 
 env:
     - TRAVISCI_RUN=codesniff
     - TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=develop
     - TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=develop
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
-    - TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
+    - TRAVISCI_RUN=phpunit WP_VERSION=5.2 WORDPOINTS_VERSION=develop
+    - TRAVISCI_RUN=phpunit WP_VERSION=5.2 WORDPOINTS_VERSION=master
+
 
 dist: trusty
 
@@ -35,71 +32,19 @@ addons:
 
 matrix:
   include:
-    # Use Ubuntu Precise because Trusty doesn't support PHP 5.2 or 5.3.
-    - php: 5.3
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=develop
-    - php: 5.3
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
-    - php: 5.3
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=develop
-    - php: 5.3
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=master
-    - php: 5.3
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
-    - php: 5.3
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
-    - php: 5.3
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
-    - php: 5.2
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=develop
-    - php: 5.2
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=develop WORDPOINTS_VERSION=master
-    - php: 5.2
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=develop
-    - php: 5.2
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.9 WORDPOINTS_VERSION=master
-    - php: 5.2
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
-    - php: 5.2
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
-    - php: 5.2
-      dist: precise
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
     # Only run nightly against trunk.
     - php: nightly
       env: TRAVISCI_RUN=phpunit WP_VERSION=develop
   exclude:
     # The codesniff pass only needs to be run once.
+    - php: 7.2
+      env: TRAVISCI_RUN=codesniff
     - php: 7.1
       env: TRAVISCI_RUN=codesniff
     - php: 7.0
       env: TRAVISCI_RUN=codesniff
     - php: 5.6
       env: TRAVISCI_RUN=codesniff
-    - php: 5.5
-      env: TRAVISCI_RUN=codesniff
-    - php: 5.4
-      env: TRAVISCI_RUN=codesniff
-    # WordPress below 4.9 is not compatible with PHP 7.2.
-    - php: 7.2
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=develop
-    - php: 7.2
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.8 WORDPOINTS_VERSION=master
-    - php: 7.2
-      env: TRAVISCI_RUN=phpunit WP_VERSION=4.7 WORDPOINTS_VERSION=master
   allow_failures:
     - php: nightly
   fast_finish: true

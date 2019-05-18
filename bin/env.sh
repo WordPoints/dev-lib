@@ -34,13 +34,7 @@ fi
 CODESNIFF_PATH_PHP=("${CODESNIFF_PATH[@]}" '(' -name '*.php' -o -name '*.inc' ')')
 CODESNIFF_PATH_PHP_AUTOLOADERS=(src -path '*/classes')
 CODESNIFF_PATH_PHP_L10N_VALIDATOR=(. -path "./src/*" '(' -name '*.php' -o -name '*.inc' ')')
-
-# Codeception requires PHP 5.4+.
-if [[ $TRAVIS_PHP_VERSION == '5.2' || $TRAVIS_PHP_VERSION == '5.3' ]]; then
-	CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./tests/codeception/*")
-else
-	CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}")
-fi
+CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}")
 
 CODESNIFF_PATH_JS=("${CODESNIFF_PATH[@]}" -name '*.js')
 CODESNIFF_PATH_XML=("${CODESNIFF_PATH[@]}" '(' -name '*.xml' -o -name '*.xml.dist' ')')
@@ -86,7 +80,7 @@ export WPCS_GIT_TREE=2.1.0
 export WPCS_STANDARD=$(if [ -e phpcs.ruleset.xml ]; then echo phpcs.ruleset.xml; else echo WordPress; fi)
 
 # WP L10n Validator
-export DO_WPL10NV=$(if [ -e wp-l10n-validator.json ] && [[ $TRAVIS_PHP_VERSION != '5.2' ]]; then echo 1; else echo 0; fi)
+export DO_WPL10NV=$(if [ -e wp-l10n-validator.json ]; then echo 1; else echo 0; fi)
 export WPL10NV_DIR=/tmp/wp-l10n-validator
 export WPL10NV_GITHUB_SRC=JDGrimes/wp-l10n-validator
 export WPL10NV_GIT_TREE=develop
