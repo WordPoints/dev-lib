@@ -49,8 +49,9 @@ before_script:
   - if [[ $RUN_PHPCS == 1 ]]; then mkdir -p $WPCS_DIR && git clone --depth 1 https://github.com/${WPCS_GITHUB_SRC}.git -b develop $WPCS_DIR; fi
   - if [[ $RUN_PHPCS == 1 ]]; then mkdir -p $PHPCS_DIR && git clone --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git -b master $PHPCS_DIR; fi
   - if [[ $RUN_PHPCS == 1 ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths "$WPCS_DIR",phpcs; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then export PATH="$HOME/.composer/vendor/bin:$PATH"; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then composer global require "phpunit/phpunit=^5.7.15"; fi
+  - export RUN_PHPCS_TESTS=$(if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then echo 1; else echo 0; fi);
+  - if [[ $RUN_PHPCS_TESTS == 1 ]]; then export PATH=`composer config --list --global | grep '\[home\]' | { read a; echo "${a#* }/vendor/bin:$PATH"; }`; fi
+  - if [[ $RUN_PHPCS_TESTS == 1 ]]; then composer global require "phpunit/phpunit=^5.7.15"; fi
   - if [[ $TRAVIS_PHP_VERSION == 5.2 ]]; then CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*' '!' -path './phpcs/*' '!' -path './l10n-validator/*'); fi
   - if [[ $TRAVIS_PHP_VERSION == 5.3 ]]; then CODESNIFF_PATH_PHP_SYNTAX=("${CODESNIFF_PATH_PHP[@]}" '!' -path './wpcept/*'); fi
 
@@ -63,6 +64,6 @@ script:
   - if [[ $RUN_PHPCS == 1 ]]; then CODESNIFF_PATH_PHP_PHPCS=("${CODESNIFF_PATH_PHP[@]}" '!' -path "./phpcs/WordPoints/Tests/*"); wpdl-codesniff-phpcs; fi
   - find ./travis -name '*.yml' -exec travis-lint {} \;
   - wpdl-codesniff-php-syntax
-  - if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then phpunit --bootstrap="$PHPCS_DIR/tests/bootstrap.php" --filter WordPoints "$PHPCS_DIR/tests/AllTests.php"; fi
+  - if [[ $RUN_PHPCS_TESTS == 1 ]]; then phpunit --bootstrap="$PHPCS_DIR/tests/bootstrap.php" --filter WordPoints "$PHPCS_DIR/tests/AllTests.php"; fi
 
 # EOF
