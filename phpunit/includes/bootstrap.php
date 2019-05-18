@@ -28,7 +28,7 @@ define( 'WORDPOINTS_TESTS_DIR', rtrim( getenv( 'WORDPOINTS_TESTS_DIR' ), '/' ) )
  *
  * @type string
  */
-define( 'WP_HTTP_TC_CACHE_DIR', WORDPOINTS_TESTS_DIR . '/cache/wp-http-testcase' ); // WPCS: prefix OK.
+define( 'WP_HTTP_TC_CACHE_DIR', WORDPOINTS_TESTS_DIR . '/cache/wp-http-testcase' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 
 if ( ! defined( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR' ) ) {
 

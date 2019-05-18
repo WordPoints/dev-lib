@@ -238,7 +238,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @var array[]
 	 */
-	protected static $_fixtures_ids = array();
+	protected static $_fixtures_ids = array(); // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
 	/**
 	 * The fixtures created for the testcase that is currently running.
@@ -249,7 +249,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 	 *
 	 * @var array[]
 	 */
-	protected static $_fixtures = array();
+	protected static $_fixtures = array(); // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
 	/**
 	 * The IDs of extra fixtures created for the testcase that is currently running.
@@ -527,7 +527,7 @@ abstract class WordPoints_PHPUnit_TestCase extends WP_UnitTestCase {
 				$this->fixture_ids = self::$_fixtures_ids;
 				$this->fixtures    = self::$_fixtures;
 
-			} // End foreach ( $this->shared_fixtures ).
+			} // End foreach ( shared fixtures ).
 
 			$this->commit_transaction();
 

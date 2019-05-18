@@ -99,7 +99,7 @@ abstract class WordPoints_PHPUnit_TestCase_Hook_Event extends WordPoints_PHPUnit
 	 *
 	 * @var string[][]
 	 */
-	protected static $_expected_targets = array();
+	protected static $_expected_targets = array(); // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
 	/**
 	 * The targets that have been tested.

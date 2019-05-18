@@ -8,18 +8,16 @@
 		<exclude name="WordPress.DB.PreparedSQL" />
 		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching" />
 		<exclude name="WordPoints.PHPUnit.MissingCovers" />
-	</rule>
 
-	<rule ref="WordPress.PHP.DiscouragedPHPFunctions">
-		<properties>
-			<property name="exclude" value="system_calls" />
-		</properties>
-	</rule>
+		<exclude name="WordPress.PHP.DiscouragedPHPFunctions.system_calls_system" />
+		<exclude name="WordPress.PHP.DiscouragedPHPFunctions.system_calls_shell_exec" />
 
-	<rule ref="WordPress.WP.AlternativeFunctions">
-		<properties>
-			<property name="exclude" value="file_system_read" />
-		</properties>
+		<exclude name="WordPress.WP.AlternativeFunctions.file_system_read_fopen" />
+		<exclude name="WordPress.WP.AlternativeFunctions.file_system_read_fread" />
+		<exclude name="WordPress.WP.AlternativeFunctions.file_system_read_fclose" />
+		<exclude name="WordPress.WP.AlternativeFunctions.file_system_read_fwrite" />
+
+		<exclude name="WordPress.PHP.DevelopmentFunctions.error_log_trigger_error" />
 	</rule>
 
 	<rule ref="Generic.Files.OneClassPerFile.MultipleFound">
@@ -47,12 +45,6 @@
 	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod.Found">
 		<exclude-pattern>/phpunit/classes/mock/*</exclude-pattern>
 		<exclude-pattern>/phpunit/classes/testcase.php</exclude-pattern>
-	</rule>
-
-	<rule ref="WordPress.PHP.DevelopmentFunctions">
-		<properties>
-			<property name="exclude" value="error_log" />
-		</properties>
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">

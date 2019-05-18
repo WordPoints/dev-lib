@@ -12,20 +12,20 @@ $wordpoints_extensions = $data;
 
 // Load files to be included before the extensions are installed.
 if ( isset( $custom_files['before_extensions'] ) ) {
-	foreach ( $custom_files['before_extensions'] as $file => $data ) { // WPCS: prefix OK.
+	foreach ( $custom_files['before_extensions'] as $file => $data ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		require $file;
 	}
 }
 
 // Back-compat.
 if ( isset( $custom_files['before_modules'] ) ) {
-	foreach ( $custom_files['before_modules'] as $file => $data ) { // WPCS: prefix OK.
+	foreach ( $custom_files['before_modules'] as $file => $data ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		require $file;
 	}
 }
 
 // Activate the extensions.
-foreach ( $wordpoints_extensions as $wordpoints_extension => $extension_info ) {
+foreach ( $wordpoints_extensions as $wordpoints_extension => $extension_info ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 	$wordpoints_result = wordpoints_activate_module( $wordpoints_extension, '', $extension_info['network_wide'] );
 
@@ -47,14 +47,14 @@ unset( $wordpoints_extensions, $wordpoints_extension );
 
 // Load files to be included after the extensions are installed.
 if ( isset( $custom_files['after_extensions'] ) ) {
-	foreach ( $custom_files['after_extensions'] as $file => $data ) { // WPCS: prefix OK.
+	foreach ( $custom_files['after_extensions'] as $file => $data ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		require $file;
 	}
 }
 
 // Back-compat.
 if ( isset( $custom_files['after_modules'] ) ) {
-	foreach ( $custom_files['after_modules'] as $file => $data ) { // WPCS: prefix OK.
+	foreach ( $custom_files['after_modules'] as $file => $data ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		require $file;
 	}
 }

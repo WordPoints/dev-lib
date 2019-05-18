@@ -12,7 +12,7 @@ $wordpoints_components = $data;
 
 // Load files to be included before the components are installed.
 if ( isset( $custom_files['before_components'] ) ) {
-	foreach ( $custom_files['before_components'] as $file => $data ) { // WPCS: prefix OK.
+	foreach ( $custom_files['before_components'] as $file => $data ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		require $file;
 	}
 }
@@ -20,7 +20,7 @@ if ( isset( $custom_files['before_components'] ) ) {
 // Activate the components.
 $wordpoints_components_object = WordPoints_Components::instance();
 
-foreach ( $wordpoints_components as $wordpoints_component => $component_info ) {
+foreach ( $wordpoints_components as $wordpoints_component => $component_info ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 	if ( ! $wordpoints_components_object->activate( $wordpoints_component ) ) {
 		echo "Error: Component activation failed for {$wordpoints_component}." . PHP_EOL;
@@ -32,7 +32,7 @@ unset( $wordpoints_components, $wordpoints_components_object, $wordpoints_compon
 
 // Load files to be included after the components are installed.
 if ( isset( $custom_files['after_components'] ) ) {
-	foreach ( $custom_files['after_components'] as $file => $data ) { // WPCS: prefix OK.
+	foreach ( $custom_files['after_components'] as $file => $data ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		require $file;
 	}
 }

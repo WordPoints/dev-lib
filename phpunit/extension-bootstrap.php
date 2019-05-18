@@ -33,13 +33,13 @@ define( 'WORDPOINTS_DEV_LIB_PHPUNIT_DIR', dirname( __FILE__ ) );
  * @since 1.0.0 As RUNNING_WORDPOINTS_MODULE_TESTS
  * @since 2.7.0
  */
-define( 'RUNNING_WORDPOINTS_EXTENSION_TESTS', true ); // WPCS: prefix OK.
+define( 'RUNNING_WORDPOINTS_EXTENSION_TESTS', true ); // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 
 /**
  * @since 1.0.0
  * @deprecated 2.7.0
  */
-define( 'RUNNING_WORDPOINTS_MODULE_TESTS', true ); // WPCS: prefix OK.
+define( 'RUNNING_WORDPOINTS_MODULE_TESTS', true ); // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 
 /**
  * The path to the tests of the extension being tested.
